@@ -1,3 +1,0 @@
-describe("reactive-crdt", () => {
-  it("", () => {});
-});

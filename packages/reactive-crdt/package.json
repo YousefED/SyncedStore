@@ -8,6 +8,9 @@
   "source": "src/index.ts",
   "types": "types/index.d.ts",
   "license": "MIT",
+  "dependencies": {
+    "yjs": "^13.5.5"
+  },
   "devDependencies": {
     "microbundle": "^0.13.0"
   },
