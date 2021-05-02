@@ -34,9 +34,11 @@ class ArrayImplementation<T> {
   };
   insert = this.arr.insert.bind(this.arr) as Y.Array<T>["insert"];
 
-  toJSON = () => {
-    return this.arr.slice();
-  };
+  toJSON = this.arr.toJSON.bind(this.arr) as Y.Array<T>["toJSON"];
+
+  // toJSON = () => {
+  //   return this.arr.toJSON() slice();
+  // };
   // delete = this.arr.delete.bind(this.arr) as (Y.Array<T>)["delete"];
 }
 

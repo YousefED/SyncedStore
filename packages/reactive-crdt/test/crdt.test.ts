@@ -86,6 +86,7 @@ describe("reactive-crdt", () => {
     Y.applyUpdate(doc2, state1);
     Y.applyUpdate(doc1, state2);
 
+    // let x = JSON.stringify(store1.arr);
     expect([
       [3, 1, 2],
       [3, 2, 1],
