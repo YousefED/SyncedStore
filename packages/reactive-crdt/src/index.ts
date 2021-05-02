@@ -10,7 +10,7 @@ export function getInternal<T>(object: CRDTArray<T> | CRDTObject<T>) {
   return object[INTERNAL_SYMBOL];
 }
 
-export function crdtValue<T>(value: NestedSchemaType) {
+export function crdtValue<T extends NestedSchemaType>(value: T) {
   if (typeof value === "string") {
     return new Y.Text(value);
   } else if (Array.isArray(value)) {

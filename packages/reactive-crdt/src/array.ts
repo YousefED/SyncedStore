@@ -1,15 +1,31 @@
+import { Type } from "typescript";
 import * as Y from "yjs";
 import { crdtValue, INTERNAL_SYMBOL } from ".";
 import { yToWrappedCache } from "./internal";
 import { isYType } from "./types";
 
-export type CRDTArray<T> = T[] & {
+export type CRDTArray<T> = {
   [INTERNAL_SYMBOL]: Y.Array<T>;
-};
+  [n: number]: T;
+} & ArrayImplementation<T>;
+class ArrayImplementation<T> {
+  /* TODO: implements Array<T>  when we have complete implementation */
+  constructor(private arr: Y.Array<T>) {}
+
+  forEach = this.arr.forEach.bind(this.arr) as Y.Array<T>["forEach"];
+  map = this.arr.map.bind(this.arr) as Y.Array<T>["map"];
+  slice = this.arr.slice.bind(this.arr) as Y.Array<T>["slice"];
+  unshift = this.arr.unshift.bind(this.arr) as Y.Array<T>["unshift"];
+  push = this.arr.push.bind(this.arr) as Y.Array<T>["push"]; // TODO: replace
+  insert = this.arr.insert.bind(this.arr) as Y.Array<T>["insert"];
+  // delete = this.arr.delete.bind(this.arr) as (Y.Array<T>)["delete"];
+}
 
 export function crdtArray<T>(initializer: T[]) {
-  const arr = new Y.Array();
-  const proxy = new Proxy([] as T[], {
+  const arr = new Y.Array<T>();
+  const implementation = new ArrayImplementation<T>(arr);
+
+  const proxy = new Proxy((implementation as any) as CRDTArray<T>, {
     set: (target, p, value) => {
       if (typeof p !== "number") {
         throw new Error();
@@ -38,23 +54,33 @@ export function crdtArray<T>(initializer: T[]) {
         throw new Error();
       }
 
-      if (p === "forEach") {
-        return arr.forEach.bind(arr);
-      } else if (p === "map") {
-        return arr.map.bind(arr);
-      } else if (p === "slice") {
-        return arr.slice.bind(arr);
-      } else if (p === "unshift") {
-        return arr.unshift.bind(arr);
-      } else if (p === "push") {
-        // TODO
-        return arr.push.bind(arr);
-      } else if (p === "insert") {
-        // TODO
-        return arr.insert.bind(arr);
-      } else if (p === "delete") {
-        return arr.delete.bind(arr);
+      // forward to arrayimplementation
+      return Reflect.get(target, p);
+    },
+    deleteProperty: (target, p) => {
+      if (typeof p !== "number") {
+        throw new Error();
       }
+      if (p < Array.length && p >= 0) {
+        arr.delete(p);
+        return true;
+      } else {
+        return false;
+      }
+    },
+    has: (target, p) => {
+      if (typeof p !== "number") {
+        // forward to arrayimplementation
+        return Reflect.has(target, p);
+      }
+      if (p < Array.length && p >= 0) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    ownKeys: (target) => {
+      return Array(arr.length).map((_v, i) => i + "");
     },
   });
 

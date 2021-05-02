@@ -1,4 +1,5 @@
 import { crdt, getInternal } from "@reactivedata/reactive-crdt";
+import { Raw } from "../src/raw";
 
 describe("reactive-crdt", () => {
   it("undefined", () => {
@@ -12,10 +13,18 @@ describe("reactive-crdt", () => {
   it("set", () => {
     let store = crdt<{
       a: number;
+      arr: number[];
       outer: {
         nested: number;
       };
+      raw: Raw<{
+        outer: {
+          nested: number;
+        };
+      }>;
     }>();
+
+    let y = store.raw?.outer.nested;
 
     store.a = 4;
     expect(store.a).toBe(4);
