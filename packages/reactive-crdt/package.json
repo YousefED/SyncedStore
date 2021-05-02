@@ -1,0 +1,40 @@
+{
+  "name": "@reactivedata/reactive-crdt",
+  "version": "0.1.0",
+  "private": false,
+  "main": "dist/reactive-crdt.js",
+  "module": "dist/reactive-crdt.module.js",
+  "umd:main": "dist/reactive-crdt.umd.js",
+  "source": "src/index.ts",
+  "types": "types/index.d.ts",
+  "license": "MIT",
+  "devDependencies": {
+    "microbundle": "^0.13.0"
+  },
+  "scripts": {
+    "test": "echo \"Run tests from root\" && exit 1",
+    "clean": "rm -rf dist && rm -rf types",
+    "build": "npm run clean && microbundle build --raw --no-compress"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
