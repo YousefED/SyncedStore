@@ -6,12 +6,24 @@ import { JSONValue } from "./types";
 
 export const INTERNAL_SYMBOL = Symbol("INTERNAL_SYMBOL");
 
-export function getInternal<T>(object: CRDTArray<T> | CRDTObject<T>) {
+export function getInternalMap<T extends ObjectSchemaType>(object: CRDTObject<T>) {
+  return object[INTERNAL_SYMBOL] as Y.Map<T>;
+}
+
+export function getInternalArray<T>(object: CRDTArray<T>) {
+  return object[INTERNAL_SYMBOL] as Y.Array<T>;
+}
+
+export function getInternalAny(object: CRDTArray<any> | CRDTObject<any>) {
   return object[INTERNAL_SYMBOL];
 }
 
 export function crdtValue<T extends NestedSchemaType>(value: T) {
-  if (typeof value === "string") {
+  if (value instanceof Y.Array) {
+    return crdtArray([], value);
+  } else if (value instanceof Y.Map) {
+    return crdtObject({}, value);
+  } else if (typeof value === "string") {
     return new Y.Text(value);
   } else if (Array.isArray(value)) {
     return crdtArray(value as any[]);
@@ -28,8 +40,7 @@ export function crdtValue<T extends NestedSchemaType>(value: T) {
   }
 }
 
-export function crdt<T extends ObjectSchemaType>() {
-  const doc = new Y.Doc();
+export function crdt<T extends ObjectSchemaType>(doc: Y.Doc) {
   return crdtObject({} as T, doc.getMap());
 }
 

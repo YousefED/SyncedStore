@@ -1,4 +1,4 @@
-import { crdtValue, getInternal, INTERNAL_SYMBOL, ObjectSchemaType } from ".";
+import { crdtValue, getInternalAny, INTERNAL_SYMBOL, ObjectSchemaType } from ".";
 import * as Y from "yjs";
 import { isYType } from "./types";
 import { yToWrappedCache } from "./internal";
@@ -6,9 +6,15 @@ import { CRDTArray } from "./array";
 import { Raw } from "./raw";
 
 export type CRDTObject<T extends ObjectSchemaType> = {
-  [P in keyof T]?: T[P] extends Raw<infer A> ? A : T[P] extends Array<infer A> ? CRDTArray<A> : T[P];
+  [P in keyof T]?: T[P] extends Raw<infer A>
+    ? A
+    : T[P] extends Array<infer A>
+    ? CRDTArray<A>
+    : T[P] extends ObjectSchemaType
+    ? CRDTObject<T[P]>
+    : T[P];
 } & {
-  [INTERNAL_SYMBOL]: Y.Map<T>;
+  [INTERNAL_SYMBOL]?: Y.Map<T>;
 };
 
 export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new Y.Map<any>()) {
@@ -18,7 +24,7 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
         throw new Error();
       }
       const wrapped = crdtValue(value);
-      const internal = getInternal(wrapped) || wrapped;
+      const internal = getInternalAny(wrapped) || wrapped;
       map.set(p, internal);
       return true;
     },
