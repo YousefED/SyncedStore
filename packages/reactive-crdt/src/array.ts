@@ -85,6 +85,12 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
       if (p === Symbol.toStringTag) {
         return "Array";
       }
+
+      if (p === Symbol.iterator) {
+        const values = arr.slice();
+        return Reflect.get(values, p);
+      }
+
       if (typeof p !== "string") {
         throw new Error("unknown");
       }
