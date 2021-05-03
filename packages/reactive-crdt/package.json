@@ -9,9 +9,13 @@
   "types": "types/index.d.ts",
   "license": "MIT",
   "dependencies": {
-    "yjs": "^13.5.5"
+    "yjs": "13.5.5"
+  },
+  "peerDependencies": {
+    "@reactivedata/reactive": "0.1.12-alpha.0"
   },
   "devDependencies": {
+    "@reactivedata/reactive": "0.1.12-alpha.0",
     "microbundle": "^0.13.0"
   },
   "scripts": {

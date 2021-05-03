@@ -7,7 +7,6 @@ describe("reactive-crdt", () => {
     let store = crdt<{
       a: number;
     }>(new Y.Doc());
-
     expect(store.a).toBeUndefined;
   });
 
@@ -85,7 +84,6 @@ describe("reactive-crdt", () => {
     let state2 = Y.encodeStateAsUpdate(doc2);
     Y.applyUpdate(doc2, state1);
     Y.applyUpdate(doc1, state2);
-
     // let x = JSON.stringify(store1.arr);
     expect([
       [3, 1, 2],

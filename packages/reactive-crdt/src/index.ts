@@ -1,9 +1,10 @@
 import * as Y from "yjs";
 import { CRDTArray, crdtArray } from "./array";
+import { observeYJS, setObservableFunctions } from "./moby";
 import { CRDTObject, crdtObject } from "./object";
 import { Raw } from "./raw";
 import { JSONValue } from "./types";
-
+import { createAtom, Observer, reactive, untracked } from "@reactivedata/reactive";
 export const INTERNAL_SYMBOL = Symbol("INTERNAL_SYMBOL");
 
 export function getInternalMap<T extends ObjectSchemaType>(object: CRDTObject<T>) {
@@ -18,13 +19,14 @@ export function getInternalAny(object: CRDTArray<any> | CRDTObject<any>) {
   return object[INTERNAL_SYMBOL];
 }
 
-export function crdtValue<T extends NestedSchemaType>(value: T) {
+export function crdtValue<T extends NestedSchemaType>(value: T | Y.Array<any> | Y.Map<any>) {
+  value = getInternalAny(value as any) || value; // unwrap
   if (value instanceof Y.Array) {
     return crdtArray([], value);
   } else if (value instanceof Y.Map) {
     return crdtObject({}, value);
   } else if (typeof value === "string") {
-    return new Y.Text(value);
+    return value; // TODO
   } else if (Array.isArray(value)) {
     return crdtArray(value as any[]);
   } else if (typeof value === "object") {
@@ -40,8 +42,17 @@ export function crdtValue<T extends NestedSchemaType>(value: T) {
   }
 }
 
+setObservableFunctions(function (name, obo, obu) {
+  // TMP
+  const atom = createAtom(name);
+  if (obo) {
+    obo();
+  }
+  return atom;
+}, untracked);
 export function crdt<T extends ObjectSchemaType>(doc: Y.Doc) {
-  return crdtObject({} as T, doc.getMap());
+  observeYJS(doc);
+  return reactive(crdtObject({} as T, doc.getMap()), new Observer(() => {}));
 }
 
 export type NestedSchemaType = JSONValue | ObjectSchemaType | Raw<any> | NestedSchemaType[];
@@ -92,3 +103,5 @@ export type ObjectSchemaType = {
 //     documents: new Map<string, { title: string }>(), // can't determine type
 //   },
 // });
+
+export * as Y from "yjs";

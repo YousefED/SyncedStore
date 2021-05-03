@@ -4,6 +4,7 @@ import { isYType } from "./types";
 import { yToWrappedCache } from "./internal";
 import { CRDTArray } from "./array";
 import { Raw } from "./raw";
+import { $reactive, $reactiveproxy, InternalObservable, reactive } from "@reactivedata/reactive";
 
 export type CRDTObject<T extends ObjectSchemaType> = {
   [P in keyof T]?: T[P] extends Raw<infer A>
@@ -18,6 +19,10 @@ export type CRDTObject<T extends ObjectSchemaType> = {
 };
 
 export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new Y.Map<any>()) {
+  if (map[$reactive]) {
+    map = map[$reactive].raw;
+  }
+
   const proxy = new Proxy(({} as any) as CRDTObject<T>, {
     set: (target, p, value) => {
       if (typeof p !== "string") {
@@ -28,21 +33,33 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
       map.set(p, internal);
       return true;
     },
-    get: (target, p) => {
+    get: (target, p, receiver) => {
       if (p === INTERNAL_SYMBOL) {
         return map;
       }
       if (typeof p !== "string") {
-        throw new Error();
+        return Reflect.get(target, p);
+        // throw new Error("get non string parameter");
       }
-      const ret = map.get(p);
+      let ic = receiver[$reactiveproxy].implicitObserver;
+      (map as any)._implicitObserver = ic;
+      let ret = map.get(p);
       if (isYType(ret)) {
+        ret._implicitObserver = ic;
+        // force shallow
+        ret = reactive(ret, ic, true);
         // todo: array / ytext
         if (!yToWrappedCache.has(ret)) {
           const wrapped = crdtValue(ret);
           yToWrappedCache.set(ret, wrapped);
         }
-        return yToWrappedCache.get(ret);
+        ret = yToWrappedCache.get(ret);
+
+        return ret;
+        // let ya = $reactive;
+        // let y = $reactiveproxy;
+        // let x = (ret._implicitObserver = (target as InternalObservable<any>)[$reactiveproxy].implicitObserver);
+        // debugger;
       }
       return ret;
     },
