@@ -35,7 +35,10 @@ function App() {
                 className="toggle-all"
                 type="checkbox"
                 onClick={(event) =>
-                  store.todos.forEach((t) => (t.completed = (event.target as HTMLInputElement).checked))
+                  store.todos.forEach((t) => {
+                    debugger;
+                    t.completed = (event.target as HTMLInputElement).checked;
+                  })
                 }
               />
               <label htmlFor="toggle-all">Mark all as complete</label>

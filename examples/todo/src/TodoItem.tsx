@@ -1,8 +1,10 @@
 import { useReactives } from "@reactivedata/react";
+import { useState } from "react";
 import { globalStore, Todo } from "./store";
 
 export function TodoItem(props: { todo: Todo }) {
   const [todo, store] = useReactives([props.todo, globalStore], [props.todo]);
+  const [editing, setEditing] = useState(false);
   // const [todo, store] = useReactives(globalStore], [props.todo]);
 
   function removeTodo() {
@@ -13,7 +15,7 @@ export function TodoItem(props: { todo: Todo }) {
   }
 
   return (
-    <li className={store.editingTodo === todo ? "editing" : todo.completed ? "completed" : "view"}>
+    <li className={editing ? "editing" : todo.completed ? "completed" : "view"}>
       <div className="view">
         <input
           className="toggle"
@@ -23,14 +25,14 @@ export function TodoItem(props: { todo: Todo }) {
         />
         <label
           onDoubleClick={() => {
-            store.editingTodo = todo;
+            setEditing(true);
           }}
         >
           {todo.title}
         </label>
         <button className="destroy" onClick={removeTodo}></button>
       </div>
-      {store.editingTodo === todo && (
+      {editing && (
         <input
           className="edit"
           defaultValue={todo.title}
@@ -41,7 +43,7 @@ export function TodoItem(props: { todo: Todo }) {
           }}
           onBlur={(event) => {
             todo.title = event.target.value;
-            store.editingTodo = undefined;
+            setEditing(false);
           }}
         />
       )}
