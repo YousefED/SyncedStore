@@ -57,7 +57,7 @@ export function crdtValue<T extends NestedSchemaType>(value: T | Y.Array<any> | 
 }
 
 export function crdt<T extends ObjectSchemaType>(doc: Y.Doc) {
-  return reactive(crdtObject({} as T, doc.getMap()), new Observer(() => {}));
+  return crdtObject({} as T, doc.getMap());
 }
 
 export type NestedSchemaType = JSONValue | ObjectSchemaType | Raw<any> | NestedSchemaType[];

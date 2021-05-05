@@ -44,16 +44,16 @@ export function observeArray(array: Y.Array<any>) {
     // possible optimization: only register a single handler for all keys
     if (!atom) {
       const handler = (event: Y.YArrayEvent<any>) => {
-        if (event.keys.has(key + "")) {
-          if (
-            event.changes.added.size ||
-            event.changes.deleted.size ||
-            event.changes.keys.size ||
-            event.changes.delta.length
-          ) {
-            atom!.reportChanged();
-          }
-        }
+        // TODO: detect key of changed element
+        // if (event.keys.has(key + "")) {
+        //   if (
+        //     event.changes.added.size ||
+        //     event.changes.deleted.size ||
+        //     event.changes.keys.size ||
+        //     event.changes.delta.length
+        //   ) {
+        atom!.reportChanged();
+        // }
       };
       atom = createAtom(
         key + "",

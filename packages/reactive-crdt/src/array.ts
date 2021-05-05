@@ -18,7 +18,7 @@ export type CRDTArray<T> = {
 } & T[]; // TODO: should return ArrayImplementation<T> on getter
 
 class ArrayImplementation<T> {
-  /* TODO: implements Array<T>  when we have complete implementation */
+  /* TODO: add "implements Array<T>""  when we have complete implementation */
   constructor(private arr: Y.Array<T>) {}
 
   get length() {
@@ -26,17 +26,17 @@ class ArrayImplementation<T> {
   }
 
   slice = function () {
+    let ic = this[$reactiveproxy].implicitObserver;
+    this.arr._implicitObserver = ic;
     const items = this.arr.slice.bind(this.arr).apply(this.arr, arguments);
     return items.map((item) => {
       if (!isYType(item)) {
         return item;
       }
 
-      let ic = this[$reactiveproxy].implicitObserver;
-
       item._implicitObserver = ic;
       // force shallow
-      item = reactive(item, ic, true);
+      // item = reactive(item, ic, true);
 
       // todo: array / ytext
       if (!yToWrappedCache.has(item)) {
@@ -95,7 +95,8 @@ function propertyToNumber(p: string | number | symbol) {
 
 export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
   if (arr[$reactive]) {
-    arr = arr[$reactive].raw;
+    throw new Error("unexpected");
+    // arr = arr[$reactive].raw;
   }
   const implementation = new ArrayImplementation<T>(arr);
 
@@ -116,15 +117,15 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
       }
 
       if (typeof p === "number") {
-        let ret = arr.get(p) as any;
-        if (isYType(ret)) {
+        if (receiver && receiver[$reactiveproxy]) {
           let ic = receiver[$reactiveproxy].implicitObserver;
+          arr._implicitObserver = ic;
+        } else {
+          console.warn("no receiver getting property", p);
+        }
+        let ret = arr.get(p) as any;
 
-          ret._implicitObserver = ic;
-          // force shallow
-          ret = reactive(ret, ic, true);
-
-          // todo: array / ytext
+        if (isYType(ret)) {
           if (!yToWrappedCache.has(ret)) {
             const wrapped = crdtValue(ret);
             yToWrappedCache.set(ret, wrapped);
@@ -143,23 +144,18 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
         return Reflect.get(values, p);
       }
 
-      if (typeof p !== "string") {
-        // TODO
-        // throw new Error("unknown");
-      }
-
       // forward to arrayimplementation
       const ret = Reflect.get(target, p, receiver);
       return ret;
     },
-    getOwnPropertyDescriptor: (target, pArg) => {
-      const p = propertyToNumber(pArg);
-      if (typeof p === "number" && p < arr.length && p >= 0) {
-        return { configurable: true, enumerable: true, value: arr.get(p) };
-      } else {
-        return undefined;
-      }
-    },
+    // getOwnPropertyDescriptor: (target, pArg) => {
+    //   const p = propertyToNumber(pArg);
+    //   if (typeof p === "number" && p < arr.length && p >= 0) {
+    //     return { configurable: true, enumerable: true, value: arr.get(p) };
+    //   } else {
+    //     return undefined;
+    //   }
+    // },
     deleteProperty: (target, pArg) => {
       const p = propertyToNumber(pArg);
       if (typeof p !== "number") {
@@ -194,5 +190,5 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
   });
 
   proxy.push.apply(proxy, initializer);
-  return proxy as CRDTArray<T>;
+  return reactive(proxy as CRDTArray<T>, undefined, true);
 }

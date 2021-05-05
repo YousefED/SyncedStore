@@ -20,7 +20,8 @@ export type CRDTObject<T extends ObjectSchemaType> = {
 
 export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new Y.Map<any>()) {
   if (map[$reactive]) {
-    map = map[$reactive].raw;
+    throw new Error("unexpected");
+    // map = map[$reactive].raw;
   }
 
   const proxy = new Proxy(({} as any) as CRDTObject<T>, {
@@ -41,14 +42,15 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
         return Reflect.get(target, p);
         // throw new Error("get non string parameter");
       }
-      let ic = receiver[$reactiveproxy].implicitObserver;
-      (map as any)._implicitObserver = ic;
+      if (receiver && receiver[$reactiveproxy]) {
+        let ic = receiver[$reactiveproxy].implicitObserver;
+        (map as any)._implicitObserver = ic;
+      } else {
+        console.warn("no receiver getting property", p);
+      }
       let ret = map.get(p);
+
       if (isYType(ret)) {
-        ret._implicitObserver = ic;
-        // force shallow
-        ret = reactive(ret, ic, true);
-        // todo: array / ytext
         if (!yToWrappedCache.has(ret)) {
           const wrapped = crdtValue(ret);
           yToWrappedCache.set(ret, wrapped);
