@@ -1,10 +1,22 @@
 import * as Y from "yjs";
 import { CRDTArray, crdtArray } from "./array";
-import { makeYJSObservable, setObservableFunctions } from "./moby";
+import { makeYJSObservable, setObservableFunctions } from "@reactivedata/yjs-reactive-bindings";
 import { CRDTObject, crdtObject } from "./object";
 import { Raw } from "./raw";
 import { JSONValue } from "./types";
 import { createAtom, Observer, reactive, untracked } from "@reactivedata/reactive";
+
+// setup yjs-reactive-bindings
+makeYJSObservable();
+setObservableFunctions(function (name, obo, obu) {
+  // TMP
+  const atom = createAtom(name);
+  if (obo) {
+    obo();
+  }
+  return atom;
+}, untracked);
+
 export const INTERNAL_SYMBOL = Symbol("INTERNAL_SYMBOL");
 
 export function getInternalMap<T extends ObjectSchemaType>(object: CRDTObject<T>) {
@@ -42,15 +54,6 @@ export function crdtValue<T extends NestedSchemaType>(value: T | Y.Array<any> | 
   }
 }
 
-makeYJSObservable();
-setObservableFunctions(function (name, obo, obu) {
-  // TMP
-  const atom = createAtom(name);
-  if (obo) {
-    obo();
-  }
-  return atom;
-}, untracked);
 export function crdt<T extends ObjectSchemaType>(doc: Y.Doc) {
   return reactive(crdtObject({} as T, doc.getMap()), new Observer(() => {}));
 }

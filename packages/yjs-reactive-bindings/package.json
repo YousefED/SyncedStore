@@ -1,29 +1,24 @@
 {
-  "name": "@reactivedata/reactive-crdt",
+  "name": "@reactivedata/yjs-reactive-bindings",
   "version": "0.1.0",
   "private": false,
-  "main": "dist/reactive-crdt.js",
-  "module": "dist/reactive-crdt.module.js",
-  "umd:main": "dist/reactive-crdt.umd.js",
+  "main": "dist/yjs-reactive-bindings.js",
+  "module": "dist/yjs-reactive-bindings.module.js",
+  "umd:main": "dist/yjs-reactive-bindings.umd.js",
   "source": "src/index.ts",
   "types": "types/index.d.ts",
   "license": "MIT",
   "dependencies": {
-    "yjs": "file:/Users/yousef/Programming/yjs",
-    "@reactivedata/yjs-reactive-bindings": "0.1.0"
+    "yjs": "file:/Users/yousef/Programming/yjs"
   },
-  "peerDependencies": {
-    "@reactivedata/reactive": "0.1.12-alpha.0"
-  },
+  "peerDependencies": {},
   "devDependencies": {
-    "@reactivedata/reactive": "0.1.12-alpha.0",
     "microbundle": "^0.13.0"
   },
   "scripts": {
     "test": "echo \"Run tests from root\" && exit 1",
     "clean": "rm -rf dist && rm -rf types",
-    "build": "npm run clean && microbundle build --raw --no-compress && npm run fixtypedir",
-    "fixtypedir": "mv types typestmp && mv typestmp/reactive-crdt/src types && rm -rf typestmp",
+    "build": "npm run clean && microbundle build --raw --no-compress",
     "watch": "microbundle watch"
   },
   "publishConfig": {

@@ -21,7 +21,8 @@
     "declaration": true,
     "baseUrl": ".",
     "paths": {
-      "@reactivedata/reactive-crdt": ["packages/reactive-crdt/src"]
+      "@reactivedata/reactive-crdt": ["packages/reactive-crdt/src"],
+      "@reactivedata/yjs-reactive-bindings": ["packages/yjs-reactive-bindings/src"]
     }
   }
 }

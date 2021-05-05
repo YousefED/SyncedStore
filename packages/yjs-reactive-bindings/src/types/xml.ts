@@ -1,5 +1,5 @@
 import * as Y from "yjs";
-import { Atom, createAtom } from "./observableProvider";
+import { Atom, createAtom } from "../observableProvider";
 
 const xmlAtoms = new WeakMap<Y.XmlFragment | Y.XmlText, Atom>();
 

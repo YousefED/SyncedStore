@@ -2,6 +2,7 @@ import * as Y from "yjs";
 
 const docsObserved = new WeakSet<Y.Doc>();
 
+// TODO: add atoms, etc
 export function observeDoc(doc: Y.Doc) {
   if (docsObserved.has(doc)) {
     // already patched

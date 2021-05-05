@@ -1,4 +1,4 @@
-import { Atom, createAtom } from "./observableProvider";
+import { Atom, createAtom } from "../observableProvider";
 import * as Y from "yjs";
 
 const textAtoms = new WeakMap<Y.Text, Atom>();

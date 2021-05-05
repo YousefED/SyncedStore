@@ -8,7 +8,8 @@
     "test": "jest --coverage=true --config=jest.config.js",
     "build": "lerna run build",
     "prepublishOnly": "npm run test && npm run build",
-    "deploy": "lerna publish"
+    "deploy": "lerna publish",
+    "watch": "lerna run watch"
   },
   "devDependencies": {
     "lerna": "^4.0.0",

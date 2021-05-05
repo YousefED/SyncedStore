@@ -1,9 +1,9 @@
 import * as Y from "yjs";
-import { observeArray } from "./array";
-import { observeDoc } from "./doc";
-import { observeMap } from "./map";
-import { observeText } from "./text";
-import { observeXml } from "./xml";
+import { observeArray } from "./types/array";
+import { observeDoc } from "./types/doc";
+import { observeMap } from "./types/map";
+import { observeText } from "./types/text";
+import { observeXml } from "./types/xml";
 
 export function isYType(element: any) {
   return element instanceof Y.AbstractType || Object.prototype.hasOwnProperty.call(element, "autoLoad"); // detect subdocs. Is there a better way for this?

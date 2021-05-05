@@ -1,8 +1,6 @@
 import * as Y from "yjs";
-import { makeYJSObservable } from ".";
-import { Atom, createAtom } from "./observableProvider";
+import { Atom, createAtom } from "../observableProvider";
 
-makeYJSObservable();
 const arraysObserved = new WeakSet<Y.Array<any>>();
 
 export function observeArray(array: Y.Array<any>) {
