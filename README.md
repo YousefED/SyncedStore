@@ -6,7 +6,7 @@ Reactive CRDT is an easy-to-use library for building collaborative applications 
 
 # Example
 
-Have a look at the [collaborative TODO list example](examples/todo) to get up to speed.
+Have a look at the [collaborative Todo list example](examples/todo) to get up to speed.
 
 # Quick overview
 
