@@ -15,7 +15,7 @@
     "react-scripts": "4.0.3",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1",
-    "@reactivedata/react": "^0.1.12-alpha.0",
+    "@reactivedata/react": "^0.1.12",
     "@reactivedata/reactive-crdt": "^0.1.0",
     "y-webrtc": "^10.1.8"
   },
