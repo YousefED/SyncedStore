@@ -1,0 +1,46 @@
+{
+  "name": "@reactivedata/yjs-reactive-bindings",
+  "version": "0.1.0",
+  "private": false,
+  "main": "dist/yjs-reactive-bindings.js",
+  "module": "dist/yjs-reactive-bindings.module.js",
+  "umd:main": "dist/yjs-reactive-bindings.umd.js",
+  "source": "src/index.ts",
+  "types": "types/index.d.ts",
+  "license": "MIT",
+  "dependencies": {
+    "@types/eslint": "6.8.0",
+    "yjs": "git+https://github.com/YousefED/yjs#patched-installable"
+  },
+  "peerDependencies": {},
+  "devDependencies": {
+    "microbundle": "^0.13.0"
+  },
+  "scripts": {
+    "test": "echo \"Run tests from root\" && exit 1",
+    "clean": "rm -rf dist && rm -rf types",
+    "build": "npm run clean && microbundle build --raw --no-compress",
+    "watch": "microbundle watch"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
