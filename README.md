@@ -38,7 +38,7 @@ From now on, the `store` object is synced automatically:
 User 1:
 
 ```typescript
-store.basket.push({ type: "car", color: "red" });
+store.vehicles.push({ type: "car", color: "red" });
 ```
 
 User 2 (on a different device):
