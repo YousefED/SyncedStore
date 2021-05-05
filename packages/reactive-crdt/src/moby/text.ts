@@ -27,6 +27,5 @@ export function observeText(value: Y.Text) {
     };
     textAtoms.set(value, atom);
   }
-  atom!.reportObserved(this._implicitObserver);
   return value;
 }

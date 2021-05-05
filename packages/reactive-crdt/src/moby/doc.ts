@@ -1,5 +1,4 @@
 import * as Y from "yjs";
-import { isYType, observeYJS } from ".";
 
 const docsObserved = new WeakSet<Y.Doc>();
 
@@ -17,12 +16,6 @@ export function observeDoc(doc: Y.Doc) {
       throw new Error("unexpected");
     }
     const ret = Reflect.apply(originalGet, this, arguments);
-    if (!ret) {
-      return ret;
-    }
-    if (isYType(ret)) {
-      return observeYJS(ret);
-    }
     return ret;
   };
 

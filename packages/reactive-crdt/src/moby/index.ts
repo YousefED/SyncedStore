@@ -1,10 +1,9 @@
-import { AbstractType } from "yjs";
-import { observeText } from "./text";
 import * as Y from "yjs";
-import { observeMap } from "./map";
-import { observeDoc } from "./doc";
-import { observeXml } from "./xml";
 import { observeArray } from "./array";
+import { observeDoc } from "./doc";
+import { observeMap } from "./map";
+import { observeText } from "./text";
+import { observeXml } from "./xml";
 
 export function isYType(element: any) {
   return element instanceof Y.AbstractType || Object.prototype.hasOwnProperty.call(element, "autoLoad"); // detect subdocs. Is there a better way for this?
@@ -34,6 +33,12 @@ export function observeYJS(element: Y.AbstractType<any> | Y.Doc) {
     }
   }
   return element;
+}
+
+export function makeYJSObservable() {
+  Y.observeTypeCreated((el) => {
+    observeYJS(el);
+  });
 }
 
 export { setObservableFunctions } from "./observableProvider";

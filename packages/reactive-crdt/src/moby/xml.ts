@@ -1,6 +1,5 @@
-import { Atom, createAtom, untracked } from "./observableProvider";
 import * as Y from "yjs";
-import { observeYJS } from ".";
+import { Atom, createAtom } from "./observableProvider";
 
 const xmlAtoms = new WeakMap<Y.XmlFragment | Y.XmlText, Atom>();
 
@@ -8,15 +7,14 @@ export function observeXml(value: Y.XmlFragment) {
   let atom = xmlAtoms.get(value);
   if (!atom) {
     const handler = (event: Y.YXmlEvent) => {
-      event.changes.added.forEach((added) => {
-        if (added.content instanceof Y.ContentType) {
-          const addedType = added.content.type;
-          untracked(() => {
-            observeYJS(addedType);
-          });
-        }
-      });
-      atom!.reportChanged();
+      if (
+        event.changes.added.size ||
+        event.changes.deleted.size ||
+        event.changes.keys.size ||
+        event.changes.delta.length
+      ) {
+        atom!.reportChanged();
+      }
     };
 
     atom = createAtom(
@@ -38,12 +36,5 @@ export function observeXml(value: Y.XmlFragment) {
     xmlAtoms.set(value, atom);
   }
 
-  untracked(() => {
-    value.toArray().forEach((val) => {
-      observeYJS(val);
-    });
-  });
-
-  atom!.reportObserved(this._implicitObserver);
   return value;
 }

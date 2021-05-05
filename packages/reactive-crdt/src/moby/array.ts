@@ -1,7 +1,8 @@
-import { Atom, createAtom } from "./observableProvider";
 import * as Y from "yjs";
-import { isYType, observeYJS } from ".";
+import { makeYJSObservable } from ".";
+import { Atom, createAtom } from "./observableProvider";
 
+makeYJSObservable();
 const arraysObserved = new WeakSet<Y.Array<any>>();
 
 export function observeArray(array: Y.Array<any>) {
@@ -16,8 +17,15 @@ export function observeArray(array: Y.Array<any>) {
 
   function reportSelfAtom() {
     if (!selfAtom) {
-      const handler = (_changes: Y.YArrayEvent<any>) => {
-        selfAtom!.reportChanged();
+      const handler = (event: Y.YArrayEvent<any>) => {
+        if (
+          event.changes.added.size ||
+          event.changes.deleted.size ||
+          event.changes.keys.size ||
+          event.changes.delta.length
+        ) {
+          selfAtom!.reportChanged();
+        }
       };
       selfAtom = createAtom(
         "map",
@@ -37,11 +45,17 @@ export function observeArray(array: Y.Array<any>) {
 
     // possible optimization: only register a single handler for all keys
     if (!atom) {
-      const handler = (changes: Y.YArrayEvent<any>) => {
-        // TODO
-        // if (changes.keys.has(key)) {
-        atom!.reportChanged();
-        // }
+      const handler = (event: Y.YArrayEvent<any>) => {
+        if (event.keys.has(key + "")) {
+          if (
+            event.changes.added.size ||
+            event.changes.deleted.size ||
+            event.changes.keys.size ||
+            event.changes.delta.length
+          ) {
+            atom!.reportChanged();
+          }
+        }
       };
       atom = createAtom(
         key + "",
@@ -66,42 +80,24 @@ export function observeArray(array: Y.Array<any>) {
     }
     reportArrayElementAtom(key);
     const ret = Reflect.apply(originalGet, this, arguments);
-    if (!ret) {
+    return ret;
+  };
+
+  function patch(method: string) {
+    const originalFunction = array[method];
+    array[method] = function () {
+      reportSelfAtom();
+      const ret = Reflect.apply(originalFunction, this, arguments);
       return ret;
-    }
-    if (isYType(ret)) {
-      return observeYJS(ret);
-    }
-    return ret;
-  };
+    };
+  }
 
-  const originalForEach = array.forEach;
-  array.forEach = function () {
-    reportSelfAtom();
-    const ret = Reflect.apply(originalForEach, this, arguments);
-    return ret;
-  };
+  patch("forEach");
+  patch("toJSON");
+  patch("toArray");
+  patch("slice");
+  patch("map");
 
-  const originalValues = array.toArray;
-  array.toArray = function () {
-    reportSelfAtom();
-    const ret = Reflect.apply(originalValues, this, arguments);
-    return ret;
-  };
-
-  const originalSlice = array.slice;
-  array.slice = function () {
-    reportSelfAtom();
-    const ret = Reflect.apply(originalSlice, this, arguments);
-
-    for (let i = 0; i < ret.length; i++) {
-      if (isYType(ret[i])) {
-        observeYJS(ret[i]);
-      }
-    }
-
-    return ret;
-  };
-
+  // TODO: length, iterator
   return array;
 }

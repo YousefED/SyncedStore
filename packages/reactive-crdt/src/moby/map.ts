@@ -1,6 +1,5 @@
 import { Atom, createAtom } from "./observableProvider";
 import * as Y from "yjs";
-import { isYType, observeYJS } from ".";
 
 const mapsObserved = new WeakSet<Y.Map<any>>();
 
@@ -78,35 +77,24 @@ export function observeMap(map: Y.Map<any>) {
     }
     reportMapKeyAtom(key);
     const ret = Reflect.apply(originalGet, this, arguments);
-    if (!ret) {
+    return ret;
+  };
+
+  function patch(method: string) {
+    const originalFunction = map[method];
+    map[method] = function () {
+      reportSelfAtom();
+      const ret = Reflect.apply(originalFunction, this, arguments);
       return ret;
-    }
-    if (isYType(ret)) {
-      return observeYJS(ret);
-    }
-    return ret;
-  };
+    };
+  }
 
-  const originalValues = map.values;
-  map.values = function () {
-    reportSelfAtom();
-    const ret = Reflect.apply(originalValues, this, arguments);
-    return ret;
-  };
+  patch("values");
+  patch("entries");
+  patch("keys");
+  patch("forEach");
+  patch("toJSON");
 
-  const originalForEach = map.forEach;
-  map.forEach = function () {
-    reportSelfAtom();
-    const ret = Reflect.apply(originalForEach, this, arguments);
-    return ret;
-  };
-
-  const originalToJSON = map.toJSON;
-  map.toJSON = function () {
-    reportSelfAtom();
-    const ret = Reflect.apply(originalToJSON, this, arguments);
-    return ret;
-  };
-
+  // TODO: has, iterator
   return map;
 }

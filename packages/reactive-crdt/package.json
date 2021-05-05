@@ -9,7 +9,7 @@
   "types": "types/index.d.ts",
   "license": "MIT",
   "dependencies": {
-    "yjs": "13.5.5"
+    "yjs": "file:/Users/yousef/Programming/yjs"
   },
   "peerDependencies": {
     "@reactivedata/reactive": "0.1.12-alpha.0"
