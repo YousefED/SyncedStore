@@ -17,7 +17,8 @@
     "react-scripts": "4.0.3",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1",
-    "y-webrtc": "^10.1.8"
+    "y-webrtc": "^10.1.8",
+    "yjs": "git+https://github.com/YousefED/yjs#patched-installable"
   },
   "scripts": {
     "start": "react-scripts start",
