@@ -1,6 +1,6 @@
 {
   "name": "@reactivedata/yjs-reactive-bindings",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "main": "dist/yjs-reactive-bindings.js",
   "module": "dist/yjs-reactive-bindings.module.js",
@@ -12,7 +12,6 @@
     "@types/eslint": "6.8.0",
     "yjs": "git+https://github.com/YousefED/yjs#patched-installable"
   },
-  "peerDependencies": {},
   "devDependencies": {
     "microbundle": "^0.13.0"
   },
@@ -42,5 +41,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "gitHead": "5aecc6d5a337f243c8afd312f271e90eabd221e8"
 }
