@@ -27,7 +27,9 @@ export function getInternalArray<T>(object: CRDTArray<T>) {
   return object[INTERNAL_SYMBOL] as Y.Array<T>;
 }
 
-export function getInternalAny(object: CRDTArray<any> | CRDTObject<any>) {
+export function getInternalAny(
+  object: any /*CRDTArray<any> | CRDTObject<any>*/
+): CRDTArray<any> | CRDTObject<any> | undefined {
   return object[INTERNAL_SYMBOL];
 }
 

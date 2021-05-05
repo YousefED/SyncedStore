@@ -50,7 +50,7 @@ class ArrayImplementation<T> {
   unshift = this.arr.unshift.bind(this.arr) as Y.Array<T>["unshift"];
   push = function (...items: T[]) {
     const wrappedItems = items.map((item) => {
-      const wrapped = crdtValue(item as any);
+      const wrapped = crdtValue(item);
       const internal = getInternalAny(wrapped);
       return internal || wrapped;
     });

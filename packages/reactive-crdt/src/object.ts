@@ -29,7 +29,7 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
         throw new Error();
       }
       const wrapped = crdtValue(value);
-      const internal = getInternalAny(wrapped as any) || wrapped;
+      const internal = getInternalAny(wrapped) || wrapped;
       map.set(p, internal);
       return true;
     },
