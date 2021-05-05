@@ -9,6 +9,7 @@
     "build": "lerna run build",
     "prepublishOnly": "npm run test && npm run build",
     "deploy": "lerna publish",
+    "redeploy": "lerna publish from-package",
     "watch": "lerna run watch"
   },
   "devDependencies": {
