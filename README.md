@@ -103,8 +103,8 @@ autorun(() => {
 });
 
 // This can be executed on a different connected device:
-reactiveStore.push({ type: "bike", color: "red" });
-reactiveStore.push({ type: "bus", color: "green" });
+reactiveStore.vehicles.push({ type: "bike", color: "red" });
+reactiveStore.vehicles.push({ type: "bus", color: "green" });
 ```
 
 <sup>View on CodeSandbox (coming soon)</sup>
