@@ -1,4 +1,3 @@
-import { reactive } from "@reactivedata/reactive";
 import { crdt, Y } from "@reactivedata/reactive-crdt";
 import { WebrtcProvider } from "y-webrtc";
 
@@ -7,15 +6,11 @@ export type Todo = {
   completed: boolean;
 };
 
-// export const globalStore = reactive({
-//   editingTodo: undefined as Todo | undefined,
-//   todos: [] as Todo[],
-//   view: "all" as "all" | "active" | "completed",
-// });
-
+// Setup Yjs
 const doc = new Y.Doc();
-const webrtcProvider = new WebrtcProvider("id", doc);
+new WebrtcProvider("id", doc); // sync via webrtc
 
+// Define our store
 type StoreType = {
   todos: Todo[];
   view: "all" | "active" | "completed";
@@ -23,5 +18,6 @@ type StoreType = {
 
 export const globalStore = crdt<StoreType>(doc) as StoreType;
 
+// initialize store
 globalStore.todos = [];
 globalStore.view = "all";
