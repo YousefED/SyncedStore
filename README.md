@@ -109,6 +109,21 @@ reactiveStore.push({ type: "bus", color: "green" });
 
 <sup>View on CodeSandbox (coming soon)</sup>
 
+# Motivation
+
+Yjs is a very powerful CRDT, but it's API is mostly targeted to create high-performant data bindings for (rich text) editors.
+
+I wanted to explore whether we can abstract the existing Yjs API away, and make it _extremely easy_ to integrate it as a Collaborative Data Store into existing applications.
+
+There were two major design decisions:
+
+- Instead of data types like Y.Map, and Y.Array, can we just use plain Javascript objects and arrays?
+  - e.g.: `store.outer.inner.property = value` instead of `doc.getMap("inner").getMap("outer").getMap("inner").get("value")`
+- Instead of having to call `.observe` manually, can we integrate with a Reactive Functional Programming library to do this automatically?
+  - e.g.: wrap your code in `autorun` or use `useReactive`, and automatically observe all used values from the store.
+
+Would love to hear your feedback!
+
 ### Credits ❤️
 
 Reactive CRDT builds directly on [Yjs](https://github.com/yjs/yjs) and [Reactive](https://www.github.com/yousefed/reactive). It's also inspired by and builds upon the amazing work by [MobX](https://mobx.js.org/) and [NX Observe](https://github.com/nx-js/observer-util).
