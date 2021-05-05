@@ -9,8 +9,8 @@
   "types": "types/index.d.ts",
   "license": "MIT",
   "dependencies": {
-    "yjs": "file:/Users/yousef/Programming/yjs",
-    "@reactivedata/yjs-reactive-bindings": "0.1.0"
+    "@types/eslint": "6.8.0",
+    "yjs": "git+https://github.com/YousefED/yjs#patched-installable"
   },
   "peerDependencies": {
     "@reactivedata/reactive": "0.1.12-alpha.0"

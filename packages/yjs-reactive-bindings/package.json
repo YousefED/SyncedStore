@@ -9,7 +9,8 @@
   "types": "types/index.d.ts",
   "license": "MIT",
   "dependencies": {
-    "yjs": "file:/Users/yousef/Programming/yjs"
+    "@types/eslint": "6.8.0",
+    "yjs": "git+https://github.com/YousefED/yjs#patched-installable"
   },
   "peerDependencies": {},
   "devDependencies": {

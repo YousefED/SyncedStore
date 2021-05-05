@@ -1,10 +1,10 @@
-import { crdtValue, getInternalAny, INTERNAL_SYMBOL, ObjectSchemaType } from ".";
+import { $reactive, $reactiveproxy, reactive } from "@reactivedata/reactive";
 import * as Y from "yjs";
-import { isYType } from "./types";
-import { yToWrappedCache } from "./internal";
+import { crdtValue, getInternalAny, INTERNAL_SYMBOL, ObjectSchemaType } from ".";
 import { CRDTArray } from "./array";
+import { yToWrappedCache } from "./internal";
 import { Raw } from "./raw";
-import { $reactive, $reactiveproxy, InternalObservable, reactive } from "@reactivedata/reactive";
+import { isYType } from "./types";
 
 export type CRDTObject<T extends ObjectSchemaType> = {
   [P in keyof T]?: T[P] extends Raw<infer A>
@@ -29,7 +29,7 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
         throw new Error();
       }
       const wrapped = crdtValue(value);
-      const internal = getInternalAny(wrapped) || wrapped;
+      const internal = getInternalAny(wrapped as any) || wrapped;
       map.set(p, internal);
       return true;
     },
@@ -56,10 +56,6 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
         ret = yToWrappedCache.get(ret);
 
         return ret;
-        // let ya = $reactive;
-        // let y = $reactiveproxy;
-        // let x = (ret._implicitObserver = (target as InternalObservable<any>)[$reactiveproxy].implicitObserver);
-        // debugger;
       }
       return ret;
     },
