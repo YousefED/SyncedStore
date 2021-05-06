@@ -1,10 +1,10 @@
 {
   "name": "todo",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "dependencies": {
     "@reactivedata/react": "^0.1.12",
-    "@reactivedata/reactive-crdt": "^0.1.1",
+    "@reactivedata/reactive-crdt": "^0.1.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -12,8 +12,8 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "eslint": "^7.11.0",
     "babel-loader": "8.1.0",
+    "eslint": "^7.11.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",

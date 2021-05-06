@@ -17,7 +17,7 @@
     "operational transforms",
     "conflict"
   ],
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": false,
   "main": "dist/reactive-crdt.js",
   "module": "dist/reactive-crdt.module.js",
@@ -26,9 +26,9 @@
   "types": "types/index.d.ts",
   "license": "MIT",
   "dependencies": {
+    "@reactivedata/yjs-reactive-bindings": "^0.1.2",
     "@types/eslint": "6.8.0",
-    "yjs": "git+https://github.com/YousefED/yjs#patched-installable",
-    "@reactivedata/yjs-reactive-bindings": "0.1.1"
+    "yjs": "git+https://github.com/YousefED/yjs#patched-installable"
   },
   "peerDependencies": {
     "@reactivedata/reactive": "0.1.12"
