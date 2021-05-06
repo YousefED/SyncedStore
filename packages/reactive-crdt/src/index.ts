@@ -28,7 +28,7 @@ export function getInternalAny(
 }
 
 export function crdtValue<T extends NestedSchemaType>(value: T | Y.Array<any> | Y.Map<any>) {
-  value = getInternalAny(value as any) || value; // unwrap
+  value = (getInternalAny(value as any) as any) || value; // unwrap, TODO: fix types
   if (value instanceof Y.Array) {
     return crdtArray([], value);
   } else if (value instanceof Y.Map) {
@@ -60,4 +60,7 @@ export type ObjectSchemaType = {
   [key: string]: NestedSchemaType;
 };
 
+/**
+ * @ignore
+ */
 export { Y };

@@ -20,7 +20,7 @@ export type CRDTArray<T> = {
 function arrayImplementation<T>(arr: Y.Array<T>) {
   const slice = function slice() {
     let ic = this[$reactiveproxy]?.implicitObserver;
-    arr._implicitObserver = ic;
+    (arr as any)._implicitObserver = ic;
     const items = arr.slice.bind(arr).apply(arr, arguments);
     return items.map(item => {
       if (!isYType(item)) {
@@ -44,11 +44,11 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
     unshift: arr.unshift.bind(arr) as Y.Array<T>["unshift"],
     push: (...items: T[]) => {
       const wrappedItems = items.map(item => {
-        const wrapped = crdtValue(item);
+        const wrapped = crdtValue(item as any); // TODO: fix any
         const internal = getInternalAny(wrapped);
         return internal || wrapped;
       });
-      arr.push(wrappedItems);
+      arr.push(wrappedItems as any); // TODO: fix any
       return arr.length;
     },
 
@@ -114,7 +114,7 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
       if (typeof p === "number") {
         if (receiver && receiver[$reactiveproxy]) {
           let ic = receiver[$reactiveproxy]?.implicitObserver;
-          arr._implicitObserver = ic;
+          (arr as any)._implicitObserver = ic;
         } else {
           // console.warn("no receiver getting property", p);
         }
