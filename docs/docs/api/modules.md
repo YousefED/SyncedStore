@@ -14,7 +14,7 @@ custom_edit_url: null
 
 Ƭ **NestedSchemaType**: JSONValue \| [*ObjectSchemaType*](modules.md#objectschematype) \| *Raw*<any\> \| [*NestedSchemaType*](modules.md#nestedschematype)[]
 
-Defined in: [packages/reactive-crdt/src/index.ts:57](https://github.com/YousefED/reactive-crdt/blob/1db6b21/packages/reactive-crdt/src/index.ts#L57)
+Defined in: [packages/reactive-crdt/src/index.ts:57](https://github.com/YousefED/reactive-crdt/blob/460ae8f/packages/reactive-crdt/src/index.ts#L57)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Type declaration
 
-Defined in: [packages/reactive-crdt/src/index.ts:59](https://github.com/YousefED/reactive-crdt/blob/1db6b21/packages/reactive-crdt/src/index.ts#L59)
+Defined in: [packages/reactive-crdt/src/index.ts:59](https://github.com/YousefED/reactive-crdt/blob/460ae8f/packages/reactive-crdt/src/index.ts#L59)
 
 ## Variables
 
@@ -32,7 +32,7 @@ Defined in: [packages/reactive-crdt/src/index.ts:59](https://github.com/YousefED
 
 • `Const` **INTERNAL\_SYMBOL**: *typeof* [*INTERNAL\_SYMBOL*](modules.md#internal_symbol)
 
-Defined in: [packages/reactive-crdt/src/index.ts:14](https://github.com/YousefED/reactive-crdt/blob/1db6b21/packages/reactive-crdt/src/index.ts#L14)
+Defined in: [packages/reactive-crdt/src/index.ts:14](https://github.com/YousefED/reactive-crdt/blob/460ae8f/packages/reactive-crdt/src/index.ts#L14)
 
 ## Functions
 
@@ -54,7 +54,7 @@ Defined in: [packages/reactive-crdt/src/index.ts:14](https://github.com/YousefED
 
 **Returns:** *CRDTObject*<T\>
 
-Defined in: [packages/reactive-crdt/src/index.ts:53](https://github.com/YousefED/reactive-crdt/blob/1db6b21/packages/reactive-crdt/src/index.ts#L53)
+Defined in: [packages/reactive-crdt/src/index.ts:53](https://github.com/YousefED/reactive-crdt/blob/460ae8f/packages/reactive-crdt/src/index.ts#L53)
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 **Returns:** *CRDTArray*<any\> \| *CRDTObject*<any\> \| T & *string* \| T & *Raw*<any\> \| T & *number* \| T & ``false`` \| T & ``true``
 
-Defined in: [packages/reactive-crdt/src/index.ts:30](https://github.com/YousefED/reactive-crdt/blob/1db6b21/packages/reactive-crdt/src/index.ts#L30)
+Defined in: [packages/reactive-crdt/src/index.ts:30](https://github.com/YousefED/reactive-crdt/blob/460ae8f/packages/reactive-crdt/src/index.ts#L30)
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 **Returns:** *CRDTArray*<any\> \| *CRDTObject*<any\> \| *undefined*
 
-Defined in: [packages/reactive-crdt/src/index.ts:24](https://github.com/YousefED/reactive-crdt/blob/1db6b21/packages/reactive-crdt/src/index.ts#L24)
+Defined in: [packages/reactive-crdt/src/index.ts:24](https://github.com/YousefED/reactive-crdt/blob/460ae8f/packages/reactive-crdt/src/index.ts#L24)
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 **Returns:** *YArray*<T\>
 
-Defined in: [packages/reactive-crdt/src/index.ts:20](https://github.com/YousefED/reactive-crdt/blob/1db6b21/packages/reactive-crdt/src/index.ts#L20)
+Defined in: [packages/reactive-crdt/src/index.ts:20](https://github.com/YousefED/reactive-crdt/blob/460ae8f/packages/reactive-crdt/src/index.ts#L20)
 
 ___
 
@@ -136,7 +136,7 @@ ___
 
 **Returns:** *YMap*<T\>
 
-Defined in: [packages/reactive-crdt/src/index.ts:16](https://github.com/YousefED/reactive-crdt/blob/1db6b21/packages/reactive-crdt/src/index.ts#L16)
+Defined in: [packages/reactive-crdt/src/index.ts:16](https://github.com/YousefED/reactive-crdt/blob/460ae8f/packages/reactive-crdt/src/index.ts#L16)
 
 ___
 
@@ -152,7 +152,7 @@ ___
 
 **Returns:** *void*
 
-Defined in: [packages/yjs-reactive-bindings/src/observableProvider.ts:29](https://github.com/YousefED/reactive-crdt/blob/1db6b21/packages/yjs-reactive-bindings/src/observableProvider.ts#L29)
+Defined in: [packages/yjs-reactive-bindings/src/observableProvider.ts:29](https://github.com/YousefED/reactive-crdt/blob/460ae8f/packages/yjs-reactive-bindings/src/observableProvider.ts#L29)
 
 ___
 
@@ -168,4 +168,4 @@ ___
 
 **Returns:** *void*
 
-Defined in: [packages/yjs-reactive-bindings/src/observableProvider.ts:33](https://github.com/YousefED/reactive-crdt/blob/1db6b21/packages/yjs-reactive-bindings/src/observableProvider.ts#L33)
+Defined in: [packages/yjs-reactive-bindings/src/observableProvider.ts:33](https://github.com/YousefED/reactive-crdt/blob/460ae8f/packages/yjs-reactive-bindings/src/observableProvider.ts#L33)

@@ -1,8 +1,9 @@
 ---
 sidebar_position: 1
+sidebar_label: Introduction
 ---
 
-# Manage Docs Versions
+# React Introduction
 
 Docusaurus can manage multiple versions of your docs.
 
@@ -34,12 +35,12 @@ module.exports = {
       items: [
         // highlight-start
         {
-          type: 'docsVersionDropdown',
-        },
+          type: "docsVersionDropdown"
+        }
         // highlight-end
-      ],
-    },
-  },
+      ]
+    }
+  }
 };
 ```
 
