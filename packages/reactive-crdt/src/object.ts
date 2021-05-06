@@ -46,7 +46,7 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
         let ic = receiver[$reactiveproxy]?.implicitObserver;
         (map as any)._implicitObserver = ic;
       } else {
-        console.warn("no receiver getting property", p);
+        // console.warn("no receiver getting property", p);
       }
       let ret = map.get(p);
 

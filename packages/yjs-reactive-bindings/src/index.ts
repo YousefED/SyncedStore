@@ -36,10 +36,10 @@ export function observeYJS(element: Y.AbstractType<any> | Y.Doc) {
 }
 
 export function makeYJSObservable() {
-  Y.observeTypeCreated((el) => {
+  Y.observeTypeCreated(el => {
     observeYJS(el);
   });
 }
 
-export { setObservableFunctions } from "./observableProvider";
+export { useMobxBindings, useReactiveBindings, useVueBindings } from "./observableProvider";
 export { observeText, observeMap, observeDoc };

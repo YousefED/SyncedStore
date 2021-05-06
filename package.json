@@ -7,7 +7,8 @@
     "bootstrap": "lerna bootstrap --hoist",
     "test": "jest --coverage=true --config=jest.config.js",
     "build": "lerna run build --concurrency 1",
-    "prepublishOnly": "npm run test && npm run build",
+    "prepublishOnly": "npm run test && npm run build && cp README.md packages/reactive-crdt/README.md",
+    "postpublish": "rm -rf packages/reactive-crdt/README.md",
     "deploy": "lerna publish",
     "redeploy": "lerna publish from-package",
     "watch": "lerna run watch"

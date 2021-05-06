@@ -1,5 +1,6 @@
 {
   "name": "@reactivedata/yjs-reactive-bindings",
+  "description": "A bridge between Reactive programming libraries (reactive, Vue or MobX) and Yjs",
   "version": "0.1.1",
   "private": false,
   "main": "dist/yjs-reactive-bindings.js",
@@ -42,5 +43,14 @@
       "last 1 safari version"
     ]
   },
+  "keywords": [
+    "reactive",
+    "mobx",
+    "vue",
+    "vuejs",
+    "observable",
+    "yjs",
+    "crdt"
+  ],
   "gitHead": "5aecc6d5a337f243c8afd312f271e90eabd221e8"
 }

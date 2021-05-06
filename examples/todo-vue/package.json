@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "package": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -12,8 +12,7 @@
     "vue": "^3.0.0",
     "y-webrtc": "^10.1.8",
     "@reactivedata/reactive-crdt": "^0.1.1",
-    "yjs": "git+https://github.com/YousefED/yjs#patched-installable",
-    "@reactivedata/yjs-reactive-bindings": "0.1.1"
+    "yjs": "git+https://github.com/YousefED/yjs#patched-installable"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.18.0",

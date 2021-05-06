@@ -11,7 +11,7 @@
         @keyup.enter="addTodo"
       />
     </header>
-    <section class="main" v-show="todos.length" v-cloak>
+    <section class="main" v-show="shared.todos.length" v-cloak>
       <input id="toggle-all" class="toggle-all" type="checkbox" v-model="allDone" />
       <label for="toggle-all"></label>
       <ul class="todo-list">
@@ -38,7 +38,7 @@
         </li>
       </ul>
     </section>
-    <footer class="footer" v-show="todos.length" v-cloak>
+    <footer class="footer" v-show="shared.todos.length" v-cloak>
       <span class="todo-count">
         <strong>{{ remaining }}</strong> {{ pluralize(remaining) }} left
       </span>
@@ -53,7 +53,7 @@
           <a href="#/completed" :class="{ selected: visibility == 'completed' }">Completed</a>
         </li>
       </ul>
-      <button class="clear-completed" @click="removeCompleted" v-show="todos.length > remaining">
+      <button class="clear-completed" @click="removeCompleted" v-show="shared.todos.length > remaining">
         Clear completed
       </button>
     </footer>
@@ -73,7 +73,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-/* eslint-disable */
 import { crdt, Y } from "@reactivedata/reactive-crdt";
 import { WebrtcProvider } from "y-webrtc";
 
@@ -101,7 +100,7 @@ const filters = {
 export default defineComponent({
   data() {
     return {
-      shared: store,
+      shared: store as { todos: Todo[] },
       newTodo: "",
       editedTodo: null as null | Todo,
       visibility: "all" as "all" | "active" | "completed",
@@ -112,21 +111,18 @@ export default defineComponent({
   // computed properties
   // http://vuejs.org/guide/computed.html
   computed: {
-    todos() {
-      return (this as any).shared.todos;
-    },
     filteredTodos() {
-      return filters[(this as any).visibility as "all" | "active" | "completed"]((this as any).todos as Todo[]);
+      return filters[(this as any).visibility as "all" | "active" | "completed"]((this as any).shared.todos as Todo[]);
     },
     remaining() {
-      return filters.active((this as any).todos as Todo[]).length;
+      return filters.active((this as any).shared.todos).length;
     },
     allDone: {
       get() {
         return (this as any).remaining === 0;
       },
       set(value) {
-        (this.todos as Todo[]).forEach(todo => {
+        (this.shared.todos as Todo[]).forEach(todo => {
           todo.completed = value;
         });
       }
@@ -144,7 +140,7 @@ export default defineComponent({
       if (!value) {
         return;
       }
-      this.todos.push({
+      this.shared.todos.push({
         title: value,
         completed: false
       });
@@ -152,7 +148,7 @@ export default defineComponent({
     },
 
     removeTodo(todo: Todo) {
-      this.todos.splice(this.todos.indexOf(todo), 1);
+      this.shared.todos.splice(this.shared.todos.indexOf(todo), 1);
     },
 
     editTodo(todo: Todo) {
@@ -177,7 +173,7 @@ export default defineComponent({
     },
 
     removeCompleted() {
-      this.todos = filters.active(this.todos);
+      this.shared.todos = filters.active(this.shared.todos);
     }
   },
 

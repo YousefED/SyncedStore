@@ -1,5 +1,22 @@
 {
   "name": "@reactivedata/reactive-crdt",
+  "description": "Reactive CRDT is an easy-to-use library for building collaborative applications that sync automatically. It's built on top of Yjs, a proven, high performance CRDT implementation.",
+  "keywords": [
+    "reactive",
+    "crdt",
+    "yjs",
+    "react",
+    "sync",
+    "automerge",
+    "collaboration",
+    "collaborative",
+    "mobx",
+    "vue",
+    "vuejs",
+    "observable",
+    "operational transforms",
+    "conflict"
+  ],
   "version": "0.1.1",
   "private": false,
   "main": "dist/reactive-crdt.js",
@@ -23,8 +40,7 @@
   "scripts": {
     "test": "echo \"Run tests from root\" && exit 1",
     "clean": "rm -rf dist && rm -rf types",
-    "build": "npm run clean && microbundle build --raw --no-compress --tsconfig tsconfig.build.json && npm run fixtypedir",
-    "fixtypedir": "mv types typestmp && mv typestmp/reactive-crdt/src types && rm -rf typestmp",
+    "build": "npm run clean && microbundle build --raw --no-compress --tsconfig tsconfig.build.json",
     "watch": "microbundle watch"
   },
   "publishConfig": {

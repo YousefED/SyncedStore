@@ -1,4 +1,4 @@
-# Todo MVC example
+# React Todo MVC example
 
 This example demonstrates how you can use Reactive CRDT to build a collaborative version of the [Todo MVC](http://todomvc.com) app.
 

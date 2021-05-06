@@ -6,7 +6,7 @@ Reactive CRDT is an easy-to-use library for building collaborative applications 
 
 # Example
 
-Have a look at the [collaborative Todo list example](examples/todo) to get up to speed.
+Have a look at the collaborative Todo list examples ([React](examples/todo-react), [Vue](examples/todo-vue)) to get up to speed.
 
 # Quick overview
 
@@ -51,7 +51,7 @@ console.log(store.vehicles.length); // Outputs: 1
 
 Now that State can be modified by connected peers, you probably want to observe changes and automatically display updates. This is easy to do, because Reactive CRDT works closely with the [Reactive library](https://www.github.com/yousefed/reactive).
 
-Let's look at a React example.
+Let's look at some examples:
 
 ## Using React
 
@@ -86,9 +86,42 @@ export default function App() {
 
 <sup>View on CodeSandbox (coming soon)</sup>
 
-## Without React
+## Vue
 
-You don't have to use React, you can also use `autorun` from the Reactive library to observe changes:
+Reactive CRDT works great with Vues reactive programming model. See the [Vue Todo example](examples/todo-vue) for an example application. In short, just put an object returned by the `crdt` function on a Vue `data()` object:
+
+```typescript
+import { useVueBindings } from "@reactivedata/reactive-crdt";
+import * as Vue from "vue";
+import { crdt, Y, useVueBindings } from "@reactivedata/reactive-crdt";
+import { WebrtcProvider } from "y-webrtc";
+
+// make reactive-crdt use Vuejs internally
+useVueBindings(Vue);
+
+// Setup Yjs
+const doc = new Y.Doc();
+new WebrtcProvider("id", doc); // sync via webrtc
+
+export default Vue.defineComponent({
+  data() {
+    return {
+      // synced with Reactive CRDT
+      sharedData: crdt<{
+        vehicles: Vehicle[];
+      }>(doc),
+      // untouched
+      regularLocalString: "",
+    }
+  }
+);
+```
+
+You can now use `sharedData.vehicles` in your Vue app and it will sync automatically.
+
+## Without framework
+
+You don't have to use React or Vue, you can also use `autorun` from the Reactive library to observe changes:
 
 ```typescript
 import { reactive, autorun } from "@reactivedata/reactive";
@@ -97,7 +130,7 @@ import { store } from "."; // the store we defined above
 const reactiveStore = reactive(store);
 
 autorun(() => {
-  reactiveStore.vehicles.forEach((v) => {
+  reactiveStore.vehicles.forEach(v => {
     console.log(`A ${v.color} ${v.type}`);
   });
 });
@@ -120,7 +153,7 @@ There were two major design decisions:
 - Instead of data types like Y.Map, and Y.Array, can we just use plain Javascript objects and arrays?
   - e.g.: `store.outer.inner.property = value` instead of `doc.getMap("inner").getMap("outer").getMap("inner").get("value")`
 - Instead of having to call `.observe` manually, can we integrate with a Reactive Functional Programming library to do this automatically?
-  - e.g.: wrap your code in `autorun` or use `useReactive`, and automatically observe all used values from the store.
+  - e.g.: wrap your code in `autorun` or use `useReactive` (React), or Vue's reactive model and automatically observe all used values from the store.
 
 Would love to hear your feedback!
 

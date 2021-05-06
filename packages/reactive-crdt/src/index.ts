@@ -1,21 +1,15 @@
-import { createAtom, untracked } from "@reactivedata/reactive";
-import { makeYJSObservable, setObservableFunctions } from "@reactivedata/yjs-reactive-bindings";
+import * as reactive from "@reactivedata/reactive";
+import { makeYJSObservable, useReactiveBindings } from "@reactivedata/yjs-reactive-bindings";
 import * as Y from "yjs";
 import { CRDTArray, crdtArray } from "./array";
 import { CRDTObject, crdtObject } from "./object";
 import { Raw } from "./raw";
 import { JSONValue } from "./types";
+export { useMobxBindings, useVueBindings } from "@reactivedata/yjs-reactive-bindings";
 
 // setup yjs-reactive-bindings
 makeYJSObservable();
-setObservableFunctions(function(name, obo, obu) {
-  // TMP
-  const atom = createAtom(name);
-  if (obo) {
-    obo();
-  }
-  return atom;
-}, untracked);
+useReactiveBindings(reactive); // use reactive bindings by default
 
 export const INTERNAL_SYMBOL = Symbol("INTERNAL_SYMBOL");
 
