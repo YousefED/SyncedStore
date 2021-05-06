@@ -1,4 +1,4 @@
-import { $reactive, $reactiveproxy, reactive } from "@reactivedata/reactive";
+import { $reactive, $reactiveproxy } from "@reactivedata/reactive";
 import * as Y from "yjs";
 import { crdtValue, getInternalAny, INTERNAL_SYMBOL, ObjectSchemaType } from ".";
 import { yToWrappedCache } from "./internal";
@@ -25,31 +25,27 @@ class ArrayImplementation<T> {
     return this.arr.length;
   }
 
-  slice = function () {
-    let ic = this[$reactiveproxy].implicitObserver;
+  slice = function() {
+    let ic = this[$reactiveproxy]?.implicitObserver;
     this.arr._implicitObserver = ic;
     const items = this.arr.slice.bind(this.arr).apply(this.arr, arguments);
-    return items.map((item) => {
+    return items.map(item => {
       if (!isYType(item)) {
         return item;
       }
 
       item._implicitObserver = ic;
-      // force shallow
-      // item = reactive(item, ic, true);
-
-      // todo: array / ytext
       if (!yToWrappedCache.has(item)) {
         const wrapped = crdtValue(item);
         yToWrappedCache.set(item, wrapped);
       }
-      return reactive(yToWrappedCache.get(item), ic);
+      return yToWrappedCache.get(item);
     });
   } as T[]["slice"];
 
   unshift = this.arr.unshift.bind(this.arr) as Y.Array<T>["unshift"];
-  push = function (...items: T[]) {
-    const wrappedItems = items.map((item) => {
+  push = (...items: T[]) => {
+    const wrappedItems = items.map(item => {
       const wrapped = crdtValue(item);
       const internal = getInternalAny(wrapped);
       return internal || wrapped;
@@ -61,19 +57,19 @@ class ArrayImplementation<T> {
   insert = this.arr.insert.bind(this.arr) as Y.Array<T>["insert"];
   toJSON = this.arr.toJSON.bind(this.arr) as Y.Array<T>["toJSON"];
 
-  forEach = function () {
+  forEach = function() {
     return [].forEach.apply(this.slice(), arguments);
   } as T[]["forEach"];
 
-  filter = function () {
+  filter = function() {
     return [].filter.apply(this.slice(), arguments);
   } as T[]["filter"];
 
-  find = function () {
+  find = function() {
     return [].find.apply(this.slice(), arguments);
   } as T[]["find"];
 
-  map = function () {
+  map = function() {
     return [].map.apply(this.slice(), arguments);
   } as T[]["map"];
   // toJSON = () => {
@@ -118,7 +114,7 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
 
       if (typeof p === "number") {
         if (receiver && receiver[$reactiveproxy]) {
-          let ic = receiver[$reactiveproxy].implicitObserver;
+          let ic = receiver[$reactiveproxy]?.implicitObserver;
           arr._implicitObserver = ic;
         } else {
           console.warn("no receiver getting property", p);
@@ -180,15 +176,15 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
         return false;
       }
     },
-    ownKeys: (target) => {
+    ownKeys: target => {
       const keys: string[] = [];
       for (let i = 0; i < arr.length; i++) {
         keys.push(i + "");
       }
       return keys;
-    },
+    }
   });
 
-  proxy.push.apply(proxy, initializer);
-  return reactive(proxy as CRDTArray<T>, undefined, true);
+  implementation.push.apply(proxy, initializer);
+  return proxy;
 }

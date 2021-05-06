@@ -18,7 +18,7 @@
   "scripts": {
     "test": "echo \"Run tests from root\" && exit 1",
     "clean": "rm -rf dist && rm -rf types",
-    "build": "npm run clean && microbundle build --raw --no-compress",
+    "build": "npm run clean && microbundle build --raw --no-compress --tsconfig tsconfig.build.json",
     "watch": "microbundle watch"
   },
   "publishConfig": {

@@ -10,7 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "@types/eslint": "6.8.0",
-    "yjs": "git+https://github.com/YousefED/yjs#patched-installable"
+    "yjs": "git+https://github.com/YousefED/yjs#patched-installable",
+    "@reactivedata/yjs-reactive-bindings": "0.1.1"
   },
   "peerDependencies": {
     "@reactivedata/reactive": "0.1.12"
@@ -22,7 +23,7 @@
   "scripts": {
     "test": "echo \"Run tests from root\" && exit 1",
     "clean": "rm -rf dist && rm -rf types",
-    "build": "npm run clean && microbundle build --raw --no-compress && npm run fixtypedir",
+    "build": "npm run clean && microbundle build --raw --no-compress --tsconfig tsconfig.build.json && npm run fixtypedir",
     "fixtypedir": "mv types typestmp && mv typestmp/reactive-crdt/src types && rm -rf typestmp",
     "watch": "microbundle watch"
   },
