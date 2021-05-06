@@ -29,7 +29,7 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
       if (typeof p !== "string") {
         throw new Error();
       }
-      const wrapped = crdtValue(value);
+      const wrapped = crdtValue(value); // TODO: maybe set cache
       const internal = getInternalAny(wrapped) || wrapped;
       map.set(p, internal);
       return true;
@@ -43,10 +43,10 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
         // throw new Error("get non string parameter");
       }
       if (receiver && receiver[$reactiveproxy]) {
-        let ic = receiver[$reactiveproxy].implicitObserver;
+        let ic = receiver[$reactiveproxy]?.implicitObserver;
         (map as any)._implicitObserver = ic;
       } else {
-        console.warn("no receiver getting property", p);
+        // console.warn("no receiver getting property", p);
       }
       let ret = map.get(p);
 
@@ -78,9 +78,9 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
       }
       return false;
     },
-    ownKeys: (target) => {
+    ownKeys: target => {
       return Array.from(map.keys());
-    },
+    }
   });
 
   yToWrappedCache.set(map, proxy);
