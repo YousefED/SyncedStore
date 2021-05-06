@@ -6,7 +6,7 @@ Reactive CRDT is an easy-to-use library for building collaborative applications 
 
 # Example
 
-Have a look at the collaborative Todo list examples ([React](examples/todo-react), [Vue](examples/todo-vue)) to get up to speed.
+Have a look at the collaborative Todo list examples ([React](https://github.com/yousefED/reactive-crdt/examples/todo-react), [Vue](https://github.com/yousefED/reactive-crdt/examples/todo-vue)) to get up to speed.
 
 # Quick overview
 
@@ -88,7 +88,7 @@ export default function App() {
 
 ## Vue
 
-Reactive CRDT works great with Vues reactive programming model. See the [Vue Todo example](examples/todo-vue) for an example application. In short, just put an object returned by the `crdt` function on a Vue `data()` object:
+Reactive CRDT works great with Vues reactive programming model. See the [Vue Todo example](https://github.com/yousefED/reactive-crdt/examples/todo-vue) for an example application. In short, just put an object returned by the `crdt` function on a Vue `data()` object:
 
 ```typescript
 import { useVueBindings } from "@reactivedata/reactive-crdt";
