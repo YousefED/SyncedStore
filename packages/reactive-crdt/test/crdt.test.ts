@@ -1,5 +1,5 @@
 import { crdt, getInternalMap } from "@reactivedata/reactive-crdt";
-import { Raw } from "../src/raw";
+import { Box, boxed } from "../src/boxed";
 import * as Y from "yjs";
 
 describe("reactive-crdt", () => {
@@ -17,20 +17,20 @@ describe("reactive-crdt", () => {
       outer: {
         nested: number;
       };
-      raw: Raw<{
+      raw: Box<{
         outer: {
           nested: number;
         };
       }>;
     }>(new Y.Doc());
 
-    store.raw = { outer: { nested: 4 } };
+    store.raw = boxed({ outer: { nested: 99 } });
     store.a = 4;
     expect(store.a).toBe(4);
     expect(store.outer?.nested).toBeUndefined();
-
+    expect(store.raw?.value.outer.nested).toBe(99);
     store.outer = {
-      nested: 5,
+      nested: 5
     };
     expect(store.outer.nested).toBe(5);
     console.log(getInternalMap(store).toJSON());
@@ -40,19 +40,45 @@ describe("reactive-crdt", () => {
     const doc1 = new Y.Doc();
     let store1 = crdt<{
       plain: number;
+      text: Y.Text;
+      boxed: Box<{ inner: number }>;
     }>(doc1);
 
     const doc2 = new Y.Doc();
     let store2 = crdt<{
       plain: number;
+      text: Y.Text;
+      boxed: Box<{ inner: number }>;
     }>(doc2);
 
     store1.plain = 5;
-
+    store1.text = new Y.Text("test");
+    store1.boxed = boxed({ inner: 4 });
     const state1 = Y.encodeStateAsUpdate(doc1);
     Y.applyUpdate(doc2, state1);
 
     expect(store2.plain).toBe(5);
+    expect(store2.text?.toString()).toBe("test");
+    expect(store2.boxed?.value.inner).toBe(4);
+  });
+
+  it("syncs text", () => {
+    const doc1 = new Y.Doc();
+    let store1 = crdt<{
+      text: Y.Text;
+    }>(doc1);
+
+    const doc2 = new Y.Doc();
+    let store2 = crdt<{
+      text: Y.Text;
+    }>(doc2);
+
+    store1.text = new Y.Text("hello");
+
+    const state1 = Y.encodeStateAsUpdate(doc1);
+    Y.applyUpdate(doc2, state1);
+
+    expect(store2.text!.toString()).toEqual("hello");
   });
 
   it("syncs independent pushes", () => {
@@ -87,7 +113,7 @@ describe("reactive-crdt", () => {
     // let x = JSON.stringify(store1.arr);
     expect([
       [3, 1, 2],
-      [3, 2, 1],
+      [3, 2, 1]
     ]).toContainEqual(store1.arr);
     expect(store2.arr).toEqual(store1.arr);
   });

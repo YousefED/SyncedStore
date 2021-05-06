@@ -18,14 +18,18 @@ export function observeText(value: Y.Text) {
         value.unobserve(handler);
       }
     );
+  }
 
-    const originalToString = value.toString;
-    value.toString = function () {
+  function patch(method: string) {
+    const originalFunction = value[method];
+    value[method] = function() {
       atom!.reportObserved(this._implicitObserver);
-      const ret = Reflect.apply(originalToString, this, arguments);
+      const ret = Reflect.apply(originalFunction, this, arguments);
       return ret;
     };
-    textAtoms.set(value, atom);
   }
+
+  patch("toString");
+  patch("toJSON");
   return value;
 }

@@ -3,7 +3,7 @@ import { makeYJSObservable, useReactiveBindings } from "@reactivedata/yjs-reacti
 import * as Y from "yjs";
 import { CRDTArray, crdtArray } from "./array";
 import { CRDTObject, crdtObject } from "./object";
-import { Raw } from "./raw";
+import { Box } from "./boxed";
 import { JSONValue } from "./types";
 export { useMobxBindings, useVueBindings } from "@reactivedata/yjs-reactive-bindings";
 
@@ -28,7 +28,7 @@ export function getInternalAny(
 }
 
 export function crdtValue<T extends NestedSchemaType>(value: T | Y.Array<any> | Y.Map<any>) {
-  value = getInternalAny(value as any) || value; // unwrap
+  value = (getInternalAny(value as any) as any) || value; // unwrap
   if (value instanceof Y.Array) {
     return crdtArray([], value);
   } else if (value instanceof Y.Map) {
@@ -37,8 +37,17 @@ export function crdtValue<T extends NestedSchemaType>(value: T | Y.Array<any> | 
     return value; // TODO
   } else if (Array.isArray(value)) {
     return crdtArray(value as any[]);
+  } else if (
+    value instanceof Y.XmlElement ||
+    value instanceof Y.XmlFragment ||
+    value instanceof Y.XmlText ||
+    value instanceof Y.XmlHook
+  ) {
+    return value;
+  } else if (value instanceof Y.Text) {
+    return value;
   } else if (typeof value === "object") {
-    if (value instanceof Raw) {
+    if (value instanceof Box) {
       return value;
     } else {
       return crdtObject(value as any);
@@ -54,7 +63,7 @@ export function crdt<T extends ObjectSchemaType>(doc: Y.Doc) {
   return crdtObject({} as T, doc.getMap());
 }
 
-export type NestedSchemaType = JSONValue | ObjectSchemaType | Raw<any> | NestedSchemaType[];
+export type NestedSchemaType = JSONValue | ObjectSchemaType | Box<any> | Y.AbstractType<any> | NestedSchemaType[];
 
 export type ObjectSchemaType = {
   [key: string]: NestedSchemaType;

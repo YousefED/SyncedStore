@@ -2,13 +2,13 @@ import { $reactive, $reactiveproxy, reactive } from "@reactivedata/reactive";
 import * as Y from "yjs";
 import { crdtValue, getInternalAny, INTERNAL_SYMBOL, ObjectSchemaType } from ".";
 import { CRDTArray } from "./array";
-import { yToWrappedCache } from "./internal";
-import { Raw } from "./raw";
+import { parseYjsReturnValue, yToWrappedCache } from "./internal";
+import { Box } from "./boxed";
 import { isYType } from "./types";
 
 export type CRDTObject<T extends ObjectSchemaType> = {
-  [P in keyof T]?: T[P] extends Raw<infer A>
-    ? A
+  [P in keyof T]?: T[P] extends Box<infer A>
+    ? Box<A>
     : T[P] extends Array<infer A>
     ? CRDTArray<A>
     : T[P] extends ObjectSchemaType
@@ -31,7 +31,11 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
       }
       const wrapped = crdtValue(value); // TODO: maybe set cache
       const internal = getInternalAny(wrapped) || wrapped;
-      map.set(p, internal);
+      if (internal instanceof Box) {
+        map.set(p, internal.value);
+      } else {
+        map.set(p, internal);
+      }
       return true;
     },
     get: (target, p, receiver) => {
@@ -49,16 +53,7 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
         // console.warn("no receiver getting property", p);
       }
       let ret = map.get(p);
-
-      if (isYType(ret)) {
-        if (!yToWrappedCache.has(ret)) {
-          const wrapped = crdtValue(ret);
-          yToWrappedCache.set(ret, wrapped);
-        }
-        ret = yToWrappedCache.get(ret);
-
-        return ret;
-      }
+      ret = parseYjsReturnValue(ret);
       return ret;
     },
     deleteProperty: (target, p) => {
