@@ -1,7 +1,7 @@
 {
   "name": "@reactivedata/yjs-reactive-bindings",
   "description": "A bridge between Reactive programming libraries (reactive, Vue or MobX) and Yjs",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": false,
   "main": "dist/yjs-reactive-bindings.js",
   "module": "dist/yjs-reactive-bindings.module.js",
