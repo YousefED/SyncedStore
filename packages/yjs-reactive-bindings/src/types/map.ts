@@ -31,7 +31,8 @@ export function observeMap(map: Y.Map<any>) {
         },
         () => {
           map.unobserve(handler);
-        }
+        },
+        (map as any)._implicitObserver
       );
     }
     selfAtom.reportObserved((map as any)._implicitObserver);
@@ -61,7 +62,8 @@ export function observeMap(map: Y.Map<any>) {
         },
         () => {
           map.unobserve(handler);
-        }
+        },
+        (map as any)._implicitObserver
       );
       atoms.set(key, atom);
     }
@@ -71,7 +73,7 @@ export function observeMap(map: Y.Map<any>) {
 
   const originalGet = map.get;
 
-  map.get = function (key: string) {
+  map.get = function(key: string) {
     if (typeof key !== "string") {
       throw new Error("unexpected");
     }
@@ -82,7 +84,7 @@ export function observeMap(map: Y.Map<any>) {
 
   function patch(method: string) {
     const originalFunction = map[method];
-    map[method] = function () {
+    map[method] = function() {
       reportSelfAtom();
       const ret = Reflect.apply(originalFunction, this, arguments);
       return ret;

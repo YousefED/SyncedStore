@@ -15,7 +15,8 @@ let customCreateAtom: typeof createAtom | undefined;
 export function createAtom(
   _name: string,
   _onBecomeObservedHandler?: () => void,
-  _onBecomeUnobservedHandler?: () => void
+  _onBecomeUnobservedHandler?: () => void,
+  _target?: any
 ): Atom {
   if (customCreateAtom) {
     return customCreateAtom.apply(null, arguments as any);
@@ -50,12 +51,22 @@ export function useVueBindings(vue: any) {
 }
 
 export function useReactiveBindings(reactive: any) {
-  customCreateAtom = function(name, obo, obu) {
+  let id = 0;
+  customCreateAtom = function(name, obo, obu, target) {
+    let currentId = id++;
+    let val = 0;
     // TMP
-    const atom = reactive.createAtom(name);
+    // const atom = reactive.createAtom(name);
     if (obo) {
       obo();
     }
-    return atom;
-  };
+    return {
+      reportChanged: () => {
+        target["__atom_" + currentId] = val++;
+      },
+      reportObserved: (target: any) => {
+        return target["__atom_" + currentId];
+      }
+    };
+  } as any;
 }

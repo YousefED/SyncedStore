@@ -16,7 +16,8 @@ export function observeText(value: Y.Text) {
       },
       () => {
         value.unobserve(handler);
-      }
+      },
+      (this as any)._implicitObserver
     );
   }
 

@@ -7,14 +7,15 @@ export const yToWrappedCache = new WeakMap<Y.AbstractType<any>, any>();
 
 export function parseYjsReturnValue(value: any, implicitObserver?: any) {
   if (isYType(value)) {
-    value._implicitObserver = implicitObserver;
+    // value._implicitObserver = implicitObserver;
 
     if (value instanceof Y.Array || value instanceof Y.Map) {
-      if (!yToWrappedCache.has(value)) {
-        const wrapped = crdtValue(value);
-        yToWrappedCache.set(value, wrapped);
-      }
-      value = yToWrappedCache.get(value);
+      // if (!yToWrappedCache.has(value)) {
+      const wrapped = crdtValue(value, implicitObserver);
+      return wrapped;
+      // yToWrappedCache.set(value, wrapped);
+      // }
+      // value = yToWrappedCache.get(value);
     } else if (
       value instanceof Y.XmlElement ||
       value instanceof Y.XmlFragment ||
@@ -23,6 +24,7 @@ export function parseYjsReturnValue(value: any, implicitObserver?: any) {
       value instanceof Y.Text
     ) {
       markRaw(value);
+      (value as any)._implicitObserver = implicitObserver;
       (value as any).__v_skip = true; // for vue Reactive
     } else {
       throw new Error("unknown YType");

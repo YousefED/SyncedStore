@@ -32,7 +32,8 @@ export function observeArray(array: Y.Array<any>) {
         },
         () => {
           array.unobserve(handler);
-        }
+        },
+        (array as any)._implicitObserver
       );
     }
     selfAtom.reportObserved((array as any)._implicitObserver);
@@ -62,7 +63,8 @@ export function observeArray(array: Y.Array<any>) {
         },
         () => {
           array.unobserve(handler);
-        }
+        },
+        (array as any)._implicitObserver
       );
       atoms.set(key, atom);
     }
@@ -72,7 +74,7 @@ export function observeArray(array: Y.Array<any>) {
 
   const originalGet = array.get;
 
-  array.get = function (key: number) {
+  array.get = function(key: number) {
     if (typeof key !== "number") {
       throw new Error("unexpected");
     }
@@ -83,7 +85,7 @@ export function observeArray(array: Y.Array<any>) {
 
   function patch(method: string) {
     const originalFunction = array[method];
-    array[method] = function () {
+    array[method] = function() {
       reportSelfAtom();
       const ret = Reflect.apply(originalFunction, this, arguments);
       return ret;

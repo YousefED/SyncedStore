@@ -19,11 +19,11 @@ export type CRDTArray<T> = {
 
 function arrayImplementation<T>(arr: Y.Array<T>) {
   const slice = function slice() {
-    let ic = this[$reactiveproxy]?.implicitObserver;
-    (arr as any)._implicitObserver = ic;
+    // let ic = this[$reactiveproxy]?.implicitObserver;
+    (arr as any)._implicitObserver = this;
     const items = arr.slice.bind(arr).apply(arr, arguments);
     return items.map(item => {
-      const ret = parseYjsReturnValue(item, ic);
+      const ret = parseYjsReturnValue(item, this);
       return ret;
     });
   } as T[]["slice"];
@@ -85,19 +85,24 @@ function propertyToNumber(p: string | number | symbol) {
   return p;
 }
 
-export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
+export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>(), receiver?: any) {
   if (arr[$reactive]) {
     throw new Error("unexpected");
     // arr = arr[$reactive].raw;
   }
   const implementation = arrayImplementation(arr);
 
-  const proxy = new Proxy((implementation as any) as CRDTArray<T>, {
+  const proxy = new Proxy(receiver || {}, {
     set: (target, pArg, value) => {
+      if (typeof pArg === "string" && pArg.startsWith("__atom")) {
+        return true;
+      }
+
       const p = propertyToNumber(pArg);
       if (typeof p !== "number") {
         throw new Error();
       }
+      // arr[p] = value;
       // TODO map.set(p, smartValue(value));
       return true;
     },
@@ -108,16 +113,14 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
         return arr;
       }
 
+      if (typeof p === "string" && p.startsWith("__atom")) {
+        return true;
+      }
+
       if (typeof p === "number") {
-        let ic: any;
-        if (receiver && receiver[$reactiveproxy]) {
-          ic = receiver[$reactiveproxy]?.implicitObserver;
-          (arr as any)._implicitObserver = ic;
-        } else {
-          // console.warn("no receiver getting property", p);
-        }
+        (arr as any)._implicitObserver = target;
         let ret = arr.get(p) as any;
-        ret = parseYjsReturnValue(ret, ic);
+        ret = parseYjsReturnValue(ret, target);
         return ret;
       }
 
@@ -130,9 +133,19 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
         return Reflect.get(values, p);
       }
 
+      if (typeof p === "symbol") {
+        return Reflect.get(target, p);
+      }
+
       // forward to arrayimplementation
-      const ret = Reflect.get(target, p, receiver);
-      return ret;
+      // const ret = Reflect.get(implementation, p, target);
+      const func = Reflect.get(implementation, p);
+      if (func) {
+        return function() {
+          return Reflect.apply(func, target, arguments);
+        };
+      }
+      // return ret;
     },
     // getOwnPropertyDescriptor: (target, pArg) => {
     //   const p = propertyToNumber(pArg);
@@ -158,7 +171,7 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
       const p = propertyToNumber(pArg);
       if (typeof p !== "number") {
         // forward to arrayimplementation
-        return Reflect.has(target, p);
+        return Reflect.has(implementation, p);
       }
       if (p < arr.length && p >= 0) {
         return true;

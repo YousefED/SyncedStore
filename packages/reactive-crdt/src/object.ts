@@ -18,14 +18,19 @@ export type CRDTObject<T extends ObjectSchemaType> = {
   [INTERNAL_SYMBOL]?: Y.Map<T>;
 };
 
-export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new Y.Map<any>()) {
+let called = 0;
+export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new Y.Map<any>(), receiver?: any) {
   if (map[$reactive]) {
     throw new Error("unexpected");
     // map = map[$reactive].raw;
   }
 
-  const proxy = new Proxy(({} as any) as CRDTObject<T>, {
+  const handlers = {
     set: (target, p, value) => {
+      if (typeof p === "string" && p.startsWith("__atom")) {
+        return true;
+      }
+
       if (typeof p !== "string") {
         throw new Error();
       }
@@ -42,19 +47,23 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
       if (p === INTERNAL_SYMBOL) {
         return map;
       }
+
+      if (typeof p === "string" && p.startsWith("__atom")) {
+        return true;
+      }
+
       if (typeof p !== "string") {
         return Reflect.get(target, p);
         // throw new Error("get non string parameter");
       }
-      let ic: any;
-      if (receiver && receiver[$reactiveproxy]) {
-        ic = receiver[$reactiveproxy]?.implicitObserver;
-        (map as any)._implicitObserver = ic;
-      } else {
-        // console.warn("no receiver getting property", p);
+      let val: any = undefined;
+      if (receiver !== this.proxy) {
+        // TODO: doesn't work
+        val = receiver;
       }
+      (map as any)._implicitObserver = val;
       let ret = map.get(p);
-      ret = parseYjsReturnValue(ret, ic);
+      ret = parseYjsReturnValue(ret, val); // this should pass context
       return ret;
     },
     deleteProperty: (target, p) => {
@@ -69,6 +78,8 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
       }
     },
     has: (target, p) => {
+      (map as any)._implicitObserver = target;
+      const x = map.toJSON();
       if (typeof p === "string" && map.has(p)) {
         return true;
       }
@@ -77,13 +88,24 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
     ownKeys: target => {
       return Array.from(map.keys());
     }
-  });
-
-  yToWrappedCache.set(map, proxy);
-
+  };
+  const proxy = new Proxy(receiver || {}, handlers);
+  (handlers as any).proxy = proxy;
   for (let key in initializer) {
     proxy[key] = initializer[key] as any;
   }
 
   return proxy;
+
+  // } else {
+  // called++;
+
+  // yToWrappedCache.set(map, proxy);
+
+  // for (let key in initializer) {
+  //   proxy[key] = initializer[key] as any;
+  // }
+
+  // return proxy;
+  // }
 }

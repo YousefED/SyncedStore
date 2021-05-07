@@ -14,7 +14,7 @@ useReactiveBindings(reactive); // use reactive bindings by default
 export const INTERNAL_SYMBOL = Symbol("INTERNAL_SYMBOL");
 
 export function getInternalMap<T extends ObjectSchemaType>(object: CRDTObject<T>) {
-  return object[INTERNAL_SYMBOL] as Y.Map<T>;
+  return (object[INTERNAL_SYMBOL] as any) as Y.Map<T[keyof T]>;
 }
 
 export function getInternalArray<T>(object: CRDTArray<T>) {
@@ -27,16 +27,17 @@ export function getInternalAny(
   return object[INTERNAL_SYMBOL];
 }
 
-export function crdtValue<T extends NestedSchemaType>(value: T | Y.Array<any> | Y.Map<any>) {
+export function crdtValue<T extends NestedSchemaType>(value: T | Y.Array<any> | Y.Map<any>, receiver?: any) {
   value = (getInternalAny(value as any) as any) || value; // unwrap
+
   if (value instanceof Y.Array) {
-    return crdtArray([], value);
+    return crdtArray([], value, receiver);
   } else if (value instanceof Y.Map) {
-    return crdtObject({}, value);
+    return crdtObject({}, value, receiver);
   } else if (typeof value === "string") {
     return value; // TODO
   } else if (Array.isArray(value)) {
-    return crdtArray(value as any[]);
+    return crdtArray(value as any[], undefined, receiver);
   } else if (
     value instanceof Y.XmlElement ||
     value instanceof Y.XmlFragment ||

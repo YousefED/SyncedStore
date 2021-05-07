@@ -1,5 +1,5 @@
 import { Observer, reactive } from "@reactivedata/reactive";
-import { Y, crdt } from "@reactivedata/reactive-crdt";
+import { Y, crdt, getInternalAny, getInternalMap } from "@reactivedata/reactive-crdt";
 
 describe("test implicit observer", () => {
   type StoreType = {
@@ -76,14 +76,14 @@ describe("test implicit observer", () => {
     let x = implicitStore1.object.nested;
     implicitStore1.object.nested = 10;
 
-    expect(fnSpy1).toBeCalledTimes(2); // TODO: should be "1"
+    expect(fnSpy1).toBeCalledTimes(1); // TODO: should be "1"
     expect(fnSpy2).toBeCalledTimes(0);
 
     x = implicitStore2.object.nested;
     implicitStore1.object.nested = 11;
 
-    expect(fnSpy1).toBeCalledTimes(4); // TODO: should be "2"
-    expect(fnSpy2).toBeCalledTimes(2); // TODO: should be "1"
+    expect(fnSpy1).toBeCalledTimes(2); // TODO: should be "2"
+    expect(fnSpy2).toBeCalledTimes(1); // TODO: should be "1"
   });
 
   it("implicit works with xml", () => {
@@ -102,5 +102,12 @@ describe("test implicit observer", () => {
     expect(fnSpy2).toBeCalledTimes(1);
 
     expect(implicitStore2.xml.toString()).toBe("<p>text</p>");
+  });
+
+  it("works with has", () => {
+    let bool = "nested" in implicitStore2.object;
+    getInternalMap(implicitStore1.object).set("nested", 10);
+
+    expect(fnSpy2).toBeCalledTimes(1);
   });
 });

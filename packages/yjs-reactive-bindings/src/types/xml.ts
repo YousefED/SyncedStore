@@ -24,7 +24,8 @@ export function observeXml(value: Y.XmlFragment) {
       },
       () => {
         value.unobserve(handler);
-      }
+      },
+      (this as any)._implicitObserver
     );
   }
 
