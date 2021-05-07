@@ -26,15 +26,49 @@ export function observeXml(value: Y.XmlFragment) {
         value.unobserve(handler);
       }
     );
+  }
 
-    const originalToString = value.toString;
-    value.toString = function () {
+  function patch(method: string) {
+    const originalFunction = value[method];
+    value[method] = function() {
       atom!.reportObserved(this._implicitObserver);
-      const ret = Reflect.apply(originalToString, this, arguments);
+      const ret = Reflect.apply(originalFunction, this, arguments);
       return ret;
     };
-    xmlAtoms.set(value, atom);
   }
+
+  function patchGetter(method: string) {
+    let target = value;
+    let descriptor = Object.getOwnPropertyDescriptor(target, method)!;
+
+    // properties might be defined down the prototype chain (e.g., properties on XmlFragment when working on an XmlElement)
+    if (!descriptor) {
+      target = Object.getPrototypeOf(target);
+      descriptor = Object.getOwnPropertyDescriptor(target, method)!;
+    }
+
+    if (!descriptor) {
+      target = Object.getPrototypeOf(target);
+      descriptor = Object.getOwnPropertyDescriptor(target, method)!;
+    }
+
+    if (!descriptor) {
+      throw new Error("property not found");
+    }
+
+    const originalFunction = descriptor.get!;
+    descriptor.get = function() {
+      atom!.reportObserved(this._implicitObserver);
+      const ret = Reflect.apply(originalFunction, this, arguments);
+      return ret;
+    };
+    Object.defineProperty(target, method, descriptor);
+  }
+
+  patch("toString");
+  patch("toDOM");
+  patch("toArray");
+  patchGetter("firstChild");
 
   return value;
 }
