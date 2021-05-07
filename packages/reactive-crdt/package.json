@@ -30,13 +30,10 @@
   "dependencies": {
     "@reactivedata/yjs-reactive-bindings": "^0.1.3",
     "@types/eslint": "6.8.0",
-    "yjs": "git+https://github.com/YousefED/yjs#patched-installable"
-  },
-  "peerDependencies": {
-    "@reactivedata/reactive": "0.1.12"
+    "yjs": "git+https://github.com/YousefED/yjs#patched-installable",
+    "@reactivedata/reactive": "0.1.13"
   },
   "devDependencies": {
-    "@reactivedata/reactive": "0.1.12",
     "microbundle": "^0.13.0"
   },
   "scripts": {

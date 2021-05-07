@@ -7,6 +7,7 @@ describe("test implicit observer", () => {
     object: {
       nested: number;
     };
+    xml: Y.XmlFragment;
   };
 
   let fnSpy1: jest.Mock<void, []>;
@@ -29,13 +30,13 @@ describe("test implicit observer", () => {
   });
 
   it("implicit works with push and filter", () => {
-    let x = implicitStore1.arr!.filter((v) => v);
+    let x = implicitStore1.arr!.filter(v => v);
     implicitStore1.arr!.push(1);
 
     expect(fnSpy1).toBeCalledTimes(1);
     expect(fnSpy2).toBeCalledTimes(0);
 
-    implicitStore2.arr!.filter((v) => v);
+    implicitStore2.arr!.filter(v => v);
     implicitStore1.arr!.push(1);
 
     expect(fnSpy1).toBeCalledTimes(2);
@@ -83,5 +84,23 @@ describe("test implicit observer", () => {
 
     expect(fnSpy1).toBeCalledTimes(4); // TODO: should be "2"
     expect(fnSpy2).toBeCalledTimes(2); // TODO: should be "1"
+  });
+
+  it("implicit works with xml", () => {
+    let x = implicitStore1.xml;
+    implicitStore1.xml = new Y.XmlFragment();
+
+    expect(fnSpy1).toBeCalledTimes(2); // TODO: should be "1"
+    expect(fnSpy2).toBeCalledTimes(0);
+
+    let child = implicitStore2.xml.firstChild?.toDOM;
+    const newEl = new Y.XmlElement("p");
+    newEl.push([new Y.XmlText("text")]);
+    implicitStore1.xml.push([newEl]);
+
+    expect(fnSpy1).toBeCalledTimes(2);
+    expect(fnSpy2).toBeCalledTimes(1);
+
+    expect(implicitStore2.xml.toString()).toBe("<p>text</p>");
   });
 });

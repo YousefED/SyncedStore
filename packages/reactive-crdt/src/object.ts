@@ -46,14 +46,15 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
         return Reflect.get(target, p);
         // throw new Error("get non string parameter");
       }
+      let ic: any;
       if (receiver && receiver[$reactiveproxy]) {
-        let ic = receiver[$reactiveproxy]?.implicitObserver;
+        ic = receiver[$reactiveproxy]?.implicitObserver;
         (map as any)._implicitObserver = ic;
       } else {
         // console.warn("no receiver getting property", p);
       }
       let ret = map.get(p);
-      ret = parseYjsReturnValue(ret);
+      ret = parseYjsReturnValue(ret, ic);
       return ret;
     },
     deleteProperty: (target, p) => {
