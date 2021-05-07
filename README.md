@@ -6,7 +6,11 @@ Reactive CRDT is an easy-to-use library for building collaborative applications 
 
 # Example
 
-Have a look at the collaborative Todo list examples ([React](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-react), [Vue](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-vue)) to get up to speed.
+Have a look at the collaborative Todo list examples ([React](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-react), [Vue](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-vue)) to get up to speed. Or, read along for a quick overview.
+
+![example app screencapture](reactivecrdt.gif)
+
+View source and run: [React](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-react), [Vue](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-vue).
 
 # Quick overview
 
