@@ -16,13 +16,13 @@ function valtioCrdt<T extends ObjectSchemaType>(doc: Y.Doc) {
 
     store: function() {
       const valtioContext = this;
-      valtioContext.atom; // trigger a valtio read
+      valtioContext.__atom; // trigger a valtio read
       let reactiveStore = reactiveByValtioContext.get(valtioContext) as T;
       if (!reactiveStore) {
         reactiveStore = reactive(
           crdtstore,
           new Observer(() => {
-            valtioContext.atom = 1; // trigger a valtio write;
+            valtioContext.__atom = 1; // trigger a valtio write;
           })
         );
         reactiveByValtioContext.set(valtioContext, reactiveStore);
@@ -42,7 +42,7 @@ describe("valtio", () => {
     const fnSpy = jest.fn();
     subscribe(valtioStore, fnSpy);
 
-    // simulate useSnapshot. Not sure this is a good simulation, but no time to set up React test with actual useSnapshot
+    // simulate useSnapshot. Not sure this is a good simulation, better to set up React test with actual useSnapshot
     let snap = proxy(snapshot(valtioStore));
 
     const fnSpySnap = jest.fn();
