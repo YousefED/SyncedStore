@@ -34,7 +34,8 @@
     "yjs": "git+https://github.com/YousefED/yjs#patched-installable"
   },
   "devDependencies": {
-    "microbundle": "^0.13.0"
+    "microbundle": "^0.13.0",
+    "valtio": "1.0.4"
   },
   "scripts": {
     "test": "echo \"Run tests from root\" && exit 1",
