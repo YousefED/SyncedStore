@@ -18,6 +18,7 @@ Setup:
 
 ```typescript
 import { crdt, Y } from "@reactivedata/reactive-crdt";
+import { WebrtcProvider } from "y-webrtc";
 
 // Create a document that syncs automatically using Y-WebRTC
 const doc = new Y.Doc();
@@ -72,7 +73,7 @@ export default function App() {
       <ul>
         {state.vehicles
           .map((v) => {
-            <li>{v.type}</li>;
+            return <li>{v.type}</li>;
           })}
       </ul>
       <input type="text" onKeyPress=((event) => {
