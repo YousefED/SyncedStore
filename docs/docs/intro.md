@@ -1,35 +1,24 @@
 ---
 sidebar_position: 1
+sidebar_label: Introduction
 ---
 
-# Tutorial Intro
+# Introduction to Reactive CRDT
 
-Let's discover **Docusaurus in less than 5 minutes**.
+Reactive CRDT is a library for building distributed, real-time collaborative web applications. This used to be extremely complex, but with Reactive CRDT it's as easy as sharing a pie!
 
-## Getting Started
+Let's make developing _multiplayer_ (or multi-device) experiences just as simple as developing regular applications.
 
-Get started by **creating a new site**.
+## Why?
 
-Or **try Docusaurus immediately** with **[new.docusaurus.io](https://new.docusaurus.io)**.
+Reactive CRDT makes it easy to develop applications that:
 
-## Generate a new site
+- 👨‍👩‍👧‍👦 **Are collaborative**: create multi-user and multi-device experiences without the need to handle complex conflict resolution management yourself.
+- 🚀 **Are fast**: operations are handled locally, and data synchronization with other users and devices happens quietly in the background. 0 Latency!
+- 🔗 **Work offline**: cloud apps typically don’t work while offline. Supporting both data sync and offline used to be difficult, not with Reactive-CRDT
 
-Generate a new Docusaurus site using the **classic template**:
+Perhaps most importantly, it makes it easy to build **decentralized applications**. This has a lot of security & privacy benefits compared to always relying on central (expensive) servers to keep track of all our data.
 
-```shell
-npx @docusaurus/init@latest init my-website classic
-```
+In short, with some technological magic of so-called [CRDTs](https://crdt.tech/), we can build _cross-device_ apps that are _more collaborative_, _faster_, _work offline_ AND put the user _back in control of their data_. Sounds good!
 
-## Start your site
-
-Run the development server:
-
-```shell
-cd my-website
-
-npx docusaurus start
-```
-
-Your site starts at `http://localhost:3000`.
-
-Open `docs/intro.md` and edit some lines: the site **reloads automatically** and display your changes.
+> Read more about [the benefits of Local-first software in this excellent essay](https://www.inkandswitch.com/local-first.html)
