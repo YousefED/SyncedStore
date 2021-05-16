@@ -74,6 +74,15 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
       }
       return false;
     },
+    getOwnPropertyDescriptor(target, p) {
+      if (typeof p === "string" && map.has(p)) {
+        return {
+          enumerable: true,
+          configurable: true
+        };
+      }
+      return undefined;
+    },
     ownKeys: target => {
       return Array.from(map.keys());
     }

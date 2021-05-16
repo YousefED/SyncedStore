@@ -166,6 +166,24 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
         return false;
       }
     },
+    getOwnPropertyDescriptor(target, pArg) {
+      const p = propertyToNumber(pArg);
+      if (p === "length") {
+        return {
+          enumerable: false,
+          configurable: false,
+          writable: true
+        };
+      }
+      if (typeof p === "number" && p >= 0 && p < arr.length) {
+        return {
+          enumerable: true,
+          configurable: true,
+          writable: true
+        };
+      }
+      return undefined;
+    },
     ownKeys: target => {
       const keys: string[] = [];
       for (let i = 0; i < arr.length; i++) {
