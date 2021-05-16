@@ -96,7 +96,6 @@ export default function App() {
 Reactive CRDT works great with Vues reactive programming model. See the [Vue Todo example](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-vue) for an example application. In short, just put an object returned by the `crdt` function on a Vue `data()` object:
 
 ```typescript
-import { useVueBindings } from "@reactivedata/reactive-crdt";
 import * as Vue from "vue";
 import { crdt, Y, useVueBindings } from "@reactivedata/reactive-crdt";
 import { WebrtcProvider } from "y-webrtc";
