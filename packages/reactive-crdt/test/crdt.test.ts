@@ -117,4 +117,20 @@ describe("reactive-crdt", () => {
     ]).toContainEqual(store1.arr);
     expect(store2.arr).toEqual(store1.arr);
   });
+
+  it("Object.keys() for object", () => {
+    const doc1 = new Y.Doc();
+    let store1 = crdt<any>(doc1);
+    store1["obj"] = 4;
+    let keys = Object.keys(store1);
+    expect(keys).toStrictEqual(Object.keys({ obj: 4 }));
+  });
+
+  it("Object.keys() for array", () => {
+    const doc1 = new Y.Doc();
+    let store1 = crdt<any>(doc1);
+    store1.arr = [0, 1];
+    let keys = Object.keys(store1.arr);
+    expect(keys).toStrictEqual(Object.keys([0, 1]));
+  });
 });
