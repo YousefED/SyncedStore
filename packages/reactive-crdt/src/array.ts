@@ -28,10 +28,13 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
     });
   } as T[]["slice"];
 
-  return {
-    get length() {
-      return arr.length;
-    },
+  const ret = {
+    // get length() {
+    //   return arr.length;
+    // },
+    // set length(val: number) {
+    //   throw new Error("set length of yjs array is unsupported");
+    // },
     slice,
     unshift: arr.unshift.bind(arr) as Y.Array<T>["unshift"],
     push: (...items: T[]) => {
@@ -72,6 +75,16 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
     // };
     // delete = this.arr.delete.bind(this.arr) as (Y.Array<T>)["delete"];
   };
+
+  // this is necessary to prevent errors like "trap reported non-configurability for property 'length' which is either non-existent or configurable in the proxy target" when adding support for ownKeys and Reflect.keysx
+  Object.defineProperty(ret, "length", {
+    enumerable: false,
+    configurable: false,
+    writable: true,
+    value: arr.length
+  });
+
+  return ret;
 }
 
 function propertyToNumber(p: string | number | symbol) {
@@ -130,6 +143,9 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
         return Reflect.get(values, p);
       }
 
+      if (p === "length") {
+        return arr.length;
+      }
       // forward to arrayimplementation
       const ret = Reflect.get(target, p, receiver);
       return ret;
@@ -189,6 +205,7 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
       for (let i = 0; i < arr.length; i++) {
         keys.push(i + "");
       }
+      keys.push("length");
       return keys;
     }
   });
