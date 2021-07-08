@@ -68,6 +68,7 @@ export function observeXml(value: Y.XmlFragment) {
   patch("toString");
   patch("toDOM");
   patch("toArray");
+  patch("getAttribute");
   patchGetter("firstChild");
 
   return value;
