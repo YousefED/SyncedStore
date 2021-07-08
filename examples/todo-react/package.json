@@ -1,10 +1,10 @@
 {
   "name": "todo",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": true,
   "dependencies": {
     "@reactivedata/react": "^0.1.12",
-    "@reactivedata/reactive-crdt": "^0.1.6",
+    "@reactivedata/reactive-crdt": "^0.1.7",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",

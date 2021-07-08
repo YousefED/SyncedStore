@@ -19,7 +19,7 @@
     "offline",
     "shared editing"
   ],
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": false,
   "main": "dist/reactive-crdt.js",
   "module": "dist/reactive-crdt.module.js",
@@ -29,7 +29,7 @@
   "license": "MIT",
   "dependencies": {
     "@reactivedata/reactive": "0.1.13",
-    "@reactivedata/yjs-reactive-bindings": "^0.1.4",
+    "@reactivedata/yjs-reactive-bindings": "^0.1.7",
     "@types/eslint": "6.8.0",
     "yjs": "git+https://github.com/YousefED/yjs#patched-installable"
   },
