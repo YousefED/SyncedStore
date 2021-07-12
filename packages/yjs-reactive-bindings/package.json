@@ -11,7 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "@types/eslint": "6.8.0",
-    "yjs": "git+https://github.com/YousefED/yjs#patched-installable"
+    "yjs": "npm:type-created-yjs@13.5.11"
   },
   "devDependencies": {
     "microbundle": "^0.13.0"

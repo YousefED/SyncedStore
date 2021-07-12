@@ -11,7 +11,8 @@
     "postpublish": "rm -rf packages/reactive-crdt/README.md",
     "deploy": "lerna publish",
     "redeploy": "lerna publish from-package",
-    "watch": "lerna run watch"
+    "watch": "lerna run watch",
+    "installall": "lerna exec npm install"
   },
   "devDependencies": {
     "lerna": "^4.0.0",
