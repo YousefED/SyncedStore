@@ -27,6 +27,17 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
       return ret;
     });
   } as T[]["slice"];
+  const wrapItems = function wrapItems(items) {
+    return items.map(item => {
+      const wrapped = crdtValue(item as any); // TODO
+      const internal = getInternalAny(wrapped) || wrapped;
+      if (internal instanceof Box) {
+        return internal.value;
+      } else {
+        return internal;
+      }
+    });
+  };
 
   const ret = {
     // get length() {
@@ -38,17 +49,7 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
     slice,
     unshift: arr.unshift.bind(arr) as Y.Array<T>["unshift"],
     push: (...items: T[]) => {
-      const wrappedItems = items.map(item => {
-        const wrapped = crdtValue(item as any); // TODO
-        const internal = getInternalAny(wrapped) || wrapped;
-        if (internal instanceof Box) {
-          return internal.value;
-        } else {
-          return internal;
-        }
-      });
-
-      arr.push(wrappedItems);
+      arr.push(wrapItems(items));
       return arr.length;
     },
 
@@ -78,7 +79,7 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
     splice: function() {
       let deleted = slice.apply(this, arguments);
       arr.delete(arguments[0], arguments[1]);
-      ret.push(...(Array.from(arguments).slice(2) as any));
+      arr.insert(arguments[0], wrapItems(Array.from(Array.from(arguments).slice(2))));
       return deleted;
     } as T[]["splice"]
     // toJSON = () => {

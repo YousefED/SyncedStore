@@ -165,8 +165,10 @@ describe("reactive-crdt", () => {
     let deleted = store1.arr.splice(1);
     expect(deleted).toStrictEqual([1]);
     expect(Array.from(store1.arr)).toStrictEqual([0]);
-    deleted = store1.arr.splice(1, 0, 1, 2);
+    deleted = store1.arr.splice(1, 0, 3, 4);
     expect(deleted).toStrictEqual([]);
-    expect(Array.from(store1.arr)).toStrictEqual([0, 1, 2]);
+    expect(Array.from(store1.arr)).toStrictEqual([0, 3, 4]);
+    store1.arr.splice(1, 0, 1, 2);
+    expect(Array.from(store1.arr)).toStrictEqual([0, 1, 2, 3, 4]);
   });
 });
