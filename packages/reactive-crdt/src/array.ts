@@ -77,9 +77,12 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
     } as T[]["indexOf"],
 
     splice: function() {
-      let deleted = slice.apply(this, arguments);
-      arr.delete(arguments[0], arguments[1]);
-      arr.insert(arguments[0], wrapItems(Array.from(Array.from(arguments).slice(2))));
+      let start = arguments[0] < 0 ? arr.length - Math.abs(arguments[0]) : arguments[0];
+      let deleteCount = arguments[1];
+      let items = Array.from(Array.from(arguments).slice(2));
+      let deleted = slice.apply(this, [start, Number.isInteger(deleteCount) ? start + deleteCount : undefined]);
+      arr.delete(start, deleteCount);
+      arr.insert(start, wrapItems(items));
       return deleted;
     } as T[]["splice"]
     // toJSON = () => {
