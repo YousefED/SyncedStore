@@ -149,4 +149,24 @@ describe("reactive-crdt", () => {
     let copy = Array.from(store1.arr);
     expect(copy).toStrictEqual([0, 1]);
   });
+
+  it("indexOf() for array", () => {
+    const doc1 = new Y.Doc();
+    let store1 = crdt<any>(doc1);
+    store1.arr = [0, 1];
+    let index = store1.arr.indexOf(1);
+    expect(index).toStrictEqual(1);
+  });
+
+  it("splice() for array", () => {
+    const doc1 = new Y.Doc();
+    let store1 = crdt<any>(doc1);
+    store1.arr = [0, 1];
+    let deleted = store1.arr.splice(1);
+    expect(deleted).toStrictEqual([1]);
+    expect(Array.from(store1.arr)).toStrictEqual([0]);
+    deleted = store1.arr.splice(1, 0, 1, 2);
+    expect(deleted).toStrictEqual([]);
+    expect(Array.from(store1.arr)).toStrictEqual([0, 1, 2]);
+  });
 });

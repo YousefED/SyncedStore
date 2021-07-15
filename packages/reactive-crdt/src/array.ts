@@ -69,7 +69,18 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
 
     map: function() {
       return [].map.apply(slice.apply(this), arguments);
-    } as T[]["map"]
+    } as T[]["map"],
+
+    indexOf: function() {
+      return [].indexOf.apply(slice.apply(this), arguments);
+    } as T[]["indexOf"],
+
+    splice: function() {
+      let deleted = slice.apply(this, arguments);
+      arr.delete(arguments[0], arguments[1]);
+      ret.push(...(Array.from(arguments).slice(2) as any));
+      return deleted;
+    } as T[]["splice"]
     // toJSON = () => {
     //   return this.arr.toJSON() slice();
     // };
