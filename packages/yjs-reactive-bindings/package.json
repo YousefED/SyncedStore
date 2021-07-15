@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "@types/eslint": "6.8.0",
+    "rimraf": "^3.0.2",
     "yjs": "npm:type-created-yjs@13.5.11"
   },
   "devDependencies": {
@@ -18,7 +19,7 @@
   },
   "scripts": {
     "test": "echo \"Run tests from root\" && exit 1",
-    "clean": "rm -rf dist && rm -rf types",
+    "clean": "rimraf dist && rimraf types",
     "build": "npm run clean && microbundle build --raw --no-compress --tsconfig tsconfig.build.json",
     "watch": "microbundle watch"
   },
