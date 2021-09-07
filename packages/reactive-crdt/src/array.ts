@@ -27,6 +27,17 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
       return ret;
     });
   } as T[]["slice"];
+  const wrapItems = function wrapItems(items) {
+    return items.map(item => {
+      const wrapped = crdtValue(item as any); // TODO
+      const internal = getInternalAny(wrapped) || wrapped;
+      if (internal instanceof Box) {
+        return internal.value;
+      } else {
+        return internal;
+      }
+    });
+  };
 
   const ret = {
     // get length() {
@@ -38,17 +49,7 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
     slice,
     unshift: arr.unshift.bind(arr) as Y.Array<T>["unshift"],
     push: (...items: T[]) => {
-      const wrappedItems = items.map(item => {
-        const wrapped = crdtValue(item as any); // TODO
-        const internal = getInternalAny(wrapped) || wrapped;
-        if (internal instanceof Box) {
-          return internal.value;
-        } else {
-          return internal;
-        }
-      });
-
-      arr.push(wrappedItems);
+      arr.push(wrapItems(items));
       return arr.length;
     },
 
@@ -69,7 +70,21 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
 
     map: function() {
       return [].map.apply(slice.apply(this), arguments);
-    } as T[]["map"]
+    } as T[]["map"],
+
+    indexOf: function() {
+      return [].indexOf.apply(slice.apply(this), arguments);
+    } as T[]["indexOf"],
+
+    splice: function() {
+      let start = arguments[0] < 0 ? arr.length - Math.abs(arguments[0]) : arguments[0];
+      let deleteCount = arguments[1];
+      let items = Array.from(Array.from(arguments).slice(2));
+      let deleted = slice.apply(this, [start, Number.isInteger(deleteCount) ? start + deleteCount : undefined]);
+      arr.delete(start, deleteCount);
+      arr.insert(start, wrapItems(items));
+      return deleted;
+    } as T[]["splice"]
     // toJSON = () => {
     //   return this.arr.toJSON() slice();
     // };
