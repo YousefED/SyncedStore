@@ -1,32 +1,37 @@
 import * as Y from "yjs";
 import { Atom, createAtom } from "../observableProvider";
 
-const xmlAtoms = new WeakMap<Y.XmlFragment | Y.XmlText, Atom>();
+const xmlsObserved = new WeakSet<Y.XmlFragment>();
 
 export function observeXml(value: Y.XmlFragment) {
-  let atom = xmlAtoms.get(value);
-  if (!atom) {
-    const handler = (event: Y.YXmlEvent) => {
-      if (
-        event.changes.added.size ||
-        event.changes.deleted.size ||
-        event.changes.keys.size ||
-        event.changes.delta.length
-      ) {
-        atom!.reportChanged();
-      }
-    };
-
-    atom = createAtom(
-      "xml",
-      () => {
-        value.observe(handler);
-      },
-      () => {
-        value.unobserve(handler);
-      }
-    );
+  if (xmlsObserved.has(value)) {
+    // already patched
+    return value;
   }
+  xmlsObserved.add(value);
+
+  let atom: Atom | undefined;
+
+  const handler = (event: Y.YXmlEvent) => {
+    if (
+      event.changes.added.size ||
+      event.changes.deleted.size ||
+      event.changes.keys.size ||
+      event.changes.delta.length
+    ) {
+      atom!.reportChanged();
+    }
+  };
+
+  atom = createAtom(
+    "xml",
+    () => {
+      value.observe(handler);
+    },
+    () => {
+      value.unobserve(handler);
+    }
+  );
 
   function patch(method: string) {
     const originalFunction = value[method];

@@ -35,9 +35,24 @@ export function observeYJS(element: Y.AbstractType<any> | Y.Doc) {
   return element;
 }
 
-export function makeYJSObservable() {
-  Y.observeTypeCreated(el => {
-    observeYJS(el);
+export function makeYDocObservable(doc: Y.Doc) {
+  // based on https://github.com/yjs/yjs/pull/298#issuecomment-937636849
+  doc.on("beforeObserverCalls", tr => {
+    tr.afterState.forEach((clock, client) => {
+      const beforeClock = tr.beforeState.get(client) || 0;
+      if (beforeClock !== clock) {
+        const structs = /** @type {Array<GC|Item>} */ tr.doc.store.clients.get(client);
+        const firstChangePos = Y.findIndexSS(structs, beforeClock);
+        for (let i = structs.length - 1; i >= firstChangePos; i--) {
+          structs[i].content?.getContent().forEach(content => {
+            if (content instanceof Y.AbstractType) {
+              observeYJS(content);
+              // console.log(content, "is a created type type");
+            }
+          });
+        }
+      }
+    });
   });
 }
 
