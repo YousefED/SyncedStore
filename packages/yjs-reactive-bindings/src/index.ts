@@ -35,10 +35,38 @@ export function observeYJS(element: Y.AbstractType<any> | Y.Doc) {
   return element;
 }
 
-export function makeYJSObservable() {
-  Y.observeTypeCreated(el => {
-    observeYJS(el);
+function makeYDocRootLevelTypesObservable(doc: Y.Doc) {
+  doc.share.forEach(type => {
+    // the explicit check is necessary because we sometimes initialize "anonymous" types that the user can't (and shouldn't) access.
+    if (type.constructor !== Y.AbstractType) {
+      observeYJS(type);
+    }
   });
+}
+
+export function makeYDocObservable(doc: Y.Doc) {
+  // based on https://github.com/yjs/yjs/pull/298#issuecomment-937636849
+  doc.on("beforeObserverCalls", tr => {
+    makeYDocRootLevelTypesObservable(doc);
+    tr.afterState.forEach((clock, client) => {
+      const beforeClock = tr.beforeState.get(client) || 0;
+      if (beforeClock !== clock) {
+        const structs = /** @type {Array<GC|Item>} */ tr.doc.store.clients.get(client);
+        const firstChangePos = Y.findIndexSS(structs, beforeClock);
+        for (let i = structs.length - 1; i >= firstChangePos; i--) {
+          if (!structs[i].deleted) {
+            structs[i].content?.getContent().forEach(content => {
+              if (content instanceof Y.AbstractType) {
+                observeYJS(content);
+                // console.log(content, "is a created type type");
+              }
+            });
+          }
+        }
+      }
+    });
+  });
+  makeYDocRootLevelTypesObservable(doc);
 }
 
 export { useMobxBindings, useReactiveBindings, useVueBindings } from "./observableProvider";

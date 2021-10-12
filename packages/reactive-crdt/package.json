@@ -30,8 +30,10 @@
   "dependencies": {
     "@reactivedata/reactive": "0.1.13",
     "@reactivedata/yjs-reactive-bindings": "^0.1.8",
-    "@types/eslint": "6.8.0",
-    "yjs": "npm:type-created-yjs@13.5.11"
+    "@types/eslint": "6.8.0"
+  },
+  "peerDependencies": {
+    "yjs": "^13.5.13"
   },
   "devDependencies": {
     "microbundle": "^0.13.0",
