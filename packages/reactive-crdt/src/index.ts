@@ -1,5 +1,5 @@
 import * as reactive from "@reactivedata/reactive";
-import { makeYDocObservable, observeYJS, useReactiveBindings } from "@reactivedata/yjs-reactive-bindings";
+import { makeYDocObservable, useReactiveBindings } from "@reactivedata/yjs-reactive-bindings";
 import * as Y from "yjs";
 import { CRDTArray, crdtArray } from "./array";
 import { CRDTObject, crdtObject } from "./object";
@@ -61,10 +61,6 @@ export function crdtValue<T extends NestedSchemaType>(value: T | Y.Array<any> | 
 
 export function crdt<T extends ObjectSchemaType>(doc: Y.Doc) {
   makeYDocObservable(doc);
-
-  // FIX for https://github.com/yjs/yjs/pull/298#issuecomment-938593396
-  // would be nice if root types are handled by makeYDocObservable
-  observeYJS(doc.getMap());
   return crdtObject({} as T, doc.getMap());
 }
 
