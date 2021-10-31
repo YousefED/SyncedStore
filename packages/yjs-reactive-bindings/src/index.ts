@@ -54,7 +54,7 @@ function makeStructsObservable(structs: (Y.Item | Y.GC)[], startPos: number) {
       }
       struct.content?.getContent().forEach(content => {
         if (content instanceof Y.AbstractType) {
-          console.log("struct", content)
+          // console.log("struct", content)
           observeYJS(content);
           // console.log(content, "is a created type type");
         }
