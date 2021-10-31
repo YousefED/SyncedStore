@@ -1,7 +1,7 @@
 {
   "name": "@reactivedata/yjs-reactive-bindings",
   "description": "A bridge between Reactive programming libraries (reactive, Vue or MobX) and Yjs",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": false,
   "main": "dist/yjs-reactive-bindings.js",
   "module": "dist/yjs-reactive-bindings.module.js",
@@ -17,8 +17,8 @@
   },
   "devDependencies": {
     "microbundle": "^0.13.0",
-    "rimraf": "^3.0.2",
-    "mobx": "^6.3.5"
+    "mobx": "^6.3.5",
+    "rimraf": "^3.0.2"
   },
   "scripts": {
     "test": "echo \"Run tests from root\" && exit 1",
