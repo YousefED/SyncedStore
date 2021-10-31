@@ -39,34 +39,61 @@ function makeYDocRootLevelTypesObservable(doc: Y.Doc) {
   doc.share.forEach(type => {
     // the explicit check is necessary because we sometimes initialize "anonymous" types that the user can't (and shouldn't) access.
     if (type.constructor !== Y.AbstractType) {
+      // console.log("root", type)
       observeYJS(type);
     }
   });
 }
 
+function makeStructsObservable(structs: (Y.Item | Y.GC)[], startPos: number) {
+  for (let i = structs.length - 1; i >= startPos; i--) {
+    let struct = structs[i];
+    if (!struct.deleted) {
+      if (struct instanceof Y.GC) {
+        continue;
+      }
+      struct.content?.getContent().forEach(content => {
+        if (content instanceof Y.AbstractType) {
+          console.log("struct", content)
+          observeYJS(content);
+          // console.log(content, "is a created type type");
+        }
+      });
+    }
+  }
+}
+
 export function makeYDocObservable(doc: Y.Doc) {
   // based on https://github.com/yjs/yjs/pull/298#issuecomment-937636849
-  doc.on("beforeObserverCalls", tr => {
+
+  // observe all structs already in the document
+  doc.store.clients.forEach(entry => {
+    if (entry) {
+      makeStructsObservable(entry, 0);
+    }
+  });
+
+  // observe all root-types
+  makeYDocRootLevelTypesObservable(doc);
+
+  // observe newly created types from now on
+  doc.on("beforeObserverCalls", (tr: Y.Transaction) => {
+    // observe new root types
     makeYDocRootLevelTypesObservable(doc);
+
+    // observe new structs
     tr.afterState.forEach((clock, client) => {
       const beforeClock = tr.beforeState.get(client) || 0;
       if (beforeClock !== clock) {
-        const structs = /** @type {Array<GC|Item>} */ tr.doc.store.clients.get(client);
-        const firstChangePos = Y.findIndexSS(structs, beforeClock);
-        for (let i = structs.length - 1; i >= firstChangePos; i--) {
-          if (!structs[i].deleted) {
-            structs[i].content?.getContent().forEach(content => {
-              if (content instanceof Y.AbstractType) {
-                observeYJS(content);
-                // console.log(content, "is a created type type");
-              }
-            });
-          }
+        const structs = tr.doc.store.clients.get(client);
+        if (!structs) {
+          return;
         }
+        const firstChangePos = Y.findIndexSS(structs, beforeClock);
+        makeStructsObservable(structs, firstChangePos);
       }
     });
   });
-  makeYDocRootLevelTypesObservable(doc);
 }
 
 export { useMobxBindings, useReactiveBindings, useVueBindings } from "./observableProvider";

@@ -17,7 +17,8 @@
   },
   "devDependencies": {
     "microbundle": "^0.13.0",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "mobx": "^6.3.5"
   },
   "scripts": {
     "test": "echo \"Run tests from root\" && exit 1",
