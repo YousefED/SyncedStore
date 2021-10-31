@@ -177,4 +177,32 @@ describe("reactive-crdt", () => {
     expect(deleted).toEqual([4]);
     expect(store1.arr).toEqual([0, 1]);
   });
+
+  it("move already inserted object to different location in document (nested)", () => {
+    const doc1 = new Y.Doc();
+    let store1 = crdt<any>(doc1);
+    store1.mymap = {};
+
+    expect(() => (store1.myothermap = { test: store1.mymap })).toThrow(
+      "Not supported: reassigning object that already occurs in the tree."
+    );
+  });
+
+  it("move already inserted object to different location in document (root)", () => {
+    const doc1 = new Y.Doc();
+    let store1 = crdt<any>(doc1);
+    store1.mymap = {};
+    expect(() => (store1.myothermap = store1.mymap)).toThrow(
+      "Not supported: reassigning object that already occurs in the tree."
+    );
+  });
+
+  it("move already inserted array to different location in document", () => {
+    const doc1 = new Y.Doc();
+    let store1 = crdt<any>(doc1);
+    store1.myarr = [{ foo: "bar" }];
+    expect(() => store1.myarr.push(store1.myarr[0])).toThrow(
+      "Not supported: reassigning object that already occurs in the tree."
+    );
+  });
 });

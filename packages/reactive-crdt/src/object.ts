@@ -30,12 +30,17 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
         throw new Error();
       }
       const wrapped = crdtValue(value); // TODO: maybe set cache
-      const internal = getInternalAny(wrapped) || wrapped;
-      if (internal instanceof Box) {
-        map.set(p, internal.value);
-      } else {
-        map.set(p, internal);
+      let valueToSet = getInternalAny(wrapped) || wrapped;
+
+      if (valueToSet instanceof Box) {
+        valueToSet = valueToSet.value;
       }
+
+      if (valueToSet instanceof Y.AbstractType && valueToSet.parent) {
+        throw new Error("Not supported: reassigning object that already occurs in the tree.");
+      }
+      map.set(p, valueToSet);
+
       return true;
     },
     get: (target, p, receiver) => {

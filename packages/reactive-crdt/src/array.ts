@@ -30,12 +30,14 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
   const wrapItems = function wrapItems(items) {
     return items.map(item => {
       const wrapped = crdtValue(item as any); // TODO
-      const internal = getInternalAny(wrapped) || wrapped;
-      if (internal instanceof Box) {
-        return internal.value;
-      } else {
-        return internal;
+      let valueToSet = getInternalAny(wrapped) || wrapped;
+      if (valueToSet instanceof Box) {
+        valueToSet = valueToSet.value;
       }
+      if (valueToSet instanceof Y.AbstractType && valueToSet.parent) {
+        throw new Error("Not supported: reassigning object that already occurs in the tree.");
+      }
+      return valueToSet;
     });
   };
 
