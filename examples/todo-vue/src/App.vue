@@ -73,7 +73,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { crdt, Y } from "@reactivedata/reactive-crdt";
+import { crdt, Y, filterArray } from "@reactivedata/reactive-crdt";
 import { WebrtcProvider } from "y-webrtc";
 
 // Setup Yjs
@@ -90,11 +90,11 @@ const filters = {
     return todos;
   },
   active(todos: Todo[]) {
-    return todos.filter(todo => !todo.completed);
+    return todos.filter((todo) => !todo.completed);
   },
   completed(todos: Todo[]) {
-    return todos.filter(todo => todo.completed);
-  }
+    return todos.filter((todo) => todo.completed);
+  },
 };
 
 export default defineComponent({
@@ -104,7 +104,7 @@ export default defineComponent({
       newTodo: "",
       editedTodo: null as null | Todo,
       visibility: "all" as "all" | "active" | "completed",
-      beforeEditCache: ""
+      beforeEditCache: "",
     };
   },
 
@@ -122,11 +122,11 @@ export default defineComponent({
         return (this as any).remaining === 0;
       },
       set(value) {
-        (this.shared.todos as Todo[]).forEach(todo => {
+        (this.shared.todos as Todo[]).forEach((todo) => {
           todo.completed = value;
         });
-      }
-    }
+      },
+    },
   },
 
   // methods that implement data logic.
@@ -142,7 +142,7 @@ export default defineComponent({
       }
       this.shared.todos.push({
         title: value,
-        completed: false
+        completed: false,
       });
       this.newTodo = "";
     },
@@ -173,8 +173,8 @@ export default defineComponent({
     },
 
     removeCompleted() {
-      this.shared.todos = filters.active(this.shared.todos);
-    }
+      filterArray(this.shared.todos, (t) => !t.completed);
+    },
   },
 
   // a custom directive to wait for the DOM to be updated
@@ -186,8 +186,8 @@ export default defineComponent({
         if (binding.value) {
           el.focus();
         }
-      }
-    }
-  }
+      },
+    },
+  },
 });
 </script>
