@@ -10,7 +10,10 @@ Have a look at the collaborative Todo list examples ([React](https://github.com/
 
 [![example app screencapture](https://raw.githubusercontent.com/YousefED/reactive-crdt/main/reactivecrdt.gif)](https://github.com/yousefED/reactive-crdt/tree/main/examples/)
 
-View source and run: [React](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-react), [Vue](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-vue).
+- Open live demo: [React](https://sm8tt.csb.app/) or [Vue](https://78oyq.csb.app/) (Of course, open multiple times to test multiplayer)
+- Edit / view on Codesandbox [React](https://codesandbox.io/s/todo-react-sm8tt) / [Vue](https://codesandbox.io/s/todo-vue-78oyq)
+
+Source in: [examples/todo-react](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-react) and [examples/todo-vue](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-vue).
 
 # Quick overview
 
