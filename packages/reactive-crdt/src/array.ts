@@ -1,14 +1,14 @@
 import { $reactive, $reactiveproxy } from "@reactivedata/reactive";
 import * as Y from "yjs";
 import { crdtValue, getInternalAny, INTERNAL_SYMBOL, ObjectSchemaType } from ".";
-import { yToWrappedCache } from "./internal";
+import { parseYjsReturnValue, yToWrappedCache } from "./internal";
 import { CRDTObject } from "./object";
-import { Raw } from "./raw";
+import { Box } from "./boxed";
 import { isYType } from "./types";
 
 export type CRDTArray<T> = {
   [INTERNAL_SYMBOL]?: Y.Array<T>;
-  [n: number]: T extends Raw<infer A>
+  [n: number]: T extends Box<infer A>
     ? A
     : T extends Array<infer A>
     ? CRDTArray<A>
@@ -23,32 +23,35 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
     (arr as any)._implicitObserver = ic;
     const items = arr.slice.bind(arr).apply(arr, arguments);
     return items.map(item => {
-      if (!isYType(item)) {
-        return item;
-      }
-
-      item._implicitObserver = ic;
-      if (!yToWrappedCache.has(item)) {
-        const wrapped = crdtValue(item);
-        yToWrappedCache.set(item, wrapped);
-      }
-      return yToWrappedCache.get(item);
+      const ret = parseYjsReturnValue(item, ic);
+      return ret;
     });
   } as T[]["slice"];
+  const wrapItems = function wrapItems(items) {
+    return items.map(item => {
+      const wrapped = crdtValue(item as any); // TODO
+      let valueToSet = getInternalAny(wrapped) || wrapped;
+      if (valueToSet instanceof Box) {
+        valueToSet = valueToSet.value;
+      }
+      if (valueToSet instanceof Y.AbstractType && valueToSet.parent) {
+        throw new Error("Not supported: reassigning object that already occurs in the tree.");
+      }
+      return valueToSet;
+    });
+  };
 
-  return {
-    get length() {
-      return arr.length;
-    },
+  const ret = {
+    // get length() {
+    //   return arr.length;
+    // },
+    // set length(val: number) {
+    //   throw new Error("set length of yjs array is unsupported");
+    // },
     slice,
     unshift: arr.unshift.bind(arr) as Y.Array<T>["unshift"],
     push: (...items: T[]) => {
-      const wrappedItems = items.map(item => {
-        const wrapped = crdtValue(item as any); // TODO: fix any
-        const internal = getInternalAny(wrapped);
-        return internal || wrapped;
-      });
-      arr.push(wrappedItems as any); // TODO: fix any
+      arr.push(wrapItems(items));
       return arr.length;
     },
 
@@ -69,12 +72,36 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
 
     map: function() {
       return [].map.apply(slice.apply(this), arguments);
-    } as T[]["map"]
+    } as T[]["map"],
+
+    indexOf: function() {
+      return [].indexOf.apply(slice.apply(this), arguments);
+    } as T[]["indexOf"],
+
+    splice: function() {
+      let start = arguments[0] < 0 ? arr.length - Math.abs(arguments[0]) : arguments[0];
+      let deleteCount = arguments[1];
+      let items = Array.from(Array.from(arguments).slice(2));
+      let deleted = slice.apply(this, [start, Number.isInteger(deleteCount) ? start + deleteCount : undefined]);
+      arr.delete(start, deleteCount);
+      arr.insert(start, wrapItems(items));
+      return deleted;
+    } as T[]["splice"]
     // toJSON = () => {
     //   return this.arr.toJSON() slice();
     // };
     // delete = this.arr.delete.bind(this.arr) as (Y.Array<T>)["delete"];
   };
+
+  // this is necessary to prevent errors like "trap reported non-configurability for property 'length' which is either non-existent or configurable in the proxy target" when adding support for ownKeys and Reflect.keysx
+  Object.defineProperty(ret, "length", {
+    enumerable: false,
+    configurable: false,
+    writable: true,
+    value: arr.length
+  });
+
+  return ret;
 }
 
 function propertyToNumber(p: string | number | symbol) {
@@ -112,21 +139,15 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
       }
 
       if (typeof p === "number") {
+        let ic: any;
         if (receiver && receiver[$reactiveproxy]) {
-          let ic = receiver[$reactiveproxy]?.implicitObserver;
+          ic = receiver[$reactiveproxy]?.implicitObserver;
           (arr as any)._implicitObserver = ic;
         } else {
           // console.warn("no receiver getting property", p);
         }
         let ret = arr.get(p) as any;
-
-        if (isYType(ret)) {
-          if (!yToWrappedCache.has(ret)) {
-            const wrapped = crdtValue(ret);
-            yToWrappedCache.set(ret, wrapped);
-          }
-          return yToWrappedCache.get(ret);
-        }
+        ret = parseYjsReturnValue(ret, ic);
         return ret;
       }
 
@@ -139,6 +160,9 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
         return Reflect.get(values, p);
       }
 
+      if (p === "length") {
+        return arr.length;
+      }
       // forward to arrayimplementation
       const ret = Reflect.get(target, p, receiver);
       return ret;
@@ -175,11 +199,30 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
         return false;
       }
     },
+    getOwnPropertyDescriptor(target, pArg) {
+      const p = propertyToNumber(pArg);
+      if (p === "length") {
+        return {
+          enumerable: false,
+          configurable: false,
+          writable: true
+        };
+      }
+      if (typeof p === "number" && p >= 0 && p < arr.length) {
+        return {
+          enumerable: true,
+          configurable: true,
+          writable: true
+        };
+      }
+      return undefined;
+    },
     ownKeys: target => {
       const keys: string[] = [];
       for (let i = 0; i < arr.length; i++) {
         keys.push(i + "");
       }
+      keys.push("length");
       return keys;
     }
   });

@@ -6,7 +6,14 @@ Reactive CRDT is an easy-to-use library for building collaborative applications 
 
 # Example
 
-Have a look at the collaborative Todo list examples ([React](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-react), [Vue](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-vue)) to get up to speed.
+Have a look at the collaborative Todo list examples ([React](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-react), [Vue](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-vue)) to get up to speed. Or, read along for a quick overview.
+
+[![example app screencapture](https://raw.githubusercontent.com/YousefED/reactive-crdt/main/reactivecrdt.gif)](https://github.com/yousefED/reactive-crdt/tree/main/examples/)
+
+- Open live demo: [React](https://sm8tt.csb.app/) or [Vue](https://78oyq.csb.app/) (Of course, open multiple times to test multiplayer)
+- Edit / view on Codesandbox [React](https://codesandbox.io/s/todo-react-sm8tt) / [Vue](https://codesandbox.io/s/todo-vue-78oyq)
+
+Source in: [examples/todo-react](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-react) and [examples/todo-vue](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-vue).
 
 # Quick overview
 
@@ -14,6 +21,7 @@ Setup:
 
 ```typescript
 import { crdt, Y } from "@reactivedata/reactive-crdt";
+import { WebrtcProvider } from "y-webrtc";
 
 // Create a document that syncs automatically using Y-WebRTC
 const doc = new Y.Doc();
@@ -68,7 +76,7 @@ export default function App() {
       <ul>
         {state.vehicles
           .map((v) => {
-            <li>{v.type}</li>;
+            return <li>{v.type}</li>;
           })}
       </ul>
       <input type="text" onKeyPress=((event) => {
@@ -91,7 +99,6 @@ export default function App() {
 Reactive CRDT works great with Vues reactive programming model. See the [Vue Todo example](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-vue) for an example application. In short, just put an object returned by the `crdt` function on a Vue `data()` object:
 
 ```typescript
-import { useVueBindings } from "@reactivedata/reactive-crdt";
 import * as Vue from "vue";
 import { crdt, Y, useVueBindings } from "@reactivedata/reactive-crdt";
 import { WebrtcProvider } from "y-webrtc";

@@ -1,7 +1,7 @@
 {
   "name": "@reactivedata/yjs-reactive-bindings",
   "description": "A bridge between Reactive programming libraries (reactive, Vue or MobX) and Yjs",
-  "version": "0.1.2",
+  "version": "0.2.3",
   "private": false,
   "main": "dist/yjs-reactive-bindings.js",
   "module": "dist/yjs-reactive-bindings.module.js",
@@ -10,15 +10,19 @@
   "types": "types/index.d.ts",
   "license": "MIT",
   "dependencies": {
-    "@types/eslint": "6.8.0",
-    "yjs": "git+https://github.com/YousefED/yjs#patched-installable"
+    "@types/eslint": "6.8.0"
+  },
+  "peerDependencies": {
+    "yjs": "^13.5.13"
   },
   "devDependencies": {
-    "microbundle": "^0.13.0"
+    "microbundle": "^0.13.0",
+    "mobx": "^6.3.5",
+    "rimraf": "^3.0.2"
   },
   "scripts": {
     "test": "echo \"Run tests from root\" && exit 1",
-    "clean": "rm -rf dist && rm -rf types",
+    "clean": "rimraf dist && rimraf types",
     "build": "npm run clean && microbundle build --raw --no-compress --tsconfig tsconfig.build.json",
     "watch": "microbundle watch"
   },

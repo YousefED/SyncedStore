@@ -2,13 +2,13 @@ import { $reactive, $reactiveproxy, reactive } from "@reactivedata/reactive";
 import * as Y from "yjs";
 import { crdtValue, getInternalAny, INTERNAL_SYMBOL, ObjectSchemaType } from ".";
 import { CRDTArray } from "./array";
-import { yToWrappedCache } from "./internal";
-import { Raw } from "./raw";
+import { parseYjsReturnValue, yToWrappedCache } from "./internal";
+import { Box } from "./boxed";
 import { isYType } from "./types";
 
 export type CRDTObject<T extends ObjectSchemaType> = {
-  [P in keyof T]?: T[P] extends Raw<infer A>
-    ? A
+  [P in keyof T]?: T[P] extends Box<infer A>
+    ? Box<A>
     : T[P] extends Array<infer A>
     ? CRDTArray<A>
     : T[P] extends ObjectSchemaType
@@ -30,8 +30,17 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
         throw new Error();
       }
       const wrapped = crdtValue(value); // TODO: maybe set cache
-      const internal = getInternalAny(wrapped) || wrapped;
-      map.set(p, internal);
+      let valueToSet = getInternalAny(wrapped) || wrapped;
+
+      if (valueToSet instanceof Box) {
+        valueToSet = valueToSet.value;
+      }
+
+      if (valueToSet instanceof Y.AbstractType && valueToSet.parent) {
+        throw new Error("Not supported: reassigning object that already occurs in the tree.");
+      }
+      map.set(p, valueToSet);
+
       return true;
     },
     get: (target, p, receiver) => {
@@ -42,23 +51,15 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
         return Reflect.get(target, p);
         // throw new Error("get non string parameter");
       }
+      let ic: any;
       if (receiver && receiver[$reactiveproxy]) {
-        let ic = receiver[$reactiveproxy]?.implicitObserver;
+        ic = receiver[$reactiveproxy]?.implicitObserver;
         (map as any)._implicitObserver = ic;
       } else {
         // console.warn("no receiver getting property", p);
       }
       let ret = map.get(p);
-
-      if (isYType(ret)) {
-        if (!yToWrappedCache.has(ret)) {
-          const wrapped = crdtValue(ret);
-          yToWrappedCache.set(ret, wrapped);
-        }
-        ret = yToWrappedCache.get(ret);
-
-        return ret;
-      }
+      ret = parseYjsReturnValue(ret, ic);
       return ret;
     },
     deleteProperty: (target, p) => {
@@ -77,6 +78,15 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
         return true;
       }
       return false;
+    },
+    getOwnPropertyDescriptor(target, p) {
+      if (typeof p === "string" && map.has(p)) {
+        return {
+          enumerable: true,
+          configurable: true
+        };
+      }
+      return undefined;
     },
     ownKeys: target => {
       return Array.from(map.keys());

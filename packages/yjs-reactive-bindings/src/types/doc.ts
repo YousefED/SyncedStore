@@ -12,7 +12,7 @@ export function observeDoc(doc: Y.Doc) {
 
   const originalGet = doc.get;
 
-  doc.get = function (key: string) {
+  doc.get = function(key: string) {
     if (typeof key !== "string") {
       throw new Error("unexpected");
     }

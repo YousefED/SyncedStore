@@ -1,6 +1,6 @@
 import React from "react";
 import { useReactive } from "@reactivedata/react";
-
+import { filterArray } from "@reactivedata/reactive-crdt";
 import "./App.css";
 import { globalStore } from "./store";
 import { TodoList } from "./TodoList";
@@ -16,8 +16,8 @@ function App() {
     }
   }
 
-  const activeTodos = store.todos.filter((t) => !t.completed);
-  const hasCompletedTodos = !!store.todos.find((t) => t.completed);
+  const activeTodos = store.todos.filter(t => !t.completed);
+  const hasCompletedTodos = !!store.todos.find(t => t.completed);
 
   return (
     <div className="todoRoot">
@@ -34,8 +34,8 @@ function App() {
                 id="toggle-all"
                 className="toggle-all"
                 type="checkbox"
-                onClick={(event) =>
-                  store.todos.forEach((t) => {
+                onClick={event =>
+                  store.todos.forEach(t => {
                     debugger;
                     t.completed = (event.target as HTMLInputElement).checked;
                   })
@@ -56,7 +56,7 @@ function App() {
                   <a
                     className={store.view === "all" ? "selected" : ""}
                     href="#"
-                    onClick={(e) => {
+                    onClick={e => {
                       store.view = "all";
                       e.preventDefault();
                     }}
@@ -68,7 +68,7 @@ function App() {
                   <a
                     className={store.view === "active" ? "selected" : ""}
                     href="#"
-                    onClick={(e) => {
+                    onClick={e => {
                       store.view = "active";
                       e.preventDefault();
                     }}
@@ -80,7 +80,7 @@ function App() {
                   <a
                     className={store.view === "completed" ? "selected" : ""}
                     href="#"
-                    onClick={(e) => {
+                    onClick={e => {
                       store.view = "completed";
                       e.preventDefault();
                     }}
@@ -94,7 +94,7 @@ function App() {
                 <button
                   className="clear-completed"
                   onClick={() => {
-                    store.todos = store.todos.filter((t) => !t.completed);
+                    filterArray(store.todos, t => !t.completed);
                   }}
                 >
                   Clear completed

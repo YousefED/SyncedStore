@@ -4,6 +4,11 @@ This example demonstrates how you can use Reactive CRDT to build a collaborative
 
 The code is based on the [official Vue 3 Todo MVC example](https://v3.vuejs.org/examples/todomvc.html). Minimum changes were needed to make the App work with Reactive CRDT.
 
+# Live demo
+
+- [Open live demo](https://78oyq.csb.app/) (Of course, open multiple times to test multiplayer)
+- [Open source on Codesandbox](https://codesandbox.io/s/todo-vue-78oyq)
+
 # Running
 
     npm install
