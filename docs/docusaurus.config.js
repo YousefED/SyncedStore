@@ -22,6 +22,7 @@ module.exports = {
       }
     ]
   ],
+
   themeConfig: {
     navbar: {
       title: "My Site",

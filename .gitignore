@@ -29,4 +29,3 @@ firebase-debug.log
 .env
 .eslintcache
 packages/reactive-crdt/README.md
-docs

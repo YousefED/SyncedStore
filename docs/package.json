@@ -15,8 +15,9 @@
     "typedoc": "typedoc --tsconfig ../packages/reactive-crdt/tsconfig.json --entryPoints index"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-alpha.75",
-    "@docusaurus/preset-classic": "2.0.0-alpha.75",
+    "@codesandbox/sandpack-react": "^0.1.15",
+    "@docusaurus/core": "^2.0.0-beta.8",
+    "@docusaurus/preset-classic": "^2.0.0-beta.8",
     "@mdx-js/react": "^1.6.21",
     "@svgr/webpack": "^5.5.0",
     "clsx": "^1.1.1",
@@ -38,8 +39,8 @@
     ]
   },
   "devDependencies": {
-    "docusaurus-plugin-typedoc": "^0.14.1",
-    "typedoc": "^0.20.36",
-    "typedoc-plugin-markdown": "^3.8.0"
+    "docusaurus-plugin-typedoc": "^0.16.3",
+    "typedoc": "^0.22.7",
+    "typedoc-plugin-markdown": "^3.11.3"
   }
 }
