@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useReactive } from "@reactivedata/react";
 import { filterArray } from "@reactivedata/reactive-crdt";
 import "./App.css";
@@ -7,7 +7,7 @@ import { TodoList } from "./TodoList";
 
 function App() {
   const store = useReactive(globalStore);
-
+  const [view, setView] = useState<"all" | "active" | "completed">("all");
   function onKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === "Enter") {
       const target = event.target as HTMLInputElement;
@@ -16,8 +16,8 @@ function App() {
     }
   }
 
-  const activeTodos = store.todos.filter(t => !t.completed);
-  const hasCompletedTodos = !!store.todos.find(t => t.completed);
+  const activeTodos = store.todos.filter((t) => !t.completed);
+  const hasCompletedTodos = !!store.todos.find((t) => t.completed);
 
   return (
     <div className="todoRoot">
@@ -34,15 +34,14 @@ function App() {
                 id="toggle-all"
                 className="toggle-all"
                 type="checkbox"
-                onClick={event =>
-                  store.todos.forEach(t => {
-                    debugger;
+                onClick={(event) =>
+                  store.todos.forEach((t) => {
                     t.completed = (event.target as HTMLInputElement).checked;
                   })
                 }
               />
               <label htmlFor="toggle-all">Mark all as complete</label>
-              <TodoList></TodoList>
+              <TodoList view={view}></TodoList>
             </section>
             {/* This footer should be hidden by default and shown when there are todos  */}
             <footer className="footer">
@@ -54,10 +53,10 @@ function App() {
               <ul className="filters">
                 <li>
                   <a
-                    className={store.view === "all" ? "selected" : ""}
+                    className={view === "all" ? "selected" : ""}
                     href="#"
-                    onClick={e => {
-                      store.view = "all";
+                    onClick={(e) => {
+                      setView("all");
                       e.preventDefault();
                     }}
                   >
@@ -66,10 +65,10 @@ function App() {
                 </li>
                 <li>
                   <a
-                    className={store.view === "active" ? "selected" : ""}
+                    className={view === "active" ? "selected" : ""}
                     href="#"
-                    onClick={e => {
-                      store.view = "active";
+                    onClick={(e) => {
+                      setView("active");
                       e.preventDefault();
                     }}
                   >
@@ -78,10 +77,10 @@ function App() {
                 </li>
                 <li>
                   <a
-                    className={store.view === "completed" ? "selected" : ""}
+                    className={view === "completed" ? "selected" : ""}
                     href="#"
-                    onClick={e => {
-                      store.view = "completed";
+                    onClick={(e) => {
+                      setView("completed");
                       e.preventDefault();
                     }}
                   >
@@ -94,7 +93,7 @@ function App() {
                 <button
                   className="clear-completed"
                   onClick={() => {
-                    filterArray(store.todos, t => !t.completed);
+                    filterArray(store.todos, (t) => !t.completed);
                   }}
                 >
                   Clear completed

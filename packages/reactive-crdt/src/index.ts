@@ -5,6 +5,7 @@ import { CRDTArray, crdtArray } from "./array";
 import { CRDTObject, crdtObject } from "./object";
 import { Box } from "./boxed";
 import { JSONValue } from "./types";
+import { crdtDoc, DocTypeDescription } from "./doc";
 export { useMobxBindings, useVueBindings } from "@reactivedata/yjs-reactive-bindings";
 export * from "./util";
 
@@ -60,9 +61,10 @@ export function crdtValue<T extends NestedSchemaType>(value: T | Y.Array<any> | 
   }
 }
 
-export function crdt<T extends ObjectSchemaType>(doc: Y.Doc) {
+export function crdt<T extends DocTypeDescription>(doc: Y.Doc, initialValue: T) {
   makeYDocObservable(doc);
-  return crdtObject({} as T, doc.getMap());
+
+  return crdtDoc(doc, initialValue);
 }
 
 export type NestedSchemaType = JSONValue | ObjectSchemaType | Box<any> | Y.AbstractType<any> | NestedSchemaType[];
