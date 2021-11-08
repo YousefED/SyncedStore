@@ -100,4 +100,28 @@ describe("test implicit observer", () => {
 
     expect(implicitStore2.xml.toString()).toBe("<p>text</p>");
   });
+
+  it("implicit works with json stringify", () => {
+    let x = JSON.stringify(implicitStore1);
+
+    expect(fnSpy1).toBeCalledTimes(0);
+
+    implicitStore1.arr[0] = 9;
+
+    expect(fnSpy1).toBeCalledTimes(1);
+  });
+
+  it("implicit works with json stringify nested", () => {
+    let x = JSON.stringify(implicitStore1);
+
+    expect(fnSpy1).toBeCalledTimes(0);
+
+    implicitStore1.object.nested = 3;
+
+    expect(fnSpy1).toBeCalledTimes(2); // should be 1
+
+    implicitStore1.object.nested = 4;
+
+    expect(fnSpy1).toBeCalledTimes(3); // should be 2
+  });
 });
