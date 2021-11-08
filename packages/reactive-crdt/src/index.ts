@@ -3,7 +3,7 @@ import { makeYDocObservable, useReactiveBindings } from "@reactivedata/yjs-react
 import * as Y from "yjs";
 import { CRDTArray, crdtArray } from "./array";
 import { CRDTObject, crdtObject } from "./object";
-import { Box } from "./boxed";
+import { Box, boxed } from "./boxed";
 import { JSONValue } from "./types";
 import { crdtDoc, DocTypeDescription } from "./doc";
 export { useMobxBindings, useVueBindings } from "@reactivedata/yjs-reactive-bindings";
@@ -61,10 +61,10 @@ export function crdtValue<T extends NestedSchemaType>(value: T | Y.Array<any> | 
   }
 }
 
-export function crdt<T extends DocTypeDescription>(doc: Y.Doc, initialValue: T) {
+export function crdt<T extends DocTypeDescription>(doc: Y.Doc, shape: T) {
   makeYDocObservable(doc);
 
-  return crdtDoc(doc, initialValue);
+  return crdtDoc(doc, shape);
 }
 
 export type NestedSchemaType = JSONValue | ObjectSchemaType | Box<any> | Y.AbstractType<any> | NestedSchemaType[];
@@ -74,3 +74,4 @@ export type ObjectSchemaType = {
 };
 
 export { Y };
+export { boxed };

@@ -58,6 +58,7 @@ export function crdtDoc<T extends DocTypeDescription>(doc: Y.Doc, typeDescriptio
       if (p === INTERNAL_SYMBOL) {
         return doc;
       }
+
       if (typeof p !== "string") {
         return Reflect.get(target, p);
         // throw new Error("get non string parameter");
@@ -68,6 +69,11 @@ export function crdtDoc<T extends DocTypeDescription>(doc: Y.Doc, typeDescriptio
         (doc as any)._implicitObserver = ic;
       } else {
         // console.warn("no receiver getting property", p);
+      }
+
+      if (p === "toJSON") {
+        const ret = Reflect.get(doc, p);
+        return ret;
       }
 
       let description = typeDescription[p];
@@ -99,7 +105,7 @@ export function crdtDoc<T extends DocTypeDescription>(doc: Y.Doc, typeDescriptio
       return false;
     },
     getOwnPropertyDescriptor(target, p) {
-      if (typeof p === "string" && doc.share.has(p)) {
+      if ((typeof p === "string" && doc.share.has(p)) || p === "toJSON") {
         return {
           enumerable: true,
           configurable: true,
