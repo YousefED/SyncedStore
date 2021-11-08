@@ -20,7 +20,7 @@ export function observeYJS(element: Y.AbstractType<any> | Y.Doc) {
     return observeMap(element);
   } else if (element instanceof Y.Doc || Object.prototype.hasOwnProperty.call(element, "autoLoad")) {
     // subdoc. Ok way to detect this?
-    return observeDoc((element as any) as Y.Doc);
+    return observeDoc(element as any as Y.Doc);
   } else if (element instanceof Y.XmlFragment) {
     return observeXml(element);
   } else if (element instanceof Y.XmlElement) {
@@ -36,7 +36,7 @@ export function observeYJS(element: Y.AbstractType<any> | Y.Doc) {
 }
 
 function makeYDocRootLevelTypesObservable(doc: Y.Doc) {
-  doc.share.forEach(type => {
+  doc.share.forEach((type) => {
     // the explicit check is necessary because we sometimes initialize "anonymous" types that the user can't (and shouldn't) access.
     if (type.constructor !== Y.AbstractType) {
       // console.log("root", type)
@@ -52,7 +52,7 @@ function makeStructsObservable(structs: (Y.Item | Y.GC)[], startPos: number) {
       if (struct instanceof Y.GC) {
         continue;
       }
-      struct.content?.getContent().forEach(content => {
+      struct.content?.getContent().forEach((content) => {
         if (content instanceof Y.AbstractType) {
           // console.log("struct", content)
           observeYJS(content);
@@ -66,8 +66,11 @@ function makeStructsObservable(structs: (Y.Item | Y.GC)[], startPos: number) {
 export function makeYDocObservable(doc: Y.Doc) {
   // based on https://github.com/yjs/yjs/pull/298#issuecomment-937636849
 
+  // hook new root type creations (when calling getMap() or getArray(), etc)
+  observeYJS(doc);
+
   // observe all structs already in the document
-  doc.store.clients.forEach(entry => {
+  doc.store.clients.forEach((entry) => {
     if (entry) {
       makeStructsObservable(entry, 0);
     }

@@ -24,4 +24,25 @@ describe("yjs-reactive-bindings", () => {
     // did the autorun succesfully execute?
     expect(stringValue).toEqual("newvalue");
   });
+
+  it("Y.Text on root", () => {
+    let doc = new Y.Doc();
+
+    bindings.useMobxBindings(mobx);
+
+    bindings.makeYDocObservable(doc);
+    let stringValue = "";
+
+    // using mobx, we now automatically update stringValue as soon as root.key has changed
+    mobx.autorun(() => {
+      stringValue = doc.getText("roottext").toString();
+    });
+    expect(stringValue).toEqual("");
+
+    // update the yjs value
+    doc.getText("roottext").insert(0, "new");
+
+    // did the autorun succesfully execute?
+    expect(stringValue).toEqual("new");
+  });
 });
