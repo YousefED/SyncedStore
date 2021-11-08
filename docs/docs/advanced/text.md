@@ -4,3 +4,7 @@ sidebar_label: Working with text
 ---
 
 # Working with text (advanced)
+
+```typescript live
+
+```

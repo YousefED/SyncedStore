@@ -39,15 +39,8 @@ const webrtcProvider = new WebrtcProvider("my-document-id", doc);
 // (optional, define types for TypeScript)
 type Vehicle = { color: string; type: string };
 
-type StoreType = {
-  vehicles: Vehicle[];
-};
-
 // Create your reactive-crdt store
-export const store = crdt<StoreType>(doc);
-
-// initialize vehicles as an empty array:
-store.vehicles = [];
+export const store = crdt(doc, { vehicles: [] as Vehicle[] });
 ```
 
 From now on, the `store` object is synced automatically:
@@ -146,7 +139,7 @@ import { store } from "."; // the store we defined above
 const reactiveStore = reactive(store);
 
 autorun(() => {
-  reactiveStore.vehicles.forEach(v => {
+  reactiveStore.vehicles.forEach((v) => {
     console.log(`A ${v.color} ${v.type}`);
   });
 });
