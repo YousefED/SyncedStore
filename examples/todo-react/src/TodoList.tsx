@@ -3,12 +3,12 @@ import React from "react";
 import { globalStore } from "./store";
 import { TodoItem } from "./TodoItem";
 
-export function TodoList() {
+export function TodoList(props: { view: "all" | "active" | "completed" }) {
   const store = useReactive(globalStore);
 
   const activeTodos = store.todos.filter((t) => !t.completed);
   const completedTodos = store.todos.filter((t) => t.completed);
-  const shownTodos = store.view === "all" ? store.todos : store.view === "active" ? activeTodos : completedTodos;
+  const shownTodos = props.view === "all" ? store.todos : props.view === "active" ? activeTodos : completedTodos;
 
   return (
     <ul className="todo-list">

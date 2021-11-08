@@ -4,25 +4,25 @@ import * as Y from "yjs";
 
 describe("reactive-crdt", () => {
   it("undefined", () => {
-    let store = crdt<{
-      a: number;
-    }>(new Y.Doc());
-    expect(store.a).toBeUndefined;
+    let store = crdt(new Y.Doc(), { a: [] as number[] });
+    expect(store.a).toEqual([]);
   });
 
   it("set", () => {
     let store = crdt<{
-      a: number;
-      arr: number[];
-      outer: {
-        nested: number;
-      };
-      raw: Box<{
-        outer: {
+      map: {
+        a?: number;
+        arr?: number[];
+        outer?: {
           nested: number;
         };
-      }>;
-    }>(new Y.Doc());
+        raw?: Box<{
+          outer: {
+            nested: number;
+          };
+        }>;
+      };
+    }>(new Y.Doc(), { map: {} }).map;
 
     store.raw = boxed({ outer: { nested: 99 } });
     store.a = 4;
@@ -30,7 +30,7 @@ describe("reactive-crdt", () => {
     expect(store.outer?.nested).toBeUndefined();
     expect(store.raw?.value.outer.nested).toBe(99);
     store.outer = {
-      nested: 5
+      nested: 5,
     };
     expect(store.outer.nested).toBe(5);
     console.log(getInternalMap(store).toJSON());
@@ -39,17 +39,21 @@ describe("reactive-crdt", () => {
   it("syncs", () => {
     const doc1 = new Y.Doc();
     let store1 = crdt<{
-      plain: number;
-      text: Y.Text;
-      boxed: Box<{ inner: number }>;
-    }>(doc1);
+      map: {
+        plain?: number;
+        text?: Y.Text;
+        boxed?: Box<{ inner: number }>;
+      };
+    }>(doc1, { map: {} }).map;
 
     const doc2 = new Y.Doc();
     let store2 = crdt<{
-      plain: number;
-      text: Y.Text;
-      boxed: Box<{ inner: number }>;
-    }>(doc2);
+      map: {
+        plain?: number;
+        text?: Y.Text;
+        boxed?: Box<{ inner: number }>;
+      };
+    }>(doc2, { map: {} }).map;
 
     store1.plain = 5;
     store1.text = new Y.Text("test");
@@ -64,39 +68,34 @@ describe("reactive-crdt", () => {
 
   it("syncs text", () => {
     const doc1 = new Y.Doc();
-    let store1 = crdt<{
-      text: Y.Text;
-    }>(doc1);
+    let store1 = crdt(doc1, {
+      text: "text",
+    });
 
     const doc2 = new Y.Doc();
-    let store2 = crdt<{
-      text: Y.Text;
-    }>(doc2);
+    let store2 = crdt(doc2, {
+      text: "text",
+    });
 
-    store1.text = new Y.Text("hello");
+    store1.text.insert(0, "hello");
 
     const state1 = Y.encodeStateAsUpdate(doc1);
     Y.applyUpdate(doc2, state1);
 
-    expect(store2.text!.toString()).toEqual("hello");
+    expect(store2.text.toString()).toEqual("hello");
   });
 
   it("syncs independent pushes", () => {
     const doc1 = new Y.Doc();
-    let store1 = crdt<{
-      arr: number[];
-    }>(doc1);
+    let store1 = crdt(doc1, { arr: [] as number[] });
 
     const doc2 = new Y.Doc();
-    let store2 = crdt<{
-      arr: number[];
-    }>(doc2);
-    store1.arr = [3];
+    let store2 = crdt(doc2, { arr: [] as number[] });
+    store1.arr.push(3);
 
     let state1 = Y.encodeStateAsUpdate(doc1);
     Y.applyUpdate(doc2, state1);
 
-    const ret = store2.arr;
     expect(store2.arr).toEqual([3]);
 
     store1.arr.push(1);
@@ -113,14 +112,14 @@ describe("reactive-crdt", () => {
     // let x = JSON.stringify(store1.arr);
     expect([
       [3, 1, 2],
-      [3, 2, 1]
+      [3, 2, 1],
     ]).toContainEqual(store1.arr);
     expect(store2.arr).toEqual(store1.arr);
   });
 
   it("Object.keys() for object", () => {
     const doc1 = new Y.Doc();
-    let store1 = crdt<any>(doc1);
+    let store1 = crdt(doc1, { map: {} as any }).map;
     store1["obj"] = 4;
     let keys = Object.keys(store1);
     expect(keys).toStrictEqual(Object.keys({ obj: 4 }));
@@ -128,7 +127,7 @@ describe("reactive-crdt", () => {
 
   it("Object.keys() for array", () => {
     const doc1 = new Y.Doc();
-    let store1 = crdt<any>(doc1);
+    let store1 = crdt(doc1, { map: {} as any }).map;
     store1.arr = [0, 1];
     let keys = Object.keys(store1.arr);
     expect(keys).toStrictEqual(Object.keys([0, 1]));
@@ -136,7 +135,7 @@ describe("reactive-crdt", () => {
 
   it("Reflect.ownKeys() for array", () => {
     const doc1 = new Y.Doc();
-    let store1 = crdt<any>(doc1);
+    let store1 = crdt(doc1, { map: {} as any }).map;
     store1.arr = [0, 1];
     let keys = Reflect.ownKeys(store1.arr);
     expect(keys).toStrictEqual(Reflect.ownKeys([0, 1]));
@@ -144,7 +143,7 @@ describe("reactive-crdt", () => {
 
   it("Array.from() for array", () => {
     const doc1 = new Y.Doc();
-    let store1 = crdt<any>(doc1);
+    let store1 = crdt(doc1, { map: {} as any }).map;
     store1.arr = [0, 1];
     let copy = Array.from(store1.arr);
     expect(copy).toStrictEqual([0, 1]);
@@ -152,7 +151,7 @@ describe("reactive-crdt", () => {
 
   it("indexOf() for array", () => {
     const doc1 = new Y.Doc();
-    let store1 = crdt<any>(doc1);
+    let store1 = crdt(doc1, { map: {} as any }).map;
     store1.arr = [0, 1];
     let index = store1.arr.indexOf(1);
     expect(index).toEqual(1);
@@ -160,7 +159,7 @@ describe("reactive-crdt", () => {
 
   it("splice() for array", () => {
     const doc1 = new Y.Doc();
-    let store1 = crdt<any>(doc1);
+    let store1 = crdt(doc1, { map: {} as any }).map;
     store1.arr = [0, 1];
     let deleted = store1.arr.splice(1);
     expect(deleted).toEqual([1]);
@@ -180,7 +179,7 @@ describe("reactive-crdt", () => {
 
   it("move already inserted object to different location in document (nested)", () => {
     const doc1 = new Y.Doc();
-    let store1 = crdt<any>(doc1);
+    let store1 = crdt(doc1, { map: {} as any }).map;
     store1.mymap = {};
 
     expect(() => (store1.myothermap = { test: store1.mymap })).toThrow(
@@ -190,7 +189,7 @@ describe("reactive-crdt", () => {
 
   it("move already inserted object to different location in document (root)", () => {
     const doc1 = new Y.Doc();
-    let store1 = crdt<any>(doc1);
+    let store1 = crdt(doc1, { map: {} as any }).map;
     store1.mymap = {};
     expect(() => (store1.myothermap = store1.mymap)).toThrow(
       "Not supported: reassigning object that already occurs in the tree."
@@ -199,7 +198,7 @@ describe("reactive-crdt", () => {
 
   it("move already inserted array to different location in document", () => {
     const doc1 = new Y.Doc();
-    let store1 = crdt<any>(doc1);
+    let store1 = crdt(doc1, { map: {} as any }).map;
     store1.myarr = [{ foo: "bar" }];
     expect(() => store1.myarr.push(store1.myarr[0])).toThrow(
       "Not supported: reassigning object that already occurs in the tree."

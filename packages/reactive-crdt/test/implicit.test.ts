@@ -5,7 +5,7 @@ describe("test implicit observer", () => {
   type StoreType = {
     arr: number[];
     object: {
-      nested: number;
+      nested?: number;
     };
     xml: Y.XmlFragment;
   };
@@ -21,51 +21,49 @@ describe("test implicit observer", () => {
 
     const doc1 = new Y.Doc();
 
-    let store = crdt<StoreType>(doc1);
-    store.arr = [3];
-    store.object = { nested: 0 };
+    let store = crdt(doc1, { arr: [], object: {} as { nested?: number }, xml: "xml" });
 
     implicitStore1 = reactive(store, new Observer(fnSpy1)) as StoreType;
     implicitStore2 = reactive(store, new Observer(fnSpy2)) as StoreType;
   });
 
   it("implicit works with push and filter", () => {
-    let x = implicitStore1.arr!.filter(v => v);
-    implicitStore1.arr!.push(1);
+    let x = implicitStore1.arr!.filter((v) => v);
+    implicitStore1.arr.push(1);
 
     expect(fnSpy1).toBeCalledTimes(1);
     expect(fnSpy2).toBeCalledTimes(0);
 
-    implicitStore2.arr!.filter(v => v);
-    implicitStore1.arr!.push(1);
+    implicitStore2.arr.filter((v) => v);
+    implicitStore1.arr.push(1);
 
     expect(fnSpy1).toBeCalledTimes(2);
     expect(fnSpy2).toBeCalledTimes(1);
   });
 
   it("implicit works with get and push", () => {
-    let x = implicitStore1.arr![1];
-    implicitStore1.arr!.push(1);
+    let x = implicitStore1.arr[1];
+    implicitStore1.arr.push(1);
 
     expect(fnSpy1).toBeCalledTimes(1);
     expect(fnSpy2).toBeCalledTimes(0);
 
-    x = implicitStore2.arr![1];
-    implicitStore1.arr!.push(1);
+    x = implicitStore2.arr[1];
+    implicitStore1.arr.push(1);
 
     expect(fnSpy1).toBeCalledTimes(2);
     expect(fnSpy2).toBeCalledTimes(1);
   });
 
   it("implicit works with get and set", () => {
-    let x = implicitStore1.arr![0];
-    implicitStore1.arr![0] = 9;
+    let x = implicitStore1.arr[0];
+    implicitStore1.arr[0] = 9;
 
     expect(fnSpy1).toBeCalledTimes(1);
     expect(fnSpy2).toBeCalledTimes(0);
 
-    x = implicitStore2.arr![0];
-    implicitStore1.arr![0] = 10;
+    x = implicitStore2.arr[0];
+    implicitStore1.arr[0] = 10;
 
     expect(fnSpy1).toBeCalledTimes(2);
     expect(fnSpy2).toBeCalledTimes(1);
@@ -88,9 +86,8 @@ describe("test implicit observer", () => {
 
   it("implicit works with xml", () => {
     let x = implicitStore1.xml;
-    implicitStore1.xml = new Y.XmlFragment();
 
-    expect(fnSpy1).toBeCalledTimes(2); // TODO: should be "1"
+    expect(fnSpy1).toBeCalledTimes(0);
     expect(fnSpy2).toBeCalledTimes(0);
 
     let child = implicitStore2.xml.firstChild?.toDOM;
@@ -98,7 +95,7 @@ describe("test implicit observer", () => {
     newEl.push([new Y.XmlText("text")]);
     implicitStore1.xml.push([newEl]);
 
-    expect(fnSpy1).toBeCalledTimes(2);
+    expect(fnSpy1).toBeCalledTimes(0);
     expect(fnSpy2).toBeCalledTimes(1);
 
     expect(implicitStore2.xml.toString()).toBe("<p>text</p>");

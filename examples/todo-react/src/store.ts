@@ -10,14 +10,4 @@ export type Todo = {
 const doc = new Y.Doc();
 new WebrtcProvider("id", doc); // sync via webrtc
 
-// Define our store
-type StoreType = {
-  todos: Todo[];
-  view: "all" | "active" | "completed";
-};
-
-export const globalStore = crdt<StoreType>(doc) as StoreType;
-
-// initialize store
-globalStore.todos = [];
-globalStore.view = "all";
+export const globalStore = crdt(doc, { todos: [] as Todo[] });

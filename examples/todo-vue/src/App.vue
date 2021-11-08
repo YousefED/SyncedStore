@@ -81,8 +81,7 @@ const doc = new Y.Doc();
 new WebrtcProvider("id", doc); // sync via webrtc
 
 type Todo = { completed: boolean; title: string };
-const store = crdt<{ todos: Todo[] }>(doc);
-store.todos = [];
+const store = crdt(doc, { todos: [] as Todo[] });
 
 // visibility filters
 const filters = {

@@ -3,7 +3,7 @@ import * as Y from "yjs";
 import { crdtValue } from ".";
 import { boxed } from "./boxed";
 import { isYType } from "./types";
-export const yToWrappedCache = new WeakMap<Y.AbstractType<any>, any>();
+export const yToWrappedCache = new WeakMap<Y.AbstractType<any> | Y.Doc, any>();
 
 export function parseYjsReturnValue(value: any, implicitObserver?: any) {
   if (isYType(value)) {
