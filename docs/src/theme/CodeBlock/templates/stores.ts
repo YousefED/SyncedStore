@@ -6,7 +6,7 @@ const doc = new Y.Doc();
 const webrtcProvider = new WebrtcProvider("my-document-ida", doc);
 
 // (optional, define types for TypeScript)
-type todo = { completed: boolean, text: string };
+type todo = { completed: boolean, title: string };
 
 // Create your reactive-crdt store
 export const store = crdt(doc, { todos: [] as Todo[] });
