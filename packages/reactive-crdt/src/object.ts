@@ -24,7 +24,7 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
     // map = map[$reactive].raw;
   }
 
-  const proxy = new Proxy(({} as any) as CRDTObject<T>, {
+  const proxy = new Proxy({} as any as CRDTObject<T>, {
     set: (target, p, value) => {
       if (typeof p !== "string") {
         throw new Error();
@@ -39,6 +39,7 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
       if (valueToSet instanceof Y.AbstractType && valueToSet.parent) {
         throw new Error("Not supported: reassigning object that already occurs in the tree.");
       }
+
       map.set(p, valueToSet);
 
       return true;
@@ -83,14 +84,14 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
       if (typeof p === "string" && map.has(p)) {
         return {
           enumerable: true,
-          configurable: true
+          configurable: true,
         };
       }
       return undefined;
     },
-    ownKeys: target => {
+    ownKeys: (target) => {
       return Array.from(map.keys());
-    }
+    },
   });
 
   yToWrappedCache.set(map, proxy);

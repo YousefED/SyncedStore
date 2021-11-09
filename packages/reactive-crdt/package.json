@@ -19,7 +19,7 @@
     "offline",
     "shared editing"
   ],
-  "version": "0.2.4",
+  "version": "0.2.5",
   "private": false,
   "main": "dist/reactive-crdt.js",
   "module": "dist/reactive-crdt.module.js",
@@ -28,8 +28,8 @@
   "types": "types/index.d.ts",
   "license": "MIT",
   "dependencies": {
-    "@reactivedata/reactive": "0.1.13",
-    "@reactivedata/yjs-reactive-bindings": "^0.2.4",
+    "@reactivedata/reactive": "0.1.15",
+    "@reactivedata/yjs-reactive-bindings": "^0.2.5",
     "@types/eslint": "6.8.0"
   },
   "peerDependencies": {
