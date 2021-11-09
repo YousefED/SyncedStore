@@ -22,13 +22,13 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
     let ic = this[$reactiveproxy]?.implicitObserver;
     (arr as any)._implicitObserver = ic;
     const items = arr.slice.bind(arr).apply(arr, arguments);
-    return items.map(item => {
+    return items.map((item) => {
       const ret = parseYjsReturnValue(item, ic);
       return ret;
     });
   } as T[]["slice"];
   const wrapItems = function wrapItems(items) {
-    return items.map(item => {
+    return items.map((item) => {
       const wrapped = crdtValue(item as any); // TODO
       let valueToSet = getInternalAny(wrapped) || wrapped;
       if (valueToSet instanceof Box) {
@@ -58,27 +58,27 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
     insert: arr.insert.bind(arr) as Y.Array<T>["insert"],
     toJSON: arr.toJSON.bind(arr) as Y.Array<T>["toJSON"],
 
-    forEach: function() {
+    forEach: function () {
       return [].forEach.apply(slice.apply(this), arguments);
     } as T[]["forEach"],
 
-    filter: function() {
+    filter: function () {
       return [].filter.apply(slice.apply(this), arguments);
     } as T[]["filter"],
 
-    find: function() {
+    find: function () {
       return [].find.apply(slice.apply(this), arguments);
     } as T[]["find"],
 
-    map: function() {
+    map: function () {
       return [].map.apply(slice.apply(this), arguments);
     } as T[]["map"],
 
-    indexOf: function() {
+    indexOf: function () {
       return [].indexOf.apply(slice.apply(this), arguments);
     } as T[]["indexOf"],
 
-    splice: function() {
+    splice: function () {
       let start = arguments[0] < 0 ? arr.length - Math.abs(arguments[0]) : arguments[0];
       let deleteCount = arguments[1];
       let items = Array.from(Array.from(arguments).slice(2));
@@ -86,7 +86,7 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
       arr.delete(start, deleteCount);
       arr.insert(start, wrapItems(items));
       return deleted;
-    } as T[]["splice"]
+    } as T[]["splice"],
     // toJSON = () => {
     //   return this.arr.toJSON() slice();
     // };
@@ -98,7 +98,7 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
     enumerable: false,
     configurable: false,
     writable: true,
-    value: arr.length
+    value: arr.length,
   });
 
   return ret;
@@ -122,12 +122,13 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
   }
   const implementation = arrayImplementation(arr);
 
-  const proxy = new Proxy((implementation as any) as CRDTArray<T>, {
+  const proxy = new Proxy(implementation as any as CRDTArray<T>, {
     set: (target, pArg, value) => {
       const p = propertyToNumber(pArg);
       if (typeof p !== "number") {
         throw new Error();
       }
+      throw new Error("array assignment is not implemented / supported");
       // TODO map.set(p, smartValue(value));
       return true;
     },
@@ -205,26 +206,26 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
         return {
           enumerable: false,
           configurable: false,
-          writable: true
+          writable: true,
         };
       }
       if (typeof p === "number" && p >= 0 && p < arr.length) {
         return {
           enumerable: true,
           configurable: true,
-          writable: true
+          writable: true,
         };
       }
       return undefined;
     },
-    ownKeys: target => {
+    ownKeys: (target) => {
       const keys: string[] = [];
       for (let i = 0; i < arr.length; i++) {
         keys.push(i + "");
       }
       keys.push("length");
       return keys;
-    }
+    },
   });
 
   implementation.push.apply(proxy, initializer);
