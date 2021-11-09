@@ -17,14 +17,21 @@ export default function App() {
   return (
     <div>
       <p>Todo items:</p>
-      {JSON.stringify(store.todos, undefined, 2)}
+      {JSON.stringify(state, undefined, 2)}
 
       <button
         onClick={() => {
-          store.todos.push(boxed({ title: "bla", completed: false }));
+          state.todos.push(boxed({ title: "bla", completed: false }));
         }}
       >
         Add
+      </button>
+      <button
+        onClick={() => {
+          state.todos[0].completed = !state.todos[0].completed;
+        }}
+      >
+        Edit
       </button>
     </div>
   );

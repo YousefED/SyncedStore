@@ -8,15 +8,8 @@ const webrtcProvider = new WebrtcProvider("my-document-ida", doc);
 // (optional, define types for TypeScript)
 type todo = { completed: boolean, text: string };
 
-type StoreType = {
-  todos: Todo[];
-};
-
 // Create your reactive-crdt store
-export const store = crdt<StoreType>(doc);
-
-// initialize vehicles as an empty array:
-store.todos = [];
+export const store = crdt(doc, { todos: [] as Todo[] });
 
 export const disconnect = () => webrtcProvider.disconnect();
 export const connect = () => webrtcProvider.connect();
