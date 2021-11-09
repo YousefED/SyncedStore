@@ -1,6 +1,6 @@
 ---
 sidebar_position: 3
-sidebar_label: Yjs integration
+sidebar_label: MobX integration
 ---
 
-# Yjs integration (advanced)
+# MobX integration (advanced)

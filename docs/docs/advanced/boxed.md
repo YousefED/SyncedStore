@@ -31,7 +31,7 @@ store.todos.push(boxed({ title: "groceries", completed: false }));
 const completed = store.todos[0].value.completed;
 ```
 
-Now, the array will contain a single todo item that should be considered "frozen". To update it, you now need to replace the entire item:
+Now, the array will contain a single todo item that should be considered "frozen". Properties can be retrieved using `.value`. To update it, you now need to replace the entire item:
 
 ```typescript
 // GOOD:
@@ -65,14 +65,9 @@ export default function App() {
         >
           Add a boxed item
         </button>
+        <br />
         <button
-          onClick={() => {
-            state.todos[0].completed = !state.todos[0].completed;
-          }}
-        >
-          Edit first item (mutate)
-        </button>
-        <button
+          disabled={state.todos.length === 0}
           onClick={() => {
             state.todos.splice(
               0,
@@ -85,6 +80,15 @@ export default function App() {
           }}
         >
           Edit first item (replace)
+        </button>
+        <br />
+        <button
+          disabled={state.todos.length === 0}
+          onClick={() => {
+            state.todos[0].value.completed = !state.todos[0].value.completed;
+          }}
+        >
+          Old (raises error): edit first item by mutating
         </button>
       </div>
     </div>

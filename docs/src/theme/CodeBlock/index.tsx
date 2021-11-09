@@ -30,6 +30,12 @@ export default function CodeBlock(props: any) {
             "@reactivedata/react": "latest",
             yjs: "latest",
             "y-webrtc": "latest",
+            "react-inspector": "latest",
+            "@tiptap/react": "latest",
+            "@tiptap/starter-kit": "latest",
+            "@tiptap/extension-collaboration": "latest",
+            "@tiptap/extension-collaboration-cursor": "latest",
+            "@tiptap/extension-placeholder": "latest",
           },
           files: {
             ...REACT_TEMPLATE.files,
