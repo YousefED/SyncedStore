@@ -22,9 +22,7 @@ describe("test implicit observer", () => {
   let storeDoc2: StoreType;
   let store: StoreType;
   beforeEach(() => {
-    fnSpy1 = jest.fn(() => {
-      debugger;
-    });
+    fnSpy1 = jest.fn(() => {});
     fnSpy2 = jest.fn(() => {});
 
     doc1 = new Y.Doc();
@@ -73,6 +71,19 @@ describe("test implicit observer", () => {
 
     x = implicitStore2.arr[1];
     implicitStore1.arr.push(1);
+
+    expect(fnSpy1).toBeCalledTimes(2);
+    expect(fnSpy2).toBeCalledTimes(1);
+  });
+
+  it("implicit works with splice", () => {
+    let x = implicitStore1.arr[1];
+    implicitStore1.arr.push(1);
+
+    expect(fnSpy1).toBeCalledTimes(1);
+    expect(fnSpy2).toBeCalledTimes(0);
+
+    implicitStore2.arr.splice(0, 1, 5);
 
     expect(fnSpy1).toBeCalledTimes(2);
     expect(fnSpy2).toBeCalledTimes(1);
@@ -154,6 +165,16 @@ describe("test implicit observer", () => {
     implicitStore1.object.nested = 4;
 
     expect(fn).toBeCalledTimes(3);
+  });
+
+  it("implicit works with boxed values", () => {
+    implicitStore1.todos.push(boxed({ text: "t", completed: false }));
+    let x = implicitStore1.todos[0].value;
+    expect(fnSpy1).toBeCalledTimes(0);
+
+    store.todos.splice(0, 1, boxed({ text: store.todos[0].value.text, completed: true }));
+
+    expect(fnSpy1).toBeCalledTimes(1);
   });
 
   it("autorun works with json stringify and remote document", () => {

@@ -83,8 +83,15 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
       let deleteCount = arguments[1];
       let items = Array.from(Array.from(arguments).slice(2));
       let deleted = slice.apply(this, [start, Number.isInteger(deleteCount) ? start + deleteCount : undefined]);
-      arr.delete(start, deleteCount);
-      arr.insert(start, wrapItems(items));
+      if (arr.doc) {
+        arr.doc.transact(() => {
+          arr.delete(start, deleteCount);
+          arr.insert(start, wrapItems(items));
+        });
+      } else {
+        arr.delete(start, deleteCount);
+        arr.insert(start, wrapItems(items));
+      }
       return deleted;
     } as T[]["splice"],
     // toJSON = () => {
