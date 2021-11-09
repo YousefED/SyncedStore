@@ -28,7 +28,7 @@
   "types": "types/index.d.ts",
   "license": "MIT",
   "dependencies": {
-    "@reactivedata/reactive": "0.1.13",
+    "@reactivedata/reactive": "0.1.15",
     "@reactivedata/yjs-reactive-bindings": "^0.2.4",
     "@types/eslint": "6.8.0"
   },

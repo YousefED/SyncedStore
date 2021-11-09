@@ -64,7 +64,7 @@ export function crdtValue<T extends NestedSchemaType>(value: T | Y.Array<any> | 
 export function crdt<T extends DocTypeDescription>(doc: Y.Doc, shape: T) {
   makeYDocObservable(doc);
 
-  return crdtDoc(doc, shape);
+  return crdtDoc<T>(doc, shape);
 }
 
 export type NestedSchemaType = JSONValue | ObjectSchemaType | Box<any> | Y.AbstractType<any> | NestedSchemaType[];

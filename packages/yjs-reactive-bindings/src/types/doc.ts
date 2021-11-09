@@ -1,6 +1,6 @@
 import * as Y from "yjs";
 import { observeYJS } from "..";
-import { Atom, createAtom } from "../observableProvider";
+import { Atom, createAtom, reaction } from "../observableProvider";
 
 const docsObserved = new WeakSet<Y.Doc>();
 
@@ -49,9 +49,27 @@ export function observeDoc(doc: Y.Doc) {
 
   function patch(method: string) {
     const originalFunction = doc[method];
+    let previous: any | undefined;
+
     doc[method] = function () {
+      let ret: any;
+      let args = arguments;
       reportSelfAtom();
-      const ret = Reflect.apply(originalFunction, doc, arguments);
+
+      if (previous) {
+        previous.removeObservers(); // dispose
+      }
+
+      // we run this in a reaction, because the originalfunction might also trigger
+      // observers in nested functions. In particular, if toJSON is called.
+      previous = reaction(
+        () => {
+          ret = Reflect.apply(originalFunction, doc, args);
+          return ret;
+        },
+        () => selfAtom!.reportChanged()
+      );
+
       return ret;
     };
   }

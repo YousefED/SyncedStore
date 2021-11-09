@@ -11,6 +11,17 @@ export type Atom = {
 };
 
 let customCreateAtom: typeof createAtom | undefined;
+let customReaction: ((func: () => any, effect: () => any) => any) | undefined;
+
+let defaultReaction = (func: () => any) => func();
+
+export function reaction(func: () => any, effect: () => any) {
+  if (customReaction) {
+    return customReaction(func, effect);
+  } else {
+    return defaultReaction(func);
+  }
+}
 
 export function createAtom(
   _name: string,
@@ -28,34 +39,39 @@ export function createAtom(
 
 export function useMobxBindings(mobx: any) {
   customCreateAtom = mobx.createAtom;
+  customReaction = undefined;
 }
 
 export function useVueBindings(vue: any) {
-  customCreateAtom = function(name: any, obo: any) {
+  customCreateAtom = function (name: any, obo: any) {
     let id = 0;
     const data = vue.reactive({ data: id });
     const atom = {
       reportObserved() {
-        return (data.data as any) as boolean;
+        return data.data as any as boolean;
       },
       reportChanged() {
         data.data = ++id;
-      }
+      },
     };
     if (obo) {
       obo();
     }
     return atom;
   };
+  customReaction = undefined;
 }
 
 export function useReactiveBindings(reactive: any) {
-  customCreateAtom = function(name, obo, obu) {
+  customCreateAtom = function (name, obo, obu) {
     // TMP
     const atom = reactive.createAtom(name);
     if (obo) {
       obo();
     }
     return atom;
+  };
+  customReaction = (func: () => void, effect: () => void) => {
+    return reactive.reaction(func, effect, { fireImmediately: false });
   };
 }
