@@ -24,7 +24,7 @@ export default function App() {
               >
                 <label>
                   <input type="checkbox" checked={todo.completed} onClick={() => todo.completed = !todo.completed} />
-                  {todo.text}
+                  {todo.title}
                 </label>
             </li>);
         })}
@@ -36,7 +36,7 @@ export default function App() {
           if (event.key === "Enter") {
             const target = event.target as HTMLInputElement;
             // Add a todo item using the text added in the textfield
-            state.todos.push({ completed: false, text: target.value });
+            state.todos.push({ completed: false, title: target.value });
             target.value = "";
           }
         }}
