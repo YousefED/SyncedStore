@@ -1,10 +1,9 @@
-import { $reactive, $reactiveproxy, reactive } from "@reactivedata/reactive";
+import { $reactive, $reactiveproxy } from "@reactivedata/reactive";
 import * as Y from "yjs";
-import { crdtValue, getInternalAny, INTERNAL_SYMBOL, ObjectSchemaType } from ".";
+import { crdtValue, getYjsValue, INTERNAL_SYMBOL, ObjectSchemaType } from ".";
 import { CRDTArray } from "./array";
-import { parseYjsReturnValue, yToWrappedCache } from "./internal";
 import { Box } from "./boxed";
-import { isYType } from "./types";
+import { parseYjsReturnValue, yToWrappedCache } from "./internal";
 
 export type CRDTObject<T extends ObjectSchemaType> = {
   [P in keyof T]?: T[P] extends Box<infer A>
@@ -30,7 +29,7 @@ export function crdtObject<T extends ObjectSchemaType>(initializer: T, map = new
         throw new Error();
       }
       const wrapped = crdtValue(value); // TODO: maybe set cache
-      let valueToSet = getInternalAny(wrapped) || wrapped;
+      let valueToSet = getYjsValue(wrapped) || wrapped;
 
       if (valueToSet instanceof Box) {
         valueToSet = valueToSet.value;

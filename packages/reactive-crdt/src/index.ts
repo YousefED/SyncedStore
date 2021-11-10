@@ -1,11 +1,11 @@
 import * as reactive from "@reactivedata/reactive";
 import { makeYDocObservable, useReactiveBindings } from "@reactivedata/yjs-reactive-bindings";
 import * as Y from "yjs";
-import { CRDTArray, crdtArray } from "./array";
-import { CRDTObject, crdtObject } from "./object";
+import { crdtArray } from "./array";
 import { Box, boxed } from "./boxed";
-import { JSONValue } from "./types";
 import { crdtDoc, DocTypeDescription } from "./doc";
+import { crdtObject } from "./object";
+import { JSONValue } from "./types";
 export { useMobxBindings, useVueBindings } from "@reactivedata/yjs-reactive-bindings";
 export * from "./util";
 
@@ -15,22 +15,28 @@ useReactiveBindings(reactive); // use reactive bindings by default
 
 export const INTERNAL_SYMBOL = Symbol("INTERNAL_SYMBOL");
 
-export function getInternalMap<T extends ObjectSchemaType>(object: CRDTObject<T>) {
-  return object[INTERNAL_SYMBOL] as Y.Map<T>;
-}
-
-export function getInternalArray<T>(object: CRDTArray<T>) {
-  return object[INTERNAL_SYMBOL] as Y.Array<T>;
-}
-
-export function getInternalAny(
-  object: any /*CRDTArray<any> | CRDTObject<any>*/
-): CRDTArray<any> | CRDTObject<any> | undefined {
+export function getYjsValue(object: any): Y.Doc | Y.AbstractType<any> | undefined {
   return object[INTERNAL_SYMBOL];
 }
 
+export function areSame(objectA: any, objectB: any) {
+  if (objectA === objectB) {
+    return true;
+  }
+  if (typeof objectA === "object" && typeof objectB === "object") {
+    const internalA = getYjsValue(objectA);
+    const internalB = getYjsValue(objectA);
+    if (!internalA || !internalB) {
+      // one of them doesn't have an internal value
+      return false;
+    }
+    return internalA === internalB;
+  }
+  return false;
+}
+
 export function crdtValue<T extends NestedSchemaType>(value: T | Y.Array<any> | Y.Map<any>) {
-  value = (getInternalAny(value as any) as any) || value; // unwrap
+  value = (getYjsValue(value as any) as any) || value; // unwrap
   if (value instanceof Y.Array) {
     return crdtArray([], value);
   } else if (value instanceof Y.Map) {
@@ -75,3 +81,8 @@ export type ObjectSchemaType = {
 
 export { Y };
 export { boxed };
+export const SyncedDoc = Y.Doc;
+export const SyncedMap = Y.Map;
+export const SyncedArray = Y.Array;
+export const SyncedText = Y.Text;
+export const SyncedXml = Y.XmlFragment;

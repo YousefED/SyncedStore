@@ -19,7 +19,8 @@ export function reaction(func: () => any, effect: () => any) {
   if (customReaction) {
     return customReaction(func, effect);
   } else {
-    return defaultReaction(func);
+    defaultReaction(func);
+    return undefined;
   }
 }
 

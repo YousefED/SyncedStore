@@ -1,10 +1,9 @@
 import { $reactive, $reactiveproxy } from "@reactivedata/reactive";
 import * as Y from "yjs";
-import { crdtValue, getInternalAny, INTERNAL_SYMBOL, ObjectSchemaType } from ".";
-import { parseYjsReturnValue, yToWrappedCache } from "./internal";
-import { CRDTObject } from "./object";
+import { areSame, crdtValue, getYjsValue, INTERNAL_SYMBOL, ObjectSchemaType } from ".";
 import { Box } from "./boxed";
-import { isYType } from "./types";
+import { parseYjsReturnValue } from "./internal";
+import { CRDTObject } from "./object";
 
 export type CRDTArray<T> = {
   [INTERNAL_SYMBOL]?: Y.Array<T>;
@@ -27,10 +26,11 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
       return ret;
     });
   } as T[]["slice"];
+
   const wrapItems = function wrapItems(items) {
     return items.map((item) => {
       const wrapped = crdtValue(item as any); // TODO
-      let valueToSet = getInternalAny(wrapped) || wrapped;
+      let valueToSet = getYjsValue(wrapped) || wrapped;
       if (valueToSet instanceof Box) {
         valueToSet = valueToSet.value;
       }
@@ -40,6 +40,10 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
       return valueToSet;
     });
   };
+
+  const findIndex = function findIndex() {
+    return [].findIndex.apply(slice.apply(this), arguments);
+  } as T[]["find"];
 
   const ret = {
     // get length() {
@@ -70,12 +74,15 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
       return [].find.apply(slice.apply(this), arguments);
     } as T[]["find"],
 
+    findIndex,
+
     map: function () {
       return [].map.apply(slice.apply(this), arguments);
     } as T[]["map"],
 
     indexOf: function () {
-      return [].indexOf.apply(slice.apply(this), arguments);
+      const arg = arguments[0];
+      return findIndex.call(this, (el) => areSame(el, arg));
     } as T[]["indexOf"],
 
     splice: function () {
