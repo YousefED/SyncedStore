@@ -37,7 +37,8 @@
   },
   "devDependencies": {
     "microbundle": "^0.13.0",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "@vue/reactivity": "^3.2.21"
   },
   "scripts": {
     "test": "echo \"Run tests from root\" && exit 1",

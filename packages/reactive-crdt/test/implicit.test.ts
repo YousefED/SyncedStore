@@ -59,8 +59,14 @@ describe("test implicit observer", () => {
       completed: false,
     });
 
-    const item = implicitStore1.todosNotBoxed[1];
-    expect(implicitStore1.todosNotBoxed.indexOf(item)).toBe(1);
+    const item = store.todosNotBoxed[1];
+    expect(implicitStore2.todosNotBoxed.indexOf(item)).toBe(1);
+    expect(store.todosNotBoxed.indexOf(item)).toBe(1);
+
+    const item2 = implicitStore1.todosNotBoxed[1];
+    expect(implicitStore2.todosNotBoxed.indexOf(item)).toBe(1);
+    expect(implicitStore1.todosNotBoxed.indexOf(item2)).toBe(1);
+    expect(store.todosNotBoxed.indexOf(item2)).toBe(1);
   });
 
   it("implicit works with push and filter", () => {
