@@ -1,5 +1,4 @@
 import { JSONValue } from "./types";
-import * as Y from "yjs";
 
 // const RAW_SYMBOL = Symbol("bo");
 export class Box<T extends Readonly<JSONValue>> {

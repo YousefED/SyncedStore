@@ -40,6 +40,21 @@ function validateRootTypeDescription<T extends DocTypeDescription>(typeDescripti
   }
 }
 
+function getYjsByTypeDescription<T extends DocTypeDescription>(doc: Y.Doc, typeDescription: T, p: string) {
+  let description = typeDescription[p];
+  if (!description) {
+    console.warn("property not found on root doc", p);
+    return undefined;
+  }
+
+  return description === "xml"
+    ? doc.getXmlFragment(p)
+    : description === "text"
+    ? doc.getText(p)
+    : Array.isArray(description)
+    ? doc.getArray(p)
+    : doc.getMap(p);
+}
 export function crdtDoc<T extends DocTypeDescription>(doc: Y.Doc, typeDescription: T) {
   if (doc[$reactive]) {
     throw new Error("unexpected");
@@ -72,25 +87,15 @@ export function crdtDoc<T extends DocTypeDescription>(doc: Y.Doc, typeDescriptio
       }
 
       if (p === "toJSON") {
+        for (let key of Object.keys(typeDescription)) {
+          // initialize all values
+          getYjsByTypeDescription(doc, typeDescription, key);
+        }
         const ret = Reflect.get(doc, p);
         return ret;
       }
 
-      let description = typeDescription[p];
-      if (!description) {
-        console.warn("property not found on root doc", p);
-        return undefined;
-      }
-
-      let ret =
-        description === "xml"
-          ? doc.getXmlFragment(p)
-          : description === "text"
-          ? doc.getText(p)
-          : Array.isArray(description)
-          ? doc.getArray(p)
-          : doc.getMap(p);
-
+      let ret = getYjsByTypeDescription(doc, typeDescription, p);
       ret = parseYjsReturnValue(ret, ic);
 
       return ret;

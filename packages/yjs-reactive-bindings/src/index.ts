@@ -63,7 +63,13 @@ function makeStructsObservable(structs: (Y.Item | Y.GC)[], startPos: number) {
   }
 }
 
+const docsObserved = new WeakSet<Y.Doc>();
+
 export function makeYDocObservable(doc: Y.Doc) {
+  if (docsObserved.has(doc)) {
+    return;
+  }
+  docsObserved.add(doc);
   // based on https://github.com/yjs/yjs/pull/298#issuecomment-937636849
 
   // hook new root type creations (when calling getMap() or getArray(), etc)
@@ -100,4 +106,3 @@ export function makeYDocObservable(doc: Y.Doc) {
 }
 
 export { useMobxBindings, useReactiveBindings, useVueBindings } from "./observableProvider";
-export { observeText, observeMap, observeDoc };

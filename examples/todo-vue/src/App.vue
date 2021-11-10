@@ -19,7 +19,7 @@
           v-for="todo in filteredTodos"
           class="todo"
           :key="todo.id"
-          :class="{ completed: todo.completed, editing: todo == editedTodo }"
+          :class="{ completed: todo.completed, editing: todo == editingTodo }"
         >
           <div class="view">
             <input class="toggle" type="checkbox" v-model="todo.completed" />
@@ -30,7 +30,7 @@
             class="edit"
             type="text"
             v-model="todo.title"
-            v-todo-focus="todo == editedTodo"
+            v-todo-focus="todo == editingTodo"
             @blur="doneEdit(todo)"
             @keyup.enter="doneEdit(todo)"
             @keyup.esc="cancelEdit(todo)"
@@ -101,7 +101,7 @@ export default defineComponent({
     return {
       shared: store as { todos: Todo[] },
       newTodo: "",
-      editedTodo: null as null | Todo,
+      editingTodo: null as null | Todo,
       visibility: "all" as "all" | "active" | "completed",
       beforeEditCache: "",
     };
@@ -152,14 +152,14 @@ export default defineComponent({
 
     editTodo(todo: Todo) {
       this.beforeEditCache = todo.title;
-      this.editedTodo = todo;
+      this.editingTodo = todo;
     },
 
     doneEdit(todo: Todo) {
-      if (!this.editedTodo) {
+      if (!this.editingTodo) {
         return;
       }
-      this.editedTodo = null;
+      this.editingTodo = null;
       todo.title = todo.title.trim();
       if (!todo.title) {
         this.removeTodo(todo);
@@ -167,7 +167,7 @@ export default defineComponent({
     },
 
     cancelEdit(todo: Todo) {
-      this.editedTodo = null;
+      this.editingTodo = null;
       todo.title = this.beforeEditCache;
     },
 

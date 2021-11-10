@@ -27,7 +27,7 @@ export function observeText(value: Y.Text) {
 
   function patch(method: string) {
     const originalFunction = value[method];
-    value[method] = function() {
+    value[method] = function () {
       atom!.reportObserved(this._implicitObserver);
       const ret = Reflect.apply(originalFunction, this, arguments);
       return ret;

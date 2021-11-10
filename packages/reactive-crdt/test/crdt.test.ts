@@ -1,4 +1,4 @@
-import { crdt, getInternalMap } from "@reactivedata/reactive-crdt";
+import { crdt, getYjsValue } from "@reactivedata/reactive-crdt";
 import { Box, boxed } from "../src/boxed";
 import * as Y from "yjs";
 
@@ -33,7 +33,7 @@ describe("reactive-crdt", () => {
       nested: 5,
     };
     expect(store.outer.nested).toBe(5);
-    console.log(getInternalMap(store).toJSON());
+    console.log(getYjsValue(store)!.toJSON());
   });
 
   it("syncs", () => {
