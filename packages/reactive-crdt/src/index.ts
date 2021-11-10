@@ -25,7 +25,7 @@ export function areSame(objectA: any, objectB: any) {
   }
   if (typeof objectA === "object" && typeof objectB === "object") {
     const internalA = getYjsValue(objectA);
-    const internalB = getYjsValue(objectA);
+    const internalB = getYjsValue(objectB);
     if (!internalA || !internalB) {
       // one of them doesn't have an internal value
       return false;

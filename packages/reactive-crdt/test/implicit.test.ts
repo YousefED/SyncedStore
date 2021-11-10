@@ -49,13 +49,18 @@ describe("test implicit observer", () => {
   });
 
   it("indexOf works on store", () => {
-    let x = implicitStore1.todosNotBoxed.push({
+    implicitStore1.todosNotBoxed.push({
       text: "title",
       completed: false,
     });
 
-    const item = implicitStore1.todosNotBoxed[0];
-    expect(implicitStore1.todosNotBoxed.indexOf(item)).toBe(0);
+    implicitStore1.todosNotBoxed.push({
+      text: "title2",
+      completed: false,
+    });
+
+    const item = implicitStore1.todosNotBoxed[1];
+    expect(implicitStore1.todosNotBoxed.indexOf(item)).toBe(1);
   });
 
   it("implicit works with push and filter", () => {
