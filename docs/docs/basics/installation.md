@@ -21,14 +21,9 @@ Also install the following helper libraries to get started:
 ```bash
 # For syncing over webrtc:
 npm install --save y-webrtc
-
-# For easily displaying changes when the store updates
-npm install --save @reactivedata/reactive
 ```
 
-These libraries are optional. Later, you might want to use a different [sync provider](sync%20providers/introduction) instead of `y-webrtc`, or maybe use the Vue or Mobx integration to respond to document changes instead of `@reactivedata/reactive`.
-
-For now, our examples will assume we use `y-webrtc` and `@reactivedata/reactive`.
+`y-webrtc` is optional, but great during development. Later, you might want to use a different [sync provider](sync%20providers/introduction) instead of `y-webrtc`.
 
 ## Creating a store
 

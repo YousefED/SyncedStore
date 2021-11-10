@@ -5,87 +5,89 @@ sidebar_label: Example
 
 # Vue Example
 
-# Translate your site
+```javascript live vue
+<template>
+  <main id="app">
+    <h1>Todo Vue</h1>
+    <input
+        class="new-todo"
+        autofocus
+        autocomplete="off"
+        placeholder="What needs to be done?"
+        v-model="newTodo"
+        @keyup.enter="addTodo"
+      />
+    <ul class="todo-list">
+        <li
+          v-for="todo in store.todos"
+          class="todo"
+        >
+          <div class="view">
+            <label>
+              <input class="toggle" type="checkbox" v-model="todo.completed" />
+              {{ todo.title }}
+            </label>
+            <button class="destroy" @click="removeTodo(todo)">Delete</button>
+          </div>
+        </li>
+      </ul>
+  </main>
+</template>
 
-Let's translate `docs/intro.md` to French.
+<script>
+import { store } from "./store";
+import { ref } from "vue";
+import * as Vue from "vue";
+import { useVueBindings } from "@reactivedata/reactive-crdt";
 
-## Configure i18n
+// make reactive-crdt use Vuejs internally
+useVueBindings(Vue);
 
-Modify `docusaurus.config.js` to add support for the `fr` locale:
-
-```js title="docusaurus.config.js"
-module.exports = {
-  i18n: {
-    defaultLocale: "en",
-    locales: ["en", "fr"]
-  }
-};
-```
-
-## Translate a doc
-
-Copy the `docs/intro.md` file to the `i18n/fr` folder:
-
-```bash
-mkdir -p i18n/fr/docusaurus-plugin-content-docs/current/
-
-cp docs/intro.md i18n/fr/docusaurus-plugin-content-docs/current/intro.md
-```
-
-Translate `i18n/fr/docusaurus-plugin-content-docs/current/intro.md` in French.
-
-## Start your localized site
-
-Start your site on the French locale:
-
-```bash
-npm run start -- --locale fr
-```
-
-Your localized site is accessible at `http://localhost:3000/fr/` and the `Getting Started` page is translated.
-
-:::caution
-
-In development, you can only use one locale at a same time.
-
-:::
-
-## Add a Locale Dropdown
-
-To navigate seamlessly across languages, add a locale dropdown.
-
-Modify the `docusaurus.config.js` file:
-
-```js title="docusaurus.config.js"
-module.exports = {
-  themeConfig: {
-    navbar: {
-      items: [
-        // highlight-start
-        {
-          type: "localeDropdown"
-        }
-        // highlight-end
-      ]
+export default {
+  name: "App",
+  data() {
+    return {
+      store,
+      newTodo: ""
+    };
+  },
+  methods: {
+    addTodo() {
+      const value = this.newTodo && this.newTodo.trim();
+      if (!value) {
+        return;
+      }
+      this.store.todos.push({
+        title: value,
+        completed: false,
+      });
+      this.newTodo = "";
+    },
+    removeTodo(todo) {
+      this.store.todos.splice(this.store.todos.indexOf(todo), 1);
     }
   }
 };
-```
+</script>
 
-The locale dropdown now appears in your navbar:
+<style>
+#app {
+font-family: Avenir, Helvetica, Arial, sans-serif;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+text-align: center;
+color: #2c3e50;
+}
 
-![Locale Dropdown](/img/tutorial/localeDropdown.png)
+ul {
+  text-align:left;
+}
 
-## Build your localized site
+li button {
+  margin-left:1em;
+}
+</style>
 
-Build your site for a specific locale:
 
-```bash
-npm run build -- --locale fr
-```
 
-Or build your site to include all the locales at once:
-
-```bash
-npm run build
 ```

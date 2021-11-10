@@ -24,16 +24,16 @@ Check out the demo of `getYjsValue` below:
 ```typescript live
 import React from "react";
 import { useReactive } from "@reactivedata/react";
-import { boxed, getInternalAny } from "@reactivedata/reactive-crdt";
+import { boxed, getYjsValue } from "@reactivedata/reactive-crdt";
 import { store } from "./store"; // the store we defined above
 import { ObjectInspector } from "react-inspector";
 
 export default function App() {
   const state = useReactive(store);
 
-  const doc = getInternalAny(state);
-  const array = getInternalAny(state.todos);
-  const map = state.todos.length ? getInternalAny(state.todos[0]) : undefined;
+  const doc = getYjsValue(state);
+  const array = getYjsValue(state.todos);
+  const map = state.todos.length ? getYjsValue(state.todos[0]) : undefined;
 
   return (
     <div>

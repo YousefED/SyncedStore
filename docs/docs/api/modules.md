@@ -16,7 +16,7 @@ custom_edit_url: null
 
 [packages/reactive-crdt/src/index.ts:70](https://github.com/YousefED/reactive-crdt/blob/7abdad1/packages/reactive-crdt/src/index.ts#L70)
 
-___
+---
 
 ### ObjectSchemaType
 
@@ -32,9 +32,9 @@ ___
 
 ## Variables
 
-### INTERNAL\_SYMBOL
+### INTERNAL_SYMBOL
 
-• **INTERNAL\_SYMBOL**: typeof [`INTERNAL_SYMBOL`](modules#internal_symbol)
+• **INTERNAL_SYMBOL**: typeof [`INTERNAL_SYMBOL`](modules#internal_symbol)
 
 #### Defined in
 
@@ -48,16 +48,16 @@ ___
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | extends `DocTypeDescription` |
+| Name | Type                         |
+| :--- | :--------------------------- |
+| `T`  | extends `DocTypeDescription` |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `doc` | `Doc` |
-| `initialValue` | `T` |
+| Name           | Type  |
+| :------------- | :---- |
+| `doc`          | `Doc` |
+| `initialValue` | `T`   |
 
 #### Returns
 
@@ -67,33 +67,33 @@ ___
 
 [packages/reactive-crdt/src/index.ts:64](https://github.com/YousefED/reactive-crdt/blob/7abdad1/packages/reactive-crdt/src/index.ts#L64)
 
-___
+---
 
 ### crdtValue
 
-▸ **crdtValue**<`T`\>(`value`): `CRDTArray`<`any`\> \| `CRDTObject`<`any`\> \| `T` & `string` \| `T` & `YXmlFragment` \| `T` & `YXmlHook` \| `T` & `YText` \| `T` & `Box`<`any`\> \| `T` & `number` \| `T` & ``false`` & `T` & ``true``
+▸ **crdtValue**<`T`\>(`value`): `CRDTArray`<`any`\> \| `CRDTObject`<`any`\> \| `T` & `string` \| `T` & `YXmlFragment` \| `T` & `YXmlHook` \| `T` & `YText` \| `T` & `Box`<`any`\> \| `T` & `number` \| `T` & `false` & `T` & `true`
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | extends [`NestedSchemaType`](modules#nestedschematype) |
+| Name | Type                                                   |
+| :--- | :----------------------------------------------------- |
+| `T`  | extends [`NestedSchemaType`](modules#nestedschematype) |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name    | Type                                      |
+| :------ | :---------------------------------------- |
 | `value` | `T` \| `YArray`<`any`\> \| `YMap`<`any`\> |
 
 #### Returns
 
-`CRDTArray`<`any`\> \| `CRDTObject`<`any`\> \| `T` & `string` \| `T` & `YXmlFragment` \| `T` & `YXmlHook` \| `T` & `YText` \| `T` & `Box`<`any`\> \| `T` & `number` \| `T` & ``false`` & `T` & ``true``
+`CRDTArray`<`any`\> \| `CRDTObject`<`any`\> \| `T` & `string` \| `T` & `YXmlFragment` \| `T` & `YXmlHook` \| `T` & `YText` \| `T` & `Box`<`any`\> \| `T` & `number` \| `T` & `false` & `T` & `true`
 
 #### Defined in
 
 [packages/reactive-crdt/src/index.ts:32](https://github.com/YousefED/reactive-crdt/blob/7abdad1/packages/reactive-crdt/src/index.ts#L32)
 
-___
+---
 
 ### filterArray
 
@@ -102,14 +102,14 @@ ___
 #### Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `arr` | `T`[] |
+| Name     | Type                      |
+| :------- | :------------------------ |
+| `arr`    | `T`[]                     |
 | `filter` | (`obj`: `T`) => `boolean` |
 
 #### Returns
@@ -120,16 +120,16 @@ ___
 
 [packages/reactive-crdt/src/util.ts:1](https://github.com/YousefED/reactive-crdt/blob/7abdad1/packages/reactive-crdt/src/util.ts#L1)
 
-___
+---
 
-### getInternalAny
+### getYjsValue
 
-▸ **getInternalAny**(`object`): `CRDTArray`<`any`\> \| `CRDTObject`<`any`\> \| `undefined`
+▸ **getYjsValue**(`object`): `CRDTArray`<`any`\> \| `CRDTObject`<`any`\> \| `undefined`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type  |
+| :------- | :---- |
 | `object` | `any` |
 
 #### Returns
@@ -140,7 +140,7 @@ ___
 
 [packages/reactive-crdt/src/index.ts:26](https://github.com/YousefED/reactive-crdt/blob/7abdad1/packages/reactive-crdt/src/index.ts#L26)
 
-___
+---
 
 ### getInternalArray
 
@@ -149,13 +149,13 @@ ___
 #### Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type              |
+| :------- | :---------------- |
 | `object` | `CRDTArray`<`T`\> |
 
 #### Returns
@@ -166,7 +166,7 @@ ___
 
 [packages/reactive-crdt/src/index.ts:22](https://github.com/YousefED/reactive-crdt/blob/7abdad1/packages/reactive-crdt/src/index.ts#L22)
 
-___
+---
 
 ### getInternalMap
 
@@ -174,14 +174,14 @@ ___
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | extends [`ObjectSchemaType`](modules#objectschematype) |
+| Name | Type                                                   |
+| :--- | :----------------------------------------------------- |
+| `T`  | extends [`ObjectSchemaType`](modules#objectschematype) |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type               |
+| :------- | :----------------- |
 | `object` | `CRDTObject`<`T`\> |
 
 #### Returns
@@ -192,7 +192,7 @@ ___
 
 [packages/reactive-crdt/src/index.ts:18](https://github.com/YousefED/reactive-crdt/blob/7abdad1/packages/reactive-crdt/src/index.ts#L18)
 
-___
+---
 
 ### useMobxBindings
 
@@ -200,8 +200,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name   | Type  |
+| :----- | :---- |
 | `mobx` | `any` |
 
 #### Returns
@@ -212,7 +212,7 @@ ___
 
 [packages/yjs-reactive-bindings/src/observableProvider.ts:29](https://github.com/YousefED/reactive-crdt/blob/7abdad1/packages/yjs-reactive-bindings/src/observableProvider.ts#L29)
 
-___
+---
 
 ### useVueBindings
 
@@ -220,8 +220,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name  | Type  |
+| :---- | :---- |
 | `vue` | `any` |
 
 #### Returns
