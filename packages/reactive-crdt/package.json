@@ -19,7 +19,7 @@
     "offline",
     "shared editing"
   ],
-  "version": "0.2.9",
+  "version": "0.2.10",
   "private": false,
   "main": "dist/reactive-crdt.js",
   "module": "dist/reactive-crdt.module.js",
@@ -36,6 +36,7 @@
     "yjs": "^13.5.13"
   },
   "devDependencies": {
+    "@vue/reactivity": "^3.2.21",
     "microbundle": "^0.13.0",
     "rimraf": "^3.0.2"
   },

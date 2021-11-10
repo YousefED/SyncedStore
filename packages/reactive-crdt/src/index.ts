@@ -1,4 +1,5 @@
 import * as reactive from "@reactivedata/reactive";
+import { markRaw } from "@reactivedata/reactive";
 import { makeYDocObservable, useReactiveBindings } from "@reactivedata/yjs-reactive-bindings";
 import * as Y from "yjs";
 import { crdtArray } from "./array";
@@ -16,7 +17,12 @@ useReactiveBindings(reactive); // use reactive bindings by default
 export const INTERNAL_SYMBOL = Symbol("INTERNAL_SYMBOL");
 
 export function getYjsValue(object: any): Y.Doc | Y.AbstractType<any> | undefined {
-  return object[INTERNAL_SYMBOL];
+  const ret = object[INTERNAL_SYMBOL];
+  if (ret) {
+    markRaw(ret);
+    (ret as any).__v_skip = true; // for vue Reactive
+  }
+  return ret;
 }
 
 export function areSame(objectA: any, objectB: any) {
