@@ -78,7 +78,7 @@ import { WebrtcProvider } from "y-webrtc";
 
 type Todo = { completed: boolean; title: string };
 const store = syncedStore({ todos: [] as Todo[] });
-new WebrtcProvider("id", getYjsValue(store)); // sync via webrtc
+new WebrtcProvider("id", getYjsValue(store) as any); // sync via webrtc
 
 // visibility filters
 const filters = {

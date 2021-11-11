@@ -6,8 +6,8 @@ The code that sets up our store is defined in [src/store.ts](src/store.ts). By u
 
 # Live demo
 
-- [Open live demo](https://sm8tt.csb.app/) (Of course, open multiple times to test multiplayer)
-- [Open source on Codesandbox](https://codesandbox.io/s/todo-react-sm8tt)
+- [Open live demo](https://0sswz.csb.app/) (Of course, open multiple times to test multiplayer)
+- [Open source on Codesandbox](https://codesandbox.io/s/todo-react-0sswz)
 
 # Running
 

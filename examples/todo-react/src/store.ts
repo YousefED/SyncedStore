@@ -1,4 +1,4 @@
-import { crdt, Y } from "@syncedstore/core";
+import { getYjsValue, syncedStore } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
 
 export type Todo = {
@@ -6,8 +6,5 @@ export type Todo = {
   completed: boolean;
 };
 
-// Setup Yjs
-const doc = new Y.Doc();
-new WebrtcProvider("id", doc); // sync via webrtc
-
-export const globalStore = crdt(doc, { todos: [] as Todo[] });
+export const globalStore = syncedStore({ todos: [] as Todo[] });
+new WebrtcProvider("id", getYjsValue(globalStore) as any); // sync via webrtc
