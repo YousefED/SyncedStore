@@ -52,7 +52,7 @@ export default function CodeBlock(props: any) {
           dependencies: {
             ...customTemplate.dependencies,
             "@syncedstore/core": "latest",
-            "@reactivedata/react": "latest",
+            "@syncedstore/react": "latest",
             yjs: "latest",
             "y-webrtc": "latest",
             "react-inspector": "latest",

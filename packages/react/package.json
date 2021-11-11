@@ -31,8 +31,10 @@
     "@reactivedata/react": "0.1.16",
     "@types/eslint": "6.8.0"
   },
+  "peerDependencies": {
+    "@syncedstore/core": "*"
+  },
   "devDependencies": {
-    "@syncedstore/core": "^0.3.0",
     "microbundle": "^0.13.0",
     "rimraf": "^3.0.2"
   },
