@@ -119,9 +119,35 @@ export default Vue.defineComponent({
 
 You can now use `sharedData.vehicles` in your Vue app and it will sync automatically.
 
+## Svelte
+
+Reactive CRDT also works with Svelte. See the [Svelte Todo example](https://github.com/zsaquarian/reactive-crdt/tree/main/examples/todo-svelte) for more details.
+```typescript
+import { writable } from "svelte/store";
+import { crdt, Y, useSvelteBindings } from "@reactivedata/reactive-crdt";
+import { WebrtcProvider } from "y-webrtc";
+
+// since svelte only refreshes the component when an assignment is made, we need
+// a dummy function that just assigns a variable to itself
+const refresh = () => {
+  store = store;
+}
+
+// make reactive-crdt use Svelte internally
+useSvelteBindings({ writable, refresh });
+
+// Setup Yjs
+const doc = new Y.Doc();
+new WebrtcProvider("id", doc); // sync via webrtc
+
+const store = crdt(doc);
+```
+
+You can now use `store` and it will sync automatically.
+
 ## Without framework
 
-You don't have to use React or Vue, you can also use `autorun` from the Reactive library to observe changes:
+You don't have to use React, Vue or Svelte, you can also use `autorun` from the Reactive library to observe changes:
 
 ```typescript
 import { reactive, autorun } from "@reactivedata/reactive";
