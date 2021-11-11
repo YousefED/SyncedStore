@@ -19,7 +19,7 @@
     "offline",
     "shared editing"
   ],
-  "version": "0.2.10",
+  "version": "0.3.0",
   "private": false,
   "main": "dist/syncedstore.js",
   "module": "dist/syncedstore.module.js",
@@ -29,7 +29,7 @@
   "license": "MIT",
   "dependencies": {
     "@reactivedata/reactive": "0.1.16",
-    "@syncedstore/yjs-reactive-bindings": "^0.2.8",
+    "@syncedstore/yjs-reactive-bindings": "^0.3.0",
     "@types/eslint": "6.8.0"
   },
   "peerDependencies": {
