@@ -72,7 +72,31 @@ export function useReactiveBindings(reactive: any) {
     }
     return atom;
   };
-  customReaction = (func: () => void, effect: () => void) => {
-    return reactive.reaction(func, effect, { fireImmediately: false });
+}
+
+export function useSvelteBindings({ writable, refresh }: { writable: any; refresh: () => void }) {
+  customCreateAtom = function (name, obo) {
+    let store = {};
+    const atom = {
+      reportObserved() {
+        let ret = false;
+        // store.subscribe((val: any) => {
+        //   ret = !!val;
+        // });
+        return ret;
+      },
+      reportChanged() {
+        // store.update((val: any) => {
+        //   console.log(val);
+        //   refresh();
+        //   return val;
+        // });
+        refresh();
+      },
+    };
+    if (obo) {
+      obo();
+    }
+    return atom;
   };
 }
