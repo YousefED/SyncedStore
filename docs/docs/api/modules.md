@@ -214,9 +214,9 @@ custom_edit_url: null
 
 ---
 
-### useVueBindings
+### enableVueBindings
 
-▸ **useVueBindings**(`vue`): `void`
+▸ **enableVueBindings**(`vue`): `void`
 
 #### Parameters
 

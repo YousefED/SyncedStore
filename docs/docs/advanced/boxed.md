@@ -19,9 +19,9 @@ This might not always be desirable, for two reasons:
 If you want to prevent subproperties from being made collaborative, you can use _boxed values_.
 
 ```typescript
-import { crdt, Y, Box, boxed } from "@syncedstore/core";
+import { syncedStore, Box, boxed } from "@syncedstore/core";
 
-export const store = crdt(doc, { todos: [] as Box<Todo>[] });
+export const store = syncedStore(doc, { todos: [] as Box<Todo>[] });
 
 // ...
 
@@ -45,12 +45,12 @@ Try it out for yourself in this interactive playground:
 
 ```typescript live
 import React from "react";
-import { useReactive } from "@reactivedata/react";
+import { useSyncedStore } from "@syncedstore/react";
 import { boxed } from "@syncedstore/core";
 import { store } from "./store"; // the store we defined above
 
 export default function App() {
-  const state = useReactive(store);
+  const state = useSyncedStore(store);
 
   return (
     <div>

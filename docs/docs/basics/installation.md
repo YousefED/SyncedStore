@@ -30,26 +30,26 @@ npm install --save y-webrtc
 Now, let's set up a `store` which contains and describes the data that should be synced across users and devices.
 
 ```typescript
-import { crdt, Y } from "@syncedstore/core";
+import { syncedStore, getYjsValue } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
-
-// Create a document that syncs automatically using y-webrtc
-const doc = new Y.Doc();
-const webrtcProvider = new WebrtcProvider("my-document-id", doc);
 
 // (optional, define types for TypeScript)
 type Vehicle = { color: string; brand: string };
 
 // Create your SyncedStore store
-export const store = crdt(doc, { vehicles: [] as Vehicle[] });
+export const store = syncedStore({ vehicles: [] as Vehicle[] });
+
+// Get the Yjs document and sync automatically using y-webrtc
+const doc = getYjsValue(store);
+const webrtcProvider = new WebrtcProvider("my-document-id", doc);
 ```
 
-##
+## `syncedStore
 
-The function `crdt(doc, shape)` takes two parameters:
+The function `syncedStore` takes two parameters:
 
-- `doc`: a Y.Doc instance. This will be the backing yjs document that contains the data in the store.
 - `shape`: an object that describes the root types of the store.
+- `doc` (optional): a Y.Doc instance. This will be the backing yjs document that contains the data in the store. Defaults to creating a new Y.Doc.
 
 ### Shape
 
@@ -62,7 +62,7 @@ const shape = {
   exampleXMLData: "xml",
   exampleTextData: "text",
 };
-const store = crdt(new Y.Doc(), shape);
+const store = syncedStore(shape);
 ```
 
 #### Arrays

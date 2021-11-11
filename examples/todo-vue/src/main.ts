@@ -3,10 +3,10 @@
 
 import * as Vue from "vue";
 import App from "./App.vue";
-import { useVueBindings } from "@syncedstore/core";
+import { enableVueBindings } from "@syncedstore/core";
 
 // make SyncedStore use Vuejs internally
-useVueBindings(Vue);
+enableVueBindings(Vue);
 
 const app = Vue.createApp(App);
 const vm = app.mount("#app") as any;

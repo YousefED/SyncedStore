@@ -3,7 +3,7 @@
   "version": "0.2.10",
   "private": true,
   "dependencies": {
-    "@reactivedata/react": "^0.1.12",
+    "@syncedstore/react": "^0.2.10",
     "@syncedstore/core": "^0.2.10",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",

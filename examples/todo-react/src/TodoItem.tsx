@@ -1,9 +1,9 @@
-import { useReactives } from "@reactivedata/react";
+import { useSyncedStores } from "@syncedstore/react";
 import { useState } from "react";
 import { globalStore, Todo } from "./store";
 
 export function TodoItem(props: { todo: Todo }) {
-  const [todo, store] = useReactives([props.todo, globalStore], [props.todo]);
+  const [todo, store] = useSyncedStores([props.todo, globalStore], [props.todo]);
   const [editing, setEditing] = useState(false);
   // const [todo, store] = useReactives(globalStore], [props.todo]);
 

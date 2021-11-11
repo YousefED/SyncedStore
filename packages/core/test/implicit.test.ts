@@ -1,6 +1,5 @@
 import { autorun, Observer, reactive } from "@reactivedata/reactive";
-import { Y, crdt, boxed } from "@syncedstore/core";
-import { Box } from "../src/boxed";
+import { Y, syncedStore, boxed, Box } from "../src";
 
 describe("test implicit observer", () => {
   type StoreType = {
@@ -28,24 +27,30 @@ describe("test implicit observer", () => {
     doc1 = new Y.Doc();
     doc2 = new Y.Doc();
 
-    store = crdt(doc1, {
-      arr: [],
-      object: {} as { nested?: number },
-      todos: [],
-      todosNotBoxed: [],
-      xml: "xml" as "xml",
-    });
+    store = syncedStore(
+      {
+        arr: [],
+        object: {} as { nested?: number },
+        todos: [],
+        todosNotBoxed: [],
+        xml: "xml" as "xml",
+      },
+      doc1
+    );
 
     implicitStore1 = reactive(store, new Observer(fnSpy1));
     implicitStore2 = reactive(store, new Observer(fnSpy2));
 
-    storeDoc2 = crdt(doc2, {
-      arr: [],
-      object: {} as { nested?: number },
-      todos: [],
-      todosNotBoxed: [],
-      xml: "xml" as "xml",
-    });
+    storeDoc2 = syncedStore(
+      {
+        arr: [],
+        object: {} as { nested?: number },
+        todos: [],
+        todosNotBoxed: [],
+        xml: "xml" as "xml",
+      },
+      doc2
+    );
   });
 
   it("indexOf works on store", () => {

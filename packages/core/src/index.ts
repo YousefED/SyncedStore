@@ -1,18 +1,20 @@
 import * as reactive from "@reactivedata/reactive";
 import { markRaw } from "@reactivedata/reactive";
-import { makeYDocObservable, useReactiveBindings } from "@syncedstore/yjs-reactive-bindings";
+import { makeYDocObservable, enableReactiveBindings } from "@syncedstore/yjs-reactive-bindings";
 import * as Y from "yjs";
 import { crdtArray } from "./array";
-import { Box, boxed } from "./boxed";
+import { Box } from "./boxed";
 import { crdtDoc, DocTypeDescription } from "./doc";
 import { crdtObject } from "./object";
 import { JSONValue } from "./types";
-export { useMobxBindings, useVueBindings } from "@syncedstore/yjs-reactive-bindings";
+
+export { enableMobxBindings, enableVueBindings } from "@syncedstore/yjs-reactive-bindings";
 export * from "./util";
+export { Box, boxed } from "./boxed";
 
 // setup yjs-reactive-bindings
 
-useReactiveBindings(reactive); // use reactive bindings by default
+enableReactiveBindings(reactive); // use reactive bindings by default
 
 export const INTERNAL_SYMBOL = Symbol("INTERNAL_SYMBOL");
 
@@ -73,11 +75,13 @@ export function crdtValue<T extends NestedSchemaType>(value: T | Y.Array<any> | 
   }
 }
 
-export function crdt<T extends DocTypeDescription>(doc: Y.Doc, shape: T) {
+export default function syncedStore<T extends DocTypeDescription>(shape: T, doc: Y.Doc = new Y.Doc()) {
   makeYDocObservable(doc);
 
   return crdtDoc<T>(doc, shape);
 }
+
+export { syncedStore };
 
 export type NestedSchemaType = JSONValue | ObjectSchemaType | Box<any> | Y.AbstractType<any> | NestedSchemaType[];
 
@@ -89,7 +93,7 @@ export type ObjectSchemaType = {
  * @ignore
  */
 export { Y };
-export { boxed };
+// export { boxed };
 export const SyncedDoc = Y.Doc;
 export const SyncedMap = Y.Map;
 export const SyncedArray = Y.Array;

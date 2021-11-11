@@ -1,4 +1,4 @@
-import { crdt, useVueBindings, Y } from "@syncedstore/core";
+import { syncedStore, enableVueBindings, Y } from "../src";
 import * as Vue from "@vue/reactivity";
 describe("vue3", () => {
   type StoreType = {
@@ -17,19 +17,22 @@ describe("vue3", () => {
   let store: StoreType;
 
   beforeEach(() => {
-    useVueBindings(Vue);
+    enableVueBindings(Vue);
     fnSpy1 = jest.fn(() => {});
     fnSpy2 = jest.fn(() => {});
 
     doc1 = new Y.Doc();
 
-    store = crdt(doc1, {
-      arr: [],
-      object: {} as { nested?: number },
-      todos: [],
-      todosNotBoxed: [],
-      xml: "xml" as "xml",
-    });
+    store = syncedStore(
+      {
+        arr: [],
+        object: {} as { nested?: number },
+        todos: [],
+        todosNotBoxed: [],
+        xml: "xml" as "xml",
+      },
+      doc1
+    );
 
     implicitStore1 = Vue.reactive(store);
   });

@@ -1,4 +1,4 @@
-import { crdt } from "@syncedstore/core";
+import { syncedStore } from "../src";
 import * as Y from "yjs";
 
 describe("initializers", () => {
@@ -6,12 +6,12 @@ describe("initializers", () => {
     let timesHaveValue = 0;
     for (let i = 0; i < 10; i++) {
       const doc1 = new Y.Doc();
-      let store1 = crdt(doc1, { map: {} as any }).map;
+      let store1 = syncedStore({ map: {} as any }, doc1).map;
       store1.myarr = [];
       store1.myarr.push({ foo: "bar" });
 
       const doc2 = new Y.Doc();
-      let store2 = crdt(doc1, { map: {} as any }).map;
+      let store2 = syncedStore({ map: {} as any }, doc2).map;
       store2.myarr = [];
 
       const state1 = Y.encodeStateAsUpdate(doc1);
@@ -25,18 +25,19 @@ describe("initializers", () => {
       }
     }
     // the second array will overwrite the initial one
-    expect(timesHaveValue).toBe(0);
+    expect(timesHaveValue).toBeGreaterThan(0);
+    expect(timesHaveValue).toBeLessThan(10);
   });
 
   it("initializing with initializer", () => {
     let timesHaveValue = 0;
     for (let i = 0; i < 10; i++) {
       const doc1 = new Y.Doc();
-      let store1 = crdt(doc1, { myarr: [] as any[] });
+      let store1 = syncedStore({ myarr: [] as any[] }, doc1);
       store1.myarr.push({ foo: "bar" });
 
       const doc2 = new Y.Doc();
-      let store2 = crdt(doc2, { myarr: [] as any[] });
+      let store2 = syncedStore({ myarr: [] as any[] }, doc2);
 
       const state1 = Y.encodeStateAsUpdate(doc1);
       Y.applyUpdate(doc2, state1);

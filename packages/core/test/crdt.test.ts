@@ -1,15 +1,15 @@
-import { crdt, getYjsValue } from "@syncedstore/core";
-import { Box, boxed } from "../src/boxed";
+import { syncedStore, getYjsValue, Box, boxed } from "../src";
+
 import * as Y from "yjs";
 
 describe("SyncedStore", () => {
   it("undefined", () => {
-    let store = crdt(new Y.Doc(), { a: [] as number[] });
+    let store = syncedStore({ a: [] as number[] });
     expect(store.a).toEqual([]);
   });
 
   it("set", () => {
-    let store = crdt<{
+    let store = syncedStore<{
       map: {
         a?: number;
         arr?: number[];
@@ -22,7 +22,7 @@ describe("SyncedStore", () => {
           };
         }>;
       };
-    }>(new Y.Doc(), { map: {} }).map;
+    }>({ map: {} }).map;
 
     store.raw = boxed({ outer: { nested: 99 } });
     store.a = 4;
@@ -38,22 +38,22 @@ describe("SyncedStore", () => {
 
   it("syncs", () => {
     const doc1 = new Y.Doc();
-    let store1 = crdt<{
+    let store1 = syncedStore<{
       map: {
         plain?: number;
         text?: Y.Text;
         boxed?: Box<{ inner: number }>;
       };
-    }>(doc1, { map: {} }).map;
+    }>({ map: {} }, doc1).map;
 
     const doc2 = new Y.Doc();
-    let store2 = crdt<{
+    let store2 = syncedStore<{
       map: {
         plain?: number;
         text?: Y.Text;
         boxed?: Box<{ inner: number }>;
       };
-    }>(doc2, { map: {} }).map;
+    }>({ map: {} }, doc2).map;
 
     store1.plain = 5;
     store1.text = new Y.Text("test");
@@ -68,14 +68,20 @@ describe("SyncedStore", () => {
 
   it("syncs text", () => {
     const doc1 = new Y.Doc();
-    let store1 = crdt(doc1, {
-      text: "text",
-    });
+    let store1 = syncedStore(
+      {
+        text: "text",
+      },
+      doc1
+    );
 
     const doc2 = new Y.Doc();
-    let store2 = crdt(doc2, {
-      text: "text",
-    });
+    let store2 = syncedStore(
+      {
+        text: "text",
+      },
+      doc2
+    );
 
     store1.text.insert(0, "hello");
 
@@ -87,10 +93,10 @@ describe("SyncedStore", () => {
 
   it("syncs independent pushes", () => {
     const doc1 = new Y.Doc();
-    let store1 = crdt(doc1, { arr: [] as number[] });
+    let store1 = syncedStore({ arr: [] as number[] }, doc1);
 
     const doc2 = new Y.Doc();
-    let store2 = crdt(doc2, { arr: [] as number[] });
+    let store2 = syncedStore({ arr: [] as number[] }, doc2);
     store1.arr.push(3);
 
     let state1 = Y.encodeStateAsUpdate(doc1);
@@ -118,48 +124,42 @@ describe("SyncedStore", () => {
   });
 
   it("Object.keys() for object", () => {
-    const doc1 = new Y.Doc();
-    let store1 = crdt(doc1, { map: {} as any }).map;
+    let store1 = syncedStore({ map: {} as any }).map;
     store1["obj"] = 4;
     let keys = Object.keys(store1);
     expect(keys).toStrictEqual(Object.keys({ obj: 4 }));
   });
 
   it("Object.keys() for array", () => {
-    const doc1 = new Y.Doc();
-    let store1 = crdt(doc1, { map: {} as any }).map;
+    let store1 = syncedStore({ map: {} as any }).map;
     store1.arr = [0, 1];
     let keys = Object.keys(store1.arr);
     expect(keys).toStrictEqual(Object.keys([0, 1]));
   });
 
   it("Reflect.ownKeys() for array", () => {
-    const doc1 = new Y.Doc();
-    let store1 = crdt(doc1, { map: {} as any }).map;
+    let store1 = syncedStore({ map: {} as any }).map;
     store1.arr = [0, 1];
     let keys = Reflect.ownKeys(store1.arr);
     expect(keys).toStrictEqual(Reflect.ownKeys([0, 1]));
   });
 
   it("Array.from() for array", () => {
-    const doc1 = new Y.Doc();
-    let store1 = crdt(doc1, { map: {} as any }).map;
+    let store1 = syncedStore({ map: {} as any }).map;
     store1.arr = [0, 1];
     let copy = Array.from(store1.arr);
     expect(copy).toStrictEqual([0, 1]);
   });
 
   it("indexOf() for array", () => {
-    const doc1 = new Y.Doc();
-    let store1 = crdt(doc1, { map: {} as any }).map;
+    let store1 = syncedStore({ map: {} as any }).map;
     store1.arr = [0, 1];
     let index = store1.arr.indexOf(1);
     expect(index).toEqual(1);
   });
 
   it("splice() for array", () => {
-    const doc1 = new Y.Doc();
-    let store1 = crdt(doc1, { map: {} as any }).map;
+    let store1 = syncedStore({ map: {} as any }).map;
     store1.arr = [0, 1];
     let deleted = store1.arr.splice(1);
     expect(deleted).toEqual([1]);
@@ -178,8 +178,7 @@ describe("SyncedStore", () => {
   });
 
   it("move already inserted object to different location in document (nested)", () => {
-    const doc1 = new Y.Doc();
-    let store1 = crdt(doc1, { map: {} as any }).map;
+    let store1 = syncedStore({ map: {} as any }).map;
     store1.mymap = {};
 
     expect(() => (store1.myothermap = { test: store1.mymap })).toThrow(
@@ -188,8 +187,7 @@ describe("SyncedStore", () => {
   });
 
   it("move already inserted object to different location in document (root)", () => {
-    const doc1 = new Y.Doc();
-    let store1 = crdt(doc1, { map: {} as any }).map;
+    let store1 = syncedStore({ map: {} as any }).map;
     store1.mymap = {};
     expect(() => (store1.myothermap = store1.mymap)).toThrow(
       "Not supported: reassigning object that already occurs in the tree."
@@ -197,8 +195,7 @@ describe("SyncedStore", () => {
   });
 
   it("move already inserted array to different location in document", () => {
-    const doc1 = new Y.Doc();
-    let store1 = crdt(doc1, { map: {} as any }).map;
+    let store1 = syncedStore({ map: {} as any }).map;
     store1.myarr = [{ foo: "bar" }];
     expect(() => store1.myarr.push(store1.myarr[0])).toThrow(
       "Not supported: reassigning object that already occurs in the tree."

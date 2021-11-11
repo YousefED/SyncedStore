@@ -178,11 +178,11 @@ The above example uses TipTap, which is a Prosemirror-based editor, but you migh
 <p>
 
 ```typescript
-import { crdt, Y } from "@syncedstore/core";
+import syncedStore from "@syncedstore/core";
 import { ySyncPlugin } from "y-prosemirror";
 
 const doc = new Y.Doc();
-export const store = crdt(doc, { fragment: "xml" });
+export const store = syncedStore({ fragment: "xml" });
 
 // When you set up your ProseMirror instance,
 // hook up store.fragment to the y-prosemirror plugin

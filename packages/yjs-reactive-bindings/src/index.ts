@@ -105,4 +105,4 @@ export function makeYDocObservable(doc: Y.Doc) {
   });
 }
 
-export { useMobxBindings, useReactiveBindings, useVueBindings } from "./observableProvider";
+export { enableMobxBindings, enableReactiveBindings, enableVueBindings } from "./observableProvider";

@@ -102,11 +102,11 @@ SyncedStore works great with Vues reactive programming model. See the [Vue Todo 
 
 ```typescript
 import * as Vue from "vue";
-import { crdt, Y, useVueBindings } from "@syncedstore/core";
+import { crdt, Y, enableVueBindings } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
 
 // make SyncedStore use Vuejs internally
-useVueBindings(Vue);
+enableVueBindings(Vue);
 
 // Setup Yjs
 const doc = new Y.Doc();

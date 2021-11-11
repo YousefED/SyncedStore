@@ -20,18 +20,18 @@ Source in: [examples/todo-react](https://github.com/YousefED/syncedstore/tree/ma
 Setup:
 
 ```typescript
-import { crdt, Y } from "@syncedstore/core";
+import syncedStore, { getYjsValue } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
-
-// Create a document that syncs automatically using Y-WebRTC
-const doc = new Y.Doc();
-const webrtcProvider = new WebrtcProvider("my-document-id", doc);
 
 // (optional, define types for TypeScript)
 type Vehicle = { color: string; type: string };
 
 // Create a SyncedStore
-export const store = crdt(doc, { vehicles: [] as Vehicle[] });
+export const store = syncedStore({ vehicles: [] as Vehicle[] });
+
+// Get the Yjs document and sync automatically using Y-WebRTC
+const doc = getYjsValue(store);
+const webrtcProvider = new WebrtcProvider("my-document-id", doc);
 ```
 
 From now on, the `store` object is synced automatically:
@@ -93,11 +93,11 @@ SyncedStore works great with Vues reactive programming model. See the [Vue Todo 
 
 ```typescript
 import * as Vue from "vue";
-import { crdt, Y, useVueBindings } from "@syncedstore/core";
+import { crdt, Y, enableVueBindings } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
 
 // make SyncedStore use Vuejs internally
-useVueBindings(Vue);
+enableVueBindings(Vue);
 
 // Setup Yjs
 const doc = new Y.Doc();
