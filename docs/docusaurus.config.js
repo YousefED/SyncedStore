@@ -2,13 +2,13 @@
 module.exports = {
   title: "SyncedStore - Javascript CRDT based real-time sync",
   tagline: "Dinosaurs are cool",
-  url: "https://your-docusaurus-test-site.com",
-  baseUrl: "/",
+  url: "https://yousefed.github.io",
+  baseUrl: "/reactive-crdt/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   // favicon: "img/favicon.ico",
   organizationName: "YousefED", // Usually your GitHub org/user name.
-  projectName: "SyncedStore", // Usually your repo name.
+  projectName: "reactive-crdt", // Usually your repo name.
   plugins: [
     [
       "docusaurus-plugin-typedoc",
