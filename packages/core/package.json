@@ -1,0 +1,71 @@
+{
+  "name": "@syncedstore/core",
+  "description": "SyncedStore is an easy-to-use library for building collaborative applications that sync automatically. It's built on top of Yjs, a proven, high performance CRDT implementation.",
+  "keywords": [
+    "reactive",
+    "crdt",
+    "yjs",
+    "react",
+    "sync",
+    "automerge",
+    "collaboration",
+    "collaborative",
+    "mobx",
+    "vue",
+    "vuejs",
+    "observable",
+    "operational transforms",
+    "conflict",
+    "offline",
+    "shared editing"
+  ],
+  "version": "0.3.2",
+  "private": false,
+  "main": "dist/syncedstore.js",
+  "module": "dist/syncedstore.module.js",
+  "umd:main": "dist/syncedstore.umd.js",
+  "source": "src/index.ts",
+  "types": "types/index.d.ts",
+  "license": "MIT",
+  "dependencies": {
+    "@reactivedata/reactive": "0.1.16",
+    "@syncedstore/yjs-reactive-bindings": "^0.3.0",
+    "@types/eslint": "6.8.0"
+  },
+  "peerDependencies": {
+    "yjs": "^13.5.13"
+  },
+  "devDependencies": {
+    "@vue/reactivity": "^3.2.21",
+    "microbundle": "^0.13.0",
+    "rimraf": "^3.0.2"
+  },
+  "scripts": {
+    "test": "echo \"Run tests from root\" && exit 1",
+    "clean": "rimraf dist && rimraf types",
+    "build": "npm run clean && microbundle build --raw --no-compress --tsconfig tsconfig.build.json",
+    "watch": "microbundle watch"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "gitHead": "5aecc6d5a337f243c8afd312f271e90eabd221e8"
+}

@@ -1,10 +1,10 @@
-import { useReactive } from "@reactivedata/react";
+import { useSyncedStore } from "@syncedstore/react";
 import React from "react";
 import { globalStore } from "./store";
 import { TodoItem } from "./TodoItem";
 
 export function TodoList(props: { view: "all" | "active" | "completed" }) {
-  const store = useReactive(globalStore);
+  const store = useSyncedStore(globalStore);
 
   const activeTodos = store.todos.filter((t) => !t.completed);
   const completedTodos = store.todos.filter((t) => t.completed);

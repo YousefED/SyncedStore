@@ -3,10 +3,10 @@
 
 import * as Vue from "vue";
 import App from "./App.vue";
-import { useVueBindings } from "@reactivedata/reactive-crdt";
+import { enableVueBindings } from "@syncedstore/core";
 
-// make reactive-crdt use Vuejs internally
-useVueBindings(Vue);
+// make SyncedStore use Vuejs internally
+enableVueBindings(Vue);
 
 const app = Vue.createApp(App);
 const vm = app.mount("#app") as any;

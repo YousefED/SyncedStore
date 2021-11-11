@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useReactive } from "@reactivedata/react";
-import { filterArray } from "@reactivedata/reactive-crdt";
+import { useSyncedStore } from "@syncedstore/react";
+import { filterArray } from "@syncedstore/core";
 import "./App.css";
 import { globalStore } from "./store";
 import { TodoList } from "./TodoList";
 
 function App() {
-  const store = useReactive(globalStore);
+  const store = useSyncedStore(globalStore);
   const [view, setView] = useState<"all" | "active" | "completed">("all");
   function onKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === "Enter") {

@@ -33,17 +33,27 @@ export function createAtom(
     return customCreateAtom.apply(null, arguments as any);
   } else {
     throw new Error(
-      "observable implementation not provided. Call useReactiveBindings, useVueBindings or useMobxBindings."
+      "observable implementation not provided. Call enableReactiveBindings, enableVueBindings or enableMobxBindings."
     );
   }
 }
 
-export function useMobxBindings(mobx: any) {
+/**
+ * Enable MobX integration
+ *
+ * @param mobx An instance of mobx, e.g. import * as mobx from "mobx";
+ */
+export function enableMobxBindings(mobx: any) {
   customCreateAtom = mobx.createAtom;
   customReaction = undefined;
 }
 
-export function useVueBindings(vue: any) {
+/**
+ * Enable Vue3 integration
+ *
+ * @param vue An instance of Vue or Vue reactivity, e.g. import * as Vue from "vue";
+ */
+export function enableVueBindings(vue: any) {
   customCreateAtom = function (name: any, obo: any) {
     let id = 0;
     const data = vue.reactive({ data: id });
@@ -63,7 +73,7 @@ export function useVueBindings(vue: any) {
   customReaction = undefined;
 }
 
-export function useReactiveBindings(reactive: any) {
+export function enableReactiveBindings(reactive: any) {
   customCreateAtom = function (name, obo, obu) {
     // TMP
     const atom = reactive.createAtom(name);

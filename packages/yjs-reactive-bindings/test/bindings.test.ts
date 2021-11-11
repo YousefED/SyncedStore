@@ -1,4 +1,4 @@
-import * as bindings from "@reactivedata/yjs-reactive-bindings";
+import * as bindings from "@syncedstore/yjs-reactive-bindings";
 import * as Y from "yjs";
 import * as mobx from "mobx";
 
@@ -7,7 +7,7 @@ describe("yjs-reactive-bindings", () => {
     let doc = new Y.Doc();
     doc.getMap("root").set("key", new Y.Text("value"));
 
-    bindings.useMobxBindings(mobx);
+    bindings.enableMobxBindings(mobx);
 
     bindings.makeYDocObservable(doc);
     let stringValue = "";
@@ -28,7 +28,7 @@ describe("yjs-reactive-bindings", () => {
   it("Y.Text on root", () => {
     let doc = new Y.Doc();
 
-    bindings.useMobxBindings(mobx);
+    bindings.enableMobxBindings(mobx);
 
     bindings.makeYDocObservable(doc);
     let stringValue = "";
