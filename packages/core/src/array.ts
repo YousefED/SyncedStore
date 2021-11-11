@@ -1,6 +1,7 @@
 import { $reactive, $reactiveproxy } from "@reactivedata/reactive";
 import * as Y from "yjs";
-import { areSame, getYjsValue, INTERNAL_SYMBOL, ObjectSchemaType } from ".";
+import { areSame, getYjsValue, INTERNAL_SYMBOL } from ".";
+import { ObjectSchemaType } from "../types";
 import { Box } from "./boxed";
 import { parseYjsReturnValue, crdtValue } from "./internal";
 import { CRDTObject } from "./object";

@@ -1,10 +1,18 @@
 import { markRaw } from "@reactivedata/reactive";
 import * as Y from "yjs";
-import { getYjsValue, NestedSchemaType } from ".";
+import { getYjsValue } from ".";
 import { crdtArray } from "./array";
 import { Box, boxed } from "./boxed";
 import { crdtObject } from "./object";
 import { isYType } from "./types";
+import { JSONValue } from "./types";
+
+type NestedSchemaType = JSONValue | ObjectSchemaType | Box<any> | Y.AbstractType<any> | NestedSchemaType[];
+
+type ObjectSchemaType = {
+  [key: string]: NestedSchemaType;
+};
+
 export const yToWrappedCache = new WeakMap<Y.AbstractType<any> | Y.Doc, any>();
 
 export function parseYjsReturnValue(value: any, implicitObserver?: any) {

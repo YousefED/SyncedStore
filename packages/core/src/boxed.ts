@@ -1,4 +1,8 @@
 import { JSONValue } from "./types";
+
+/**
+ * @ignore
+ */
 export class Box<T extends Readonly<JSONValue>> {
   constructor(public readonly value: T) {}
 }

@@ -2,14 +2,12 @@ import * as reactive from "@reactivedata/reactive";
 import { markRaw } from "@reactivedata/reactive";
 import { enableReactiveBindings, makeYDocObservable } from "@syncedstore/yjs-reactive-bindings";
 import * as Y from "yjs";
-import { Box } from "./boxed";
 import { crdtDoc, DocTypeDescription } from "./doc";
-import { JSONValue } from "./types";
 
 export { enableMobxBindings, enableVueBindings } from "@syncedstore/yjs-reactive-bindings";
 export { Box, boxed } from "./boxed";
 export * from "./util";
-export { syncedStore };
+
 /**
  * @ignore
  */
@@ -19,6 +17,9 @@ export { Y };
 
 enableReactiveBindings(reactive); // use reactive bindings by default
 
+/**
+ * @ignore
+ */
 export const INTERNAL_SYMBOL = Symbol("INTERNAL_SYMBOL");
 
 /**
@@ -99,21 +100,16 @@ export function areSame(objectA: any, objectB: any) {
  * @param doc (optional) a Y.Doc to use as the backing system
  * @returns a SyncedStore store
  */
-export default function syncedStore<T extends DocTypeDescription>(shape: T, doc: Y.Doc = new Y.Doc()) {
+export function syncedStore<T extends DocTypeDescription>(shape: T, doc: Y.Doc = new Y.Doc()) {
   makeYDocObservable(doc);
 
   return crdtDoc<T>(doc, shape);
 }
 
-export type NestedSchemaType = JSONValue | ObjectSchemaType | Box<any> | Y.AbstractType<any> | NestedSchemaType[];
+export class SyncedDoc extends Y.Doc {}
+export class SyncedMap<T> extends Y.Map<T> {}
+export class SyncedArray<T> extends Y.Array<T> {}
+export class SyncedText extends Y.Text {}
+export class SyncedXml extends Y.XmlFragment {}
 
-export type ObjectSchemaType = {
-  [key: string]: NestedSchemaType;
-};
-
-// export { boxed };
-export const SyncedDoc = Y.Doc;
-export const SyncedMap = Y.Map;
-export const SyncedArray = Y.Array;
-export const SyncedText = Y.Text;
-export const SyncedXml = Y.XmlFragment;
+export default syncedStore;

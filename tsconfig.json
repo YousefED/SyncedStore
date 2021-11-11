@@ -24,5 +24,6 @@
       "@syncedstore/core": ["packages/core/src"],
       "@syncedstore/yjs-reactive-bindings": ["packages/yjs-reactive-bindings/src"]
     }
-  }
+  },
+  "exclude": ["**/dist"]
 }

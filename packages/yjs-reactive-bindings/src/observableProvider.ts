@@ -38,11 +38,21 @@ export function createAtom(
   }
 }
 
+/**
+ * Enable MobX integration
+ *
+ * @param mobx An instance of mobx, e.g. import * as mobx from "mobx";
+ */
 export function enableMobxBindings(mobx: any) {
   customCreateAtom = mobx.createAtom;
   customReaction = undefined;
 }
 
+/**
+ * Enable Vue3 integration
+ *
+ * @param vue An instance of Vue or Vue reactivity, e.g. import * as Vue from "vue";
+ */
 export function enableVueBindings(vue: any) {
   customCreateAtom = function (name: any, obo: any) {
     let id = 0;
