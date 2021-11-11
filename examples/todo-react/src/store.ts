@@ -1,4 +1,4 @@
-import { crdt, Y } from "@reactivedata/reactive-crdt";
+import { crdt, Y } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
 
 export type Todo = {

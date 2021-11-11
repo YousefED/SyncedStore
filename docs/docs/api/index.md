@@ -1,35 +1,35 @@
 ---
 id: "index"
-title: "@reactivedata/reactive-crdt"
+title: "@syncedstore/core"
 slug: "/api/"
 sidebar_label: "Readme"
 sidebar_position: 0
 custom_edit_url: null
 ---
 
-# Reactive CRDT
+# SyncedStore
 
-[![npm version](https://badge.fury.io/js/%40reactivedata%2Freactive-crdt.svg)](https://badge.fury.io/js/%40reactivedata%2Freactive-crdt) [![Coverage Status](https://coveralls.io/repos/github/YousefED/reactive-crdt/badge.svg?branch=main)](https://coveralls.io/github/YousefED/reactive-crdt?branch=main)
+[![npm version](https://badge.fury.io/js/%40syncedstore%2Fcore.svg)](https://badge.fury.io/js/%40syncedstore%2Fcore) [![Coverage Status](https://coveralls.io/repos/github/YousefED/syncedstore/badge.svg?branch=main)](https://coveralls.io/github/YousefED/syncedstore?branch=main)
 
-Reactive CRDT is an easy-to-use library for building collaborative applications that sync automatically. It's built on top of [Yjs](https://github.com/yjs/yjs), a proven, high performance CRDT implementation.
+SyncedStore is an easy-to-use library for building collaborative applications that sync automatically. It's built on top of [Yjs](https://github.com/yjs/yjs), a proven, high performance CRDT implementation.
 
 # Example
 
-Have a look at the collaborative Todo list examples ([React](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-react), [Vue](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-vue)) to get up to speed. Or, read along for a quick overview.
+Have a look at the collaborative Todo list examples ([React](https://github.com/YousefED/syncedstore/tree/main/examples/todo-react), [Vue](https://github.com/YousefED/syncedstore/tree/main/examples/todo-vue)) to get up to speed. Or, read along for a quick overview.
 
-[![example app screencapture](https://raw.githubusercontent.com/YousefED/reactive-crdt/main/reactivecrdt.gif)](https://github.com/yousefED/reactive-crdt/tree/main/examples/)
+[![example app screencapture](https://raw.githubusercontent.com/YousefED/syncedstore/main/reactivecrdt.gif)](https://github.com/YousefED/syncedstore/tree/main/examples/)
 
 - Open live demo: [React](https://sm8tt.csb.app/) or [Vue](https://78oyq.csb.app/) (Of course, open multiple times to test multiplayer)
 - Edit / view on Codesandbox [React](https://codesandbox.io/s/todo-react-sm8tt) / [Vue](https://codesandbox.io/s/todo-vue-78oyq)
 
-Source in: [examples/todo-react](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-react) and [examples/todo-vue](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-vue).
+Source in: [examples/todo-react](https://github.com/YousefED/syncedstore/tree/main/examples/todo-react) and [examples/todo-vue](https://github.com/YousefED/syncedstore/tree/main/examples/todo-vue).
 
 # Quick overview
 
 Setup:
 
 ```typescript
-import { crdt, Y } from "@reactivedata/reactive-crdt";
+import { crdt, Y } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
 
 // Create a document that syncs automatically using Y-WebRTC
@@ -39,7 +39,7 @@ const webrtcProvider = new WebrtcProvider("my-document-id", doc);
 // (optional, define types for TypeScript)
 type Vehicle = { color: string; type: string };
 
-// Create your reactive-crdt store
+// Create your SyncedStore store
 export const store = crdt(doc, { vehicles: [] as Vehicle[] });
 ```
 
@@ -59,7 +59,7 @@ console.log(store.vehicles.length); // Outputs: 1
 
 # Reacting to updates
 
-Now that State can be modified by connected peers, you probably want to observe changes and automatically display updates. This is easy to do, because Reactive CRDT works closely with the [Reactive library](https://www.github.com/yousefed/reactive).
+Now that State can be modified by connected peers, you probably want to observe changes and automatically display updates. This is easy to do, because SyncedStore works closely with the [Reactive library](https://www.github.com/yousefed/reactive).
 
 Let's look at some examples:
 
@@ -98,14 +98,14 @@ export default function App() {
 
 ## Vue
 
-Reactive CRDT works great with Vues reactive programming model. See the [Vue Todo example](https://github.com/yousefED/reactive-crdt/tree/main/examples/todo-vue) for an example application. In short, just put an object returned by the `crdt` function on a Vue `data()` object:
+SyncedStore works great with Vues reactive programming model. See the [Vue Todo example](https://github.com/YousefED/syncedstore/tree/main/examples/todo-vue) for an example application. In short, just put an object returned by the `crdt` function on a Vue `data()` object:
 
 ```typescript
 import * as Vue from "vue";
-import { crdt, Y, useVueBindings } from "@reactivedata/reactive-crdt";
+import { crdt, Y, useVueBindings } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
 
-// make reactive-crdt use Vuejs internally
+// make SyncedStore use Vuejs internally
 useVueBindings(Vue);
 
 // Setup Yjs
@@ -115,7 +115,7 @@ new WebrtcProvider("id", doc); // sync via webrtc
 export default Vue.defineComponent({
   data() {
     return {
-      // synced with Reactive CRDT
+      // synced with SyncedStore
       sharedData: crdt<{
         vehicles: Vehicle[];
       }>(doc),
@@ -168,4 +168,4 @@ Would love to hear your feedback!
 
 ### Credits ❤️
 
-Reactive CRDT builds directly on [Yjs](https://github.com/yjs/yjs) and [Reactive](https://www.github.com/yousefed/reactive). It's also inspired by and builds upon the amazing work by [MobX](https://mobx.js.org/) and [NX Observe](https://github.com/nx-js/observer-util).
+SyncedStore builds directly on [Yjs](https://github.com/yjs/yjs) and [Reactive](https://www.github.com/yousefed/reactive). It's also inspired by and builds upon the amazing work by [MobX](https://mobx.js.org/) and [NX Observe](https://github.com/nx-js/observer-util).

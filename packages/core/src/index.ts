@@ -1,13 +1,13 @@
 import * as reactive from "@reactivedata/reactive";
 import { markRaw } from "@reactivedata/reactive";
-import { makeYDocObservable, useReactiveBindings } from "@reactivedata/yjs-reactive-bindings";
+import { makeYDocObservable, useReactiveBindings } from "@syncedstore/yjs-reactive-bindings";
 import * as Y from "yjs";
 import { crdtArray } from "./array";
 import { Box, boxed } from "./boxed";
 import { crdtDoc, DocTypeDescription } from "./doc";
 import { crdtObject } from "./object";
 import { JSONValue } from "./types";
-export { useMobxBindings, useVueBindings } from "@reactivedata/yjs-reactive-bindings";
+export { useMobxBindings, useVueBindings } from "@syncedstore/yjs-reactive-bindings";
 export * from "./util";
 
 // setup yjs-reactive-bindings

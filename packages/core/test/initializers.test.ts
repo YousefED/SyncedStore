@@ -1,4 +1,4 @@
-import { crdt } from "@reactivedata/reactive-crdt";
+import { crdt } from "@syncedstore/core";
 import * as Y from "yjs";
 
 describe("initializers", () => {

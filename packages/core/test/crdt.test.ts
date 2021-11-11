@@ -1,8 +1,8 @@
-import { crdt, getYjsValue } from "@reactivedata/reactive-crdt";
+import { crdt, getYjsValue } from "@syncedstore/core";
 import { Box, boxed } from "../src/boxed";
 import * as Y from "yjs";
 
-describe("reactive-crdt", () => {
+describe("SyncedStore", () => {
   it("undefined", () => {
     let store = crdt(new Y.Doc(), { a: [] as number[] });
     expect(store.a).toEqual([]);

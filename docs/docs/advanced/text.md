@@ -3,7 +3,13 @@ sidebar_position: 1
 sidebar_label: Working with text
 ---
 
-# Working with text (advanced)
+# Collaborative rich text editing
+
+Instead of sharing plain strings or Text instances, what if you want to create a collaborative, (google docs style) rich text editing experience?
+
+You can bind Reactive-CRDT to the rich text editor of your choice. In most cases, you'll need to bind it to a `XmlFragment` on your store. Here's is an example using [TipTap](https://tiptap.dev) and Reactive-CRDT:
+
+## TipTap example
 
 ```typescript live
 import React, { useState, useCallback, useEffect } from "react";
@@ -154,3 +160,41 @@ const MenuBar = ({ editor }) => {
   );
 };
 ```
+
+## Libraries for different editors
+
+The above example uses TipTap, which is a Prosemirror-based editor, but you might be interested in one of the other editors and bindings as well:
+
+| Library                                              | Binding                                                       |
+| ---------------------------------------------------- | ------------------------------------------------------------- |
+| [TipTap](https://tiptap.dev/) (prosemirror based)    | [built in](https://tiptap.dev/examples/collaborative-editing) |
+| [ProseMirror](https://prosemirror.net/)              | [y-prosemirror](https://github.com/yjs/y-prosemirror)         |
+| [Quill](https://quilljs.com/)                        | [y-quill](https://github.com/yjs/y-quill)                     |
+| [CodeMirror](https://codemirror.net/)                | [y-codemirror](https://github.com/yjs/y-codemirror)           |
+| [Monaco](https://microsoft.github.io/monaco-editor/) | [y-monaco](https://github.com/yjs/y-monaco)                   |
+| [Slate](https://github.com/ianstormtaylor/slate)     | [slate-yjs](https://github.com/bitphinix/slate-yjs)           |
+
+<details><summary>View example setup for Prosemirror</summary>
+<p>
+
+```typescript
+import { crdt, Y } from "@syncedstore/core";
+import { ySyncPlugin } from "y-prosemirror";
+
+const doc = new Y.Doc();
+export const store = crdt(doc, { fragment: "xml" });
+
+// When you set up your ProseMirror instance,
+// hook up store.fragment to the y-prosemirror plugin
+EditorState.create({
+  plugins: [
+    ySyncPlugin(store.fragment),
+    // ... other plugins
+  ],
+  // ... remaining prosemirror setup
+});
+```
+
+_(The rest is similar to the documentation of [y-prosemirror](https://github.com/yjs/y-prosemirror) )_
+
+</p></details>

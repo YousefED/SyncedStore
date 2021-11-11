@@ -1,5 +1,5 @@
 import { autorun, Observer, reactive } from "@reactivedata/reactive";
-import { Y, crdt, boxed } from "@reactivedata/reactive-crdt";
+import { Y, crdt, boxed } from "@syncedstore/core";
 import { Box } from "../src/boxed";
 
 describe("test implicit observer", () => {

@@ -24,7 +24,7 @@ Check out the demo of `getYjsValue` below:
 ```typescript live
 import React from "react";
 import { useReactive } from "@reactivedata/react";
-import { boxed, getYjsValue } from "@reactivedata/reactive-crdt";
+import { boxed, getYjsValue } from "@syncedstore/core";
 import { store } from "./store"; // the store we defined above
 import { ObjectInspector } from "react-inspector";
 

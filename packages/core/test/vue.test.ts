@@ -1,4 +1,4 @@
-import { crdt, useVueBindings, Y } from "@reactivedata/reactive-crdt";
+import { crdt, useVueBindings, Y } from "@syncedstore/core";
 import * as Vue from "@vue/reactivity";
 describe("vue3", () => {
   type StoreType = {

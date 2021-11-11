@@ -73,7 +73,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { crdt, Y, filterArray } from "@reactivedata/reactive-crdt";
+import { crdt, Y, filterArray } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
 
 // Setup Yjs

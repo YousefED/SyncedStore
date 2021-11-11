@@ -1,4 +1,4 @@
-export const TODO_STORE_CODE = `import { crdt, Y } from "@reactivedata/reactive-crdt";
+export const TODO_STORE_CODE = `import { crdt, Y } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
 
 // Create a document that syncs automatically using Y-WebRTC
@@ -8,7 +8,7 @@ export const webrtcProvider = new WebrtcProvider("my-document-ida", doc);
 // (optional, define types for TypeScript)
 type todo = { completed: boolean, title: string };
 
-// Create your reactive-crdt store
+// Create your SyncedStore store
 export const store = crdt(doc, { todos: [] as Todo[], fragment: "xml" });
 
 export const disconnect = () => webrtcProvider.disconnect();

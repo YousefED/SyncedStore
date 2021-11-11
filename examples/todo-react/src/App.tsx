@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useReactive } from "@reactivedata/react";
-import { filterArray } from "@reactivedata/reactive-crdt";
+import { filterArray } from "@syncedstore/core";
 import "./App.css";
 import { globalStore } from "./store";
 import { TodoList } from "./TodoList";

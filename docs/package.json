@@ -12,7 +12,7 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "typedoc": "typedoc --tsconfig ../packages/reactive-crdt/tsconfig.json --entryPoints index"
+    "typedoc": "typedoc --tsconfig ../packages/core/tsconfig.json --entryPoints index"
   },
   "dependencies": {
     "@codesandbox/sandpack-react": "^0.1.15",

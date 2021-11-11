@@ -5,10 +5,10 @@ sidebar_label: Installation
 
 # Installation
 
-Install `reactive-crdt` and required dependencies
+Install `SyncedStore` and required dependencies
 
 ```bash
-npm install --save @reactivedata/reactive-crdt
+npm install --save @syncedstore/core
 
 # Reactive-CRDT builds on top of yjs, install that too:
 npm install --save yjs
@@ -30,7 +30,7 @@ npm install --save y-webrtc
 Now, let's set up a `store` which contains and describes the data that should be synced across users and devices.
 
 ```typescript
-import { crdt, Y } from "@reactivedata/reactive-crdt";
+import { crdt, Y } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
 
 // Create a document that syncs automatically using y-webrtc
@@ -40,7 +40,7 @@ const webrtcProvider = new WebrtcProvider("my-document-id", doc);
 // (optional, define types for TypeScript)
 type Vehicle = { color: string; brand: string };
 
-// Create your reactive-crdt store
+// Create your SyncedStore store
 export const store = crdt(doc, { vehicles: [] as Vehicle[] });
 ```
 
@@ -71,7 +71,7 @@ const store = crdt(new Y.Doc(), shape);
 
 #### Objects
 
-`exampleObjectData` in the code snippet above. Objects must always be initialized as an empty object `{}`. Objects in reactive-crdt resemble Maps or plain javascript objects. You'll be able to set and get properties like you're used to with regular Javascript plain objects (e.g. `store.exampleObjectData.day = "Monday";`).
+`exampleObjectData` in the code snippet above. Objects must always be initialized as an empty object `{}`. Objects in SyncedStore resemble Maps or plain javascript objects. You'll be able to set and get properties like you're used to with regular Javascript plain objects (e.g. `store.exampleObjectData.day = "Monday";`).
 
 #### XML
 

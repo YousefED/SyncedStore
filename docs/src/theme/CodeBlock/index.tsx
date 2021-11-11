@@ -35,11 +35,12 @@ export default function CodeBlock(props: any) {
       ...REACT_TEMPLATE,
       files: {
         ...REACT_TEMPLATE.files,
-        "App.tsx": props.children,
-        "store.ts": TODO_STORE_CODE,
+        "/App.tsx": props.children,
+        "/store.ts": TODO_STORE_CODE,
       },
     };
   }
+  debugger;
   return (
     <SandpackProvider
       //   environment="create-react-app-typescript"
@@ -50,7 +51,7 @@ export default function CodeBlock(props: any) {
           ...customTemplate,
           dependencies: {
             ...customTemplate.dependencies,
-            "@reactivedata/reactive-crdt": "latest",
+            "@syncedstore/core": "latest",
             "@reactivedata/react": "latest",
             yjs: "latest",
             "y-webrtc": "latest",

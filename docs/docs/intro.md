@@ -3,15 +3,15 @@ sidebar_position: 1
 sidebar_label: Introduction
 ---
 
-# Introduction to Reactive CRDT
+# Introduction to SyncedStore
 
-Reactive CRDT is a library for building distributed, real-time collaborative web applications. This used to be extremely complex, but with Reactive CRDT it's as easy as sharing a pie!
+SyncedStore is a library for building distributed, real-time collaborative web applications. This used to be extremely complex, but with SyncedStore it's as easy as sharing a pie!
 
 Let's make developing _multiplayer_ (or multi-device) experiences just as simple as developing regular applications.
 
 ## Why?
 
-Reactive CRDT makes it easy to develop applications that:
+SyncedStore makes it easy to develop applications that:
 
 - 👨‍👩‍👧‍👦 **Are collaborative**: create multi-user and multi-device experiences without the need to handle complex conflict resolution management yourself.
 - 🚀 **Are fast**: operations are handled locally, and data synchronization with other users and devices happens quietly in the background. 0 Latency!

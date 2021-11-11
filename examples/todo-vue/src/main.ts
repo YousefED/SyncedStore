@@ -3,9 +3,9 @@
 
 import * as Vue from "vue";
 import App from "./App.vue";
-import { useVueBindings } from "@reactivedata/reactive-crdt";
+import { useVueBindings } from "@syncedstore/core";
 
-// make reactive-crdt use Vuejs internally
+// make SyncedStore use Vuejs internally
 useVueBindings(Vue);
 
 const app = Vue.createApp(App);

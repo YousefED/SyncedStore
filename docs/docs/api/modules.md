@@ -1,6 +1,6 @@
 ---
 id: "modules"
-title: "@reactivedata/reactive-crdt"
+title: "@syncedstore/core"
 sidebar_label: "Exports"
 sidebar_position: 0.5
 custom_edit_url: null
@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactive-crdt/src/index.ts:70](https://github.com/YousefED/reactive-crdt/blob/7abdad1/packages/reactive-crdt/src/index.ts#L70)
+[packages/core/src/index.ts:70](https://github.com/YousefED/syncedstore/blob/7abdad1/packages/core/src/index.ts#L70)
 
 ---
 
@@ -28,7 +28,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactive-crdt/src/index.ts:72](https://github.com/YousefED/reactive-crdt/blob/7abdad1/packages/reactive-crdt/src/index.ts#L72)
+[packages/core/src/index.ts:72](https://github.com/YousefED/syncedstore/blob/7abdad1/packages/core/src/index.ts#L72)
 
 ## Variables
 
@@ -38,7 +38,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactive-crdt/src/index.ts:16](https://github.com/YousefED/reactive-crdt/blob/7abdad1/packages/reactive-crdt/src/index.ts#L16)
+[packages/core/src/index.ts:16](https://github.com/YousefED/syncedstore/blob/7abdad1/packages/core/src/index.ts#L16)
 
 ## Functions
 
@@ -65,7 +65,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactive-crdt/src/index.ts:64](https://github.com/YousefED/reactive-crdt/blob/7abdad1/packages/reactive-crdt/src/index.ts#L64)
+[packages/core/src/index.ts:64](https://github.com/YousefED/syncedstore/blob/7abdad1/packages/core/src/index.ts#L64)
 
 ---
 
@@ -91,7 +91,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactive-crdt/src/index.ts:32](https://github.com/YousefED/reactive-crdt/blob/7abdad1/packages/reactive-crdt/src/index.ts#L32)
+[packages/core/src/index.ts:32](https://github.com/YousefED/syncedstore/blob/7abdad1/packages/core/src/index.ts#L32)
 
 ---
 
@@ -118,7 +118,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactive-crdt/src/util.ts:1](https://github.com/YousefED/reactive-crdt/blob/7abdad1/packages/reactive-crdt/src/util.ts#L1)
+[packages/core/src/util.ts:1](https://github.com/YousefED/syncedstore/blob/7abdad1/packages/core/src/util.ts#L1)
 
 ---
 
@@ -138,7 +138,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactive-crdt/src/index.ts:26](https://github.com/YousefED/reactive-crdt/blob/7abdad1/packages/reactive-crdt/src/index.ts#L26)
+[packages/core/src/index.ts:26](https://github.com/YousefED/syncedstore/blob/7abdad1/packages/core/src/index.ts#L26)
 
 ---
 
@@ -164,7 +164,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactive-crdt/src/index.ts:22](https://github.com/YousefED/reactive-crdt/blob/7abdad1/packages/reactive-crdt/src/index.ts#L22)
+[packages/core/src/index.ts:22](https://github.com/YousefED/syncedstore/blob/7abdad1/packages/core/src/index.ts#L22)
 
 ---
 
@@ -190,7 +190,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/reactive-crdt/src/index.ts:18](https://github.com/YousefED/reactive-crdt/blob/7abdad1/packages/reactive-crdt/src/index.ts#L18)
+[packages/core/src/index.ts:18](https://github.com/YousefED/syncedstore/blob/7abdad1/packages/core/src/index.ts#L18)
 
 ---
 
@@ -210,7 +210,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/yjs-reactive-bindings/src/observableProvider.ts:29](https://github.com/YousefED/reactive-crdt/blob/7abdad1/packages/yjs-reactive-bindings/src/observableProvider.ts#L29)
+[packages/yjs-reactive-bindings/src/observableProvider.ts:29](https://github.com/YousefED/syncedstore/blob/7abdad1/packages/yjs-reactive-bindings/src/observableProvider.ts#L29)
 
 ---
 
@@ -230,4 +230,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[packages/yjs-reactive-bindings/src/observableProvider.ts:33](https://github.com/YousefED/reactive-crdt/blob/7abdad1/packages/yjs-reactive-bindings/src/observableProvider.ts#L33)
+[packages/yjs-reactive-bindings/src/observableProvider.ts:33](https://github.com/YousefED/syncedstore/blob/7abdad1/packages/yjs-reactive-bindings/src/observableProvider.ts#L33)

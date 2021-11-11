@@ -1,4 +1,4 @@
-import * as bindings from "@reactivedata/yjs-reactive-bindings";
+import * as bindings from "@syncedstore/yjs-reactive-bindings";
 import * as Y from "yjs";
 import * as mobx from "mobx";
 

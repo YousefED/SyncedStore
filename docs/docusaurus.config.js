@@ -15,12 +15,12 @@ module.exports = {
 
       // Plugin / TypeDoc options
       {
-        entryPoints: ["../packages/reactive-crdt/src/index.ts"],
-        tsconfig: "../packages/reactive-crdt/tsconfig.json",
+        entryPoints: ["../packages/core/src/index.ts"],
+        tsconfig: "../packages/core/tsconfig.json",
         externalPattern: "**/*.js",
-        excludeExternals: true
-      }
-    ]
+        excludeExternals: true,
+      },
+    ],
   ],
 
   themeConfig: {
@@ -28,22 +28,22 @@ module.exports = {
       title: "My Site",
       logo: {
         alt: "My Site Logo",
-        src: "img/logo.svg"
+        src: "img/logo.svg",
       },
       items: [
         {
           type: "doc",
           docId: "intro",
           position: "left",
-          label: "Tutorial"
+          label: "Tutorial",
         },
         { to: "/blog", label: "Blog", position: "left" },
         {
           href: "https://github.com/facebook/docusaurus",
           label: "GitHub",
-          position: "right"
-        }
-      ]
+          position: "right",
+        },
+      ],
     },
     footer: {
       style: "dark",
@@ -53,43 +53,43 @@ module.exports = {
           items: [
             {
               label: "Tutorial",
-              to: "/docs/intro"
-            }
-          ]
+              to: "/docs/intro",
+            },
+          ],
         },
         {
           title: "Community",
           items: [
             {
               label: "Stack Overflow",
-              href: "https://stackoverflow.com/questions/tagged/docusaurus"
+              href: "https://stackoverflow.com/questions/tagged/docusaurus",
             },
             {
               label: "Discord",
-              href: "https://discordapp.com/invite/docusaurus"
+              href: "https://discordapp.com/invite/docusaurus",
             },
             {
               label: "Twitter",
-              href: "https://twitter.com/docusaurus"
-            }
-          ]
+              href: "https://twitter.com/docusaurus",
+            },
+          ],
         },
         {
           title: "More",
           items: [
             {
               label: "Blog",
-              to: "/blog"
+              to: "/blog",
             },
             {
               label: "GitHub",
-              href: "https://github.com/facebook/docusaurus"
-            }
-          ]
-        }
+              href: "https://github.com/facebook/docusaurus",
+            },
+          ],
+        },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`
-    }
+      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+    },
   },
   presets: [
     [
@@ -98,17 +98,17 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
-          editUrl: "https://github.com/facebook/docusaurus/edit/master/website/"
+          editUrl: "https://github.com/facebook/docusaurus/edit/master/website/",
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl: "https://github.com/facebook/docusaurus/edit/master/website/blog/"
+          editUrl: "https://github.com/facebook/docusaurus/edit/master/website/blog/",
         },
         theme: {
-          customCss: require.resolve("./src/css/custom.css")
-        }
-      }
-    ]
-  ]
+          customCss: require.resolve("./src/css/custom.css"),
+        },
+      },
+    ],
+  ],
 };
