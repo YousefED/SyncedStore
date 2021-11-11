@@ -5,6 +5,8 @@ sidebar_label: Example
 
 # Plain javascript example
 
+Let's explore how _SyncedStore_ works using a vanilla Javascript example. It's good to understand the basics, although you might want to skip ahead immediately to the [React](../react) or [Vue](../vue) examples.
+
 ```javascript live
 import React from "react";
 import { useSyncedStore } from "@syncedstore/react";

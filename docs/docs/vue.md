@@ -1,11 +1,11 @@
 ---
-sidebar_position: 2
-sidebar_label: Example
+sidebar_position: 4
+sidebar_label: Vue
 ---
 
 # Vue integration
 
-Reactive-CRDT works seamlessly together with [Vue3's Reactivity system](https://v3.vuejs.org/guide/reactivity-fundamentals.html). To enable this, call `enableVueBindings` once, for example when setting up your store.
+_SyncedStore_ works seamlessly together with [Vue3's Reactivity system](https://v3.vuejs.org/guide/reactivity-fundamentals.html). To enable this, call `enableVueBindings` once, for example when setting up your store.
 
 ```typescript
 import * as Vue from "vue";
@@ -14,11 +14,11 @@ import { enableVueBindings } from "@syncedstore/core";
 enableVueBindings(Vue);
 ```
 
-Then, place the Reactive-CRDT `store` on the Vue `data`. See the example below.
+Then, place the SyncedStore `store` on the Vue `data`. See the example below.
 
 ## Vue Example
 
-See this example of creating a collaborative Todo application with Vue3 and Reactive-CRDT:
+See this example of creating a collaborative Todo application with Vue3 and SyncedStore:
 
 ```javascript live vue
 <template>

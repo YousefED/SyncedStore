@@ -10,7 +10,7 @@ Install `SyncedStore` and required dependencies
 ```bash
 npm install --save @syncedstore/core
 
-# Reactive-CRDT builds on top of yjs, install that too:
+# SyncedStore builds on top of yjs, install that too:
 npm install --save yjs
 ```
 
@@ -21,6 +21,9 @@ Also install the following helper libraries to get started:
 ```bash
 # For syncing over webrtc:
 npm install --save y-webrtc
+
+# If you use React, install the helper library:
+npm install --save @syncedstore/react
 ```
 
 `y-webrtc` is optional, but great during development. Later, you might want to use a different [sync provider](sync%20providers/introduction) instead of `y-webrtc`.
@@ -44,9 +47,13 @@ const doc = getYjsValue(store);
 const webrtcProvider = new WebrtcProvider("my-document-id", doc);
 ```
 
-## `syncedStore
+You can now add objects to the `store.vehicles` array, and they will be synced automatically with other users. Even if you change properties (e.g.: `store.vehicles[0].color = "red";`), this will be synced with other users.
 
-The function `syncedStore` takes two parameters:
+More about the main `syncedStore` method below, or [continue to the interactive example](example).
+
+## `syncedStore` method
+
+The function `syncedStore` creates a store and takes two parameters:
 
 - `shape`: an object that describes the root types of the store.
 - `doc` (optional): a Y.Doc instance. This will be the backing yjs document that contains the data in the store. Defaults to creating a new Y.Doc.

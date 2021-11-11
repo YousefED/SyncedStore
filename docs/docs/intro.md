@@ -1,11 +1,12 @@
 ---
 sidebar_position: 1
 sidebar_label: Introduction
+slug: /
 ---
 
 # Introduction to SyncedStore
 
-SyncedStore is a library for building distributed, real-time collaborative web applications. This used to be extremely complex, but with SyncedStore it's as easy as sharing a pie!
+SyncedStore is a library for building distributed, real-time collaborative web applications. This used to be quite complex, but with SyncedStore it's as easy as sharing a pie!
 
 Let's make developing _multiplayer_ (or multi-device) experiences just as simple as developing regular applications.
 
@@ -21,6 +22,6 @@ Perhaps most importantly, it makes it easy to build **decentralized applications
 
 > Read more about [the benefits of Local-first software in this excellent essay](https://www.inkandswitch.com/local-first.html)
 
-In short, with some technological magic of so-called [CRDTs](https://crdt.tech/), we can build _cross-device_ apps that are _more collaborative_, _faster_, _work offline_ AND put the user _back in control of their data_.
+In short, with some technological magic of so-called [CRDTs](https://crdt.tech/) (_Conflict-free Replicated Data Types_), we can build _cross-device_ apps that are _more collaborative_, _faster_, _work offline_ AND put the user _back in control of their data_.
 
 Sounds great? Let's get started!
