@@ -9,7 +9,7 @@ import {
 import styles from "./styles2.module.css";
 import InitialCodeBlock from "@theme-init/CodeBlock";
 import { REACT_TEMPLATE } from "./templates/react";
-import { TODO_STORE_CODE } from "./templates/stores";
+import { TODO_STORE_CODE, TODO_STORE_CODE_PLAIN } from "./templates/stores";
 import { VUE_TEMPLATE } from "./templates/vue";
 
 export default function CodeBlock(props: any) {
@@ -30,6 +30,35 @@ export default function CodeBlock(props: any) {
       },
     };
     template = "vue3" as "vue3";
+  } else if (props.plain) {
+    customTemplate = {
+      ...REACT_TEMPLATE,
+      files: {
+        ...REACT_TEMPLATE.files,
+        "/main.js": props.children,
+        "/App.tsx": {
+          code: `import * as React from "react";
+          
+          const el = document.createElement("div");
+          el.id = "app";
+
+          export default function App() { 
+            
+            const cb = React.useCallback((ref) => {
+              if (ref) {
+                ref.appendChild(el);
+                require("./main");
+              }
+            });
+            return <div ref={cb}></div>; 
+          }
+          `,
+          hidden: true,
+        },
+        "/store.js": TODO_STORE_CODE_PLAIN,
+      },
+      main: "/main.js",
+    };
   } else {
     customTemplate = {
       ...REACT_TEMPLATE,

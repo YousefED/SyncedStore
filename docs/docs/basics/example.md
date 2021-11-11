@@ -7,44 +7,60 @@ sidebar_label: Example
 
 Let's explore how _SyncedStore_ works using a vanilla Javascript example. It's good to understand the basics, although you might want to skip ahead immediately to the [React](../react) or [Vue](../vue) examples.
 
-```javascript live
-import React from "react";
-import { useSyncedStore } from "@syncedstore/react";
-import { store } from "./store"; // the store we defined above
+```javascript live plain
+import { observeDeep } from "@syncedstore/core";
+import { store } from "./store";
 
-export default function App() {
-  const state = useSyncedStore(store);
+const el = document.getElementById("app");
 
-  return (
-    <div>
-      <p>Todo items:</p>
-      <ul>
-        {state.todos.map((todo, i) => {
-          return (
-            <li key={i}
-              style={{ textDecoration: todo.completed ? "line-through" : ""}}
-              >
-                <label>
-                  <input type="checkbox" checked={todo.completed} onClick={() => todo.completed = !todo.completed} />
-                  {todo.title}
-                </label>
-            </li>);
-        })}
-      </ul>
-      <input
-        placeholder="Enter a todo item and hit enter"
-        type="text"
-        onKeyPress={(event) => {
-          if (event.key === "Enter") {
-            const target = event.target as HTMLInputElement;
-            // Add a todo item using the text added in the textfield
-            state.todos.push({ completed: false, title: target.value });
-            target.value = "";
-          }
-        }}
-        style={{width:"200px", maxWidth:"100%"}}
-      />
-    </div>
-  );
-}
+// Display the contents of the store
+const jsonView = document.createElement("div");
+jsonView.innerText = JSON.stringify(store);
+root.appendChild(jsonView);
+
+// Add a button to add some values to store.myArray
+const addElementBtn = document.createElement("button");
+addElementBtn.innerText = "Add values to array";
+addElementBtn.onclick = () => {
+  // Add an object to the array
+  store.myArray.push({ property: "value" });
+
+  // Add a random number between 0 and 100 to the array
+  store.myArray.push(Math.floor(Math.random() * 100));
+};
+root.appendChild(addElementBtn);
+
+// Add a button to set a property on store.myObject
+
+// Which property to change?
+const inputPropertyName = document.createElement("input");
+inputPropertyName.value = "myProp";
+root.appendChild(inputPropertyName);
+
+// What value to set to the property?
+const inputPropertyValue = document.createElement("input");
+inputPropertyValue.value = "myValue";
+root.appendChild(inputPropertyValue);
+
+// Add the actual button to change a property
+const setPropertBtn = document.createElement("button");
+setPropertBtn.innerText = "Change a property on the object";
+setPropertBtn.onclick = () => {
+  // Change a property on myObject
+  store.myObject[inputPropertyName.value] = inputPropertyValue.value;
+};
+root.appendChild(setPropertBtn);
+
+// Automatically update jsonView when the store changes
+//
+// (note that in most applications, you won't use observeDeep
+// but rely on SyncedStore's reactive updating mechanism instead)
+observeDeep(store, () => {
+  jsonView.innerText = JSON.stringify(store);
+});
+
+// Set the store on the window object
+// If you like, you can now play around with the store
+// and change values using the Browser inspector
+window.store = store;
 ```

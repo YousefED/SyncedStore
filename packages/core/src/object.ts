@@ -1,9 +1,9 @@
 import { $reactive, $reactiveproxy } from "@reactivedata/reactive";
 import * as Y from "yjs";
-import { crdtValue, getYjsValue, INTERNAL_SYMBOL, ObjectSchemaType } from ".";
+import { getYjsValue, INTERNAL_SYMBOL, ObjectSchemaType } from ".";
 import { CRDTArray } from "./array";
 import { Box } from "./boxed";
-import { parseYjsReturnValue, yToWrappedCache } from "./internal";
+import { crdtValue, parseYjsReturnValue, yToWrappedCache } from "./internal";
 
 export type CRDTObject<T extends ObjectSchemaType> = {
   [P in keyof T]?: T[P] extends Box<infer A>

@@ -141,6 +141,23 @@ export default function App() {
   color: #fff
 }
 
+
+/** used for plain template **/
+
+#app button:first-child {
+  margin-bottom:30px
+}
+
+#app input {
+  margin:10px;
+  display: block;
+}
+
+#app button {
+  margin:10px;
+  display: block;
+}
+
   `,
     },
     "/public/index.html": {

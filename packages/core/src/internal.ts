@@ -1,7 +1,9 @@
 import { markRaw } from "@reactivedata/reactive";
 import * as Y from "yjs";
-import { crdtValue } from ".";
-import { boxed } from "./boxed";
+import { getYjsValue, NestedSchemaType } from ".";
+import { crdtArray } from "./array";
+import { Box, boxed } from "./boxed";
+import { crdtObject } from "./object";
 import { isYType } from "./types";
 export const yToWrappedCache = new WeakMap<Y.AbstractType<any> | Y.Doc, any>();
 
@@ -32,4 +34,36 @@ export function parseYjsReturnValue(value: any, implicitObserver?: any) {
     return boxed(value);
   }
   return value;
+}
+
+export function crdtValue<T extends NestedSchemaType>(value: T | Y.Array<any> | Y.Map<any>) {
+  value = (getYjsValue(value as any) as any) || value; // unwrap
+  if (value instanceof Y.Array) {
+    return crdtArray([], value);
+  } else if (value instanceof Y.Map) {
+    return crdtObject({}, value);
+  } else if (typeof value === "string") {
+    return value; // TODO
+  } else if (Array.isArray(value)) {
+    return crdtArray(value as any[]);
+  } else if (
+    value instanceof Y.XmlElement ||
+    value instanceof Y.XmlFragment ||
+    value instanceof Y.XmlText ||
+    value instanceof Y.XmlHook
+  ) {
+    return value;
+  } else if (value instanceof Y.Text) {
+    return value;
+  } else if (typeof value === "object") {
+    if (value instanceof Box) {
+      return value;
+    } else {
+      return crdtObject(value as any);
+    }
+  } else if (typeof value === "number" || typeof value === "boolean") {
+    return value;
+  } else {
+    throw new Error("invalid");
+  }
 }
