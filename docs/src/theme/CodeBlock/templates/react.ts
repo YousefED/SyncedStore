@@ -144,7 +144,7 @@ export default function App() {
 
 /** used for plain template **/
 
-#app button:first-child {
+#app button:first-of-type {
   margin-bottom:30px
 }
 

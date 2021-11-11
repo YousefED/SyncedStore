@@ -47,6 +47,12 @@ export function observeDeep(object: any, handler: () => void): () => void {
   }
 }
 
+/**
+ * Access the internal Yjs value that backs the syncing of the passed in object.
+ *
+ * @param object a value retrieved from the store
+ * @returns the Yjs value underneath. This can be a Y.Doc, Y.Array, Y.Map or other Y-type based on the value passed in
+ */
 export function getYjsValue(object: any): Y.Doc | Y.AbstractType<any> | undefined {
   const ret = object[INTERNAL_SYMBOL];
   if (ret) {
@@ -56,6 +62,15 @@ export function getYjsValue(object: any): Y.Doc | Y.AbstractType<any> | undefine
   return ret;
 }
 
+/**
+ * Check whether two objects represent the same value.
+ * A strict equality (===) check doesn't always work,
+ * because SyncedStore can wrap the object with a Proxy depending on where you retrieved it.
+ *
+ * @param objectA Object to compare with objectB
+ * @param objectB Object to compare with objectA
+ * @returns true if they represent the same object, false otherwise
+ */
 export function areSame(objectA: any, objectB: any) {
   if (objectA === objectB) {
     return true;
@@ -72,6 +87,18 @@ export function areSame(objectA: any, objectB: any) {
   return false;
 }
 
+/**
+ * Create a SyncedStore store
+ * @param shape an object that describes the root types of the store. e.g.:
+ *  const shape = {
+ *    exampleArrayData: [],
+ *    exampleObjectData: {},
+ *    exampleXMLData: "xml",
+ *    exampleTextData: "text",
+ * };
+ * @param doc (optional) a Y.Doc to use as the backing system
+ * @returns a SyncedStore store
+ */
 export default function syncedStore<T extends DocTypeDescription>(shape: T, doc: Y.Doc = new Y.Doc()) {
   makeYDocObservable(doc);
 

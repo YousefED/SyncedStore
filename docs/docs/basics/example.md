@@ -11,11 +11,11 @@ Let's explore how _SyncedStore_ works using a vanilla Javascript example. It's g
 import { observeDeep } from "@syncedstore/core";
 import { store } from "./store";
 
-const el = document.getElementById("app");
+const root = document.getElementById("app");
 
 // Display the contents of the store
-const jsonView = document.createElement("div");
-jsonView.innerText = JSON.stringify(store);
+const jsonView = document.createElement("pre");
+jsonView.innerText = JSON.stringify(store, undefined, 2);
 root.appendChild(jsonView);
 
 // Add a button to add some values to store.myArray
@@ -56,7 +56,7 @@ root.appendChild(setPropertBtn);
 // (note that in most applications, you won't use observeDeep
 // but rely on SyncedStore's reactive updating mechanism instead)
 observeDeep(store, () => {
-  jsonView.innerText = JSON.stringify(store);
+  jsonView.innerText = JSON.stringify(store, undefined, 2);
 });
 
 // Set the store on the window object
@@ -64,3 +64,21 @@ observeDeep(store, () => {
 // and change values using the Browser inspector
 window.store = store;
 ```
+
+<p></p>
+
+:::tip Tip: Working with the live examples
+
+Throughout the documentation, you'll find live examples that you can edit.
+The results of the code are displayed twice (side-by-side) and can be seen as two different "users" using your app.
+
+**Simulating offline behaviour**
+
+You can set one side to _offline_, which simulates an offline user. You can then make changes (on that side or the other side), and set the user to _online_ again. This way, you can experience how changes are synced when users make simultaneous edits to the store.
+
+**Inspecting the store**
+
+Use the _Inspect_ button to inspect the current value of the store and see how the store updates while you make changes.
+
+<small>Note: the example above uses Javascript, most of the other examples on this website are written in Typescript</small>
+:::

@@ -5,7 +5,7 @@ sidebar_label: Yjs integration
 
 # Yjs integration (advanced)
 
-SyncedStore uses (Yjs)[https://github.com/yjs/yjs] as underlying CRDT. Yjs is a CRDT implementation with a focus on performance and collaborative text editing. It does have a fairly steep learning curve, which is why SyncedStore hides as many of the Yjs internals as possible.
+SyncedStore uses [Yjs](https://github.com/yjs/yjs) as underlying CRDT. Yjs is a CRDT implementation with a focus on performance and collaborative text editing. It does have a fairly steep learning curve, which is why SyncedStore hides as many of the Yjs internals as possible.
 
 However, should you want to access the underlying Yjs objects of your store, that's definitely possible.
 

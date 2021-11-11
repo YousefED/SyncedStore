@@ -9,7 +9,7 @@ import {
 import styles from "./styles2.module.css";
 import InitialCodeBlock from "@theme-init/CodeBlock";
 import { REACT_TEMPLATE } from "./templates/react";
-import { TODO_STORE_CODE, TODO_STORE_CODE_PLAIN } from "./templates/stores";
+import { TODO_STORE_CODE, TODO_STORE_CODE_BOXED, TODO_STORE_CODE_PLAIN } from "./templates/stores";
 import { VUE_TEMPLATE } from "./templates/vue";
 
 export default function CodeBlock(props: any) {
@@ -50,7 +50,7 @@ export default function CodeBlock(props: any) {
                 require("./main");
               }
             });
-            return <div ref={cb}></div>; 
+            return <div ref={cb} className="plainWrapper"></div>; 
           }
           `,
           hidden: true,
@@ -65,7 +65,7 @@ export default function CodeBlock(props: any) {
       files: {
         ...REACT_TEMPLATE.files,
         "/App.tsx": props.children,
-        "/store.ts": TODO_STORE_CODE,
+        "/store.ts": props.boxed ? TODO_STORE_CODE_BOXED : TODO_STORE_CODE,
       },
     };
   }
@@ -85,6 +85,8 @@ export default function CodeBlock(props: any) {
             yjs: "latest",
             "y-webrtc": "latest",
             "react-inspector": "latest",
+            mobx: "latest",
+            "mobx-react-lite": "latest",
             "@tiptap/react": "latest",
             "@tiptap/starter-kit": "latest",
             "@tiptap/extension-collaboration": "latest",

@@ -10,6 +10,15 @@ SyncedStore is a library for building distributed, real-time collaborative web a
 
 Let's make developing _multiplayer_ (or multi-device) experiences just as simple as developing regular applications.
 
+:::tip Tip: jump straight into the examples
+You can walk through the documentation page-by-page, but if you're curious, you might want to jump straight into the live examples:
+
+- [React example](/docs/react)
+- [Vue example](/docs/vue)
+- [Collaborative text editing](/docs/advanced/richtext)
+
+:::
+
 ## Why?
 
 SyncedStore makes it easy to develop applications that:

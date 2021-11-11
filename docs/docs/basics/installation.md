@@ -82,8 +82,8 @@ const store = syncedStore(shape);
 
 #### XML
 
-TODO
+`exampleXMLData` in the code snippet above. `store.exampleXMLData` will now return a `SyncedXml` instance.
 
 #### Text
 
-TODO
+`exampleTextData` in the code snippet above. `store.exampleTextData` will now return a `SyncedText` instance, see [Working with text](../advanced/text).

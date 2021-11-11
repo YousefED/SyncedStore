@@ -43,7 +43,7 @@ store.todos[0].completed = true;
 
 Try it out for yourself in this interactive playground:
 
-```typescript live
+```typescript live boxed
 import React from "react";
 import { useSyncedStore } from "@syncedstore/react";
 import { boxed } from "@syncedstore/core";
