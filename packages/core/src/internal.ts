@@ -9,7 +9,7 @@ import { JSONValue } from "./types";
 
 type NestedSchemaType = JSONValue | ObjectSchemaType | Box<any> | Y.AbstractType<any> | NestedSchemaType[];
 
-type ObjectSchemaType = {
+export type ObjectSchemaType = {
   [key: string]: NestedSchemaType;
 };
 
