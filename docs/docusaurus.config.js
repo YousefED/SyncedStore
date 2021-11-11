@@ -3,12 +3,12 @@ module.exports = {
   title: "SyncedStore - Javascript CRDT based real-time sync",
   tagline: "Dinosaurs are cool",
   url: "https://yousefed.github.io",
-  baseUrl: "/syncedstore/",
+  baseUrl: "/SyncedStore/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   // favicon: "img/favicon.ico",
   organizationName: "YousefED", // Usually your GitHub org/user name.
-  projectName: "syncedstore", // Usually your repo name.
+  projectName: "SyncedStore", // Usually your repo name.
   plugins: [
     [
       "docusaurus-plugin-typedoc",
@@ -42,7 +42,7 @@ module.exports = {
         },
         // { to: "/blog", label: "Blog", position: "left" },
         {
-          href: "https://github.com/yousefed/syncedstore",
+          href: "https://github.com/yousefed/SyncedStore",
           label: "GitHub",
           position: "right",
         },
@@ -86,7 +86,7 @@ module.exports = {
             // },
             {
               label: "GitHub",
-              href: "https://github.com/yousefed/syncedstore",
+              href: "https://github.com/yousefed/SyncedStore",
             },
           ],
         },
@@ -101,7 +101,7 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
-          editUrl: "https://github.com/yousefed/syncedstore/edit/master/docs/",
+          editUrl: "https://github.com/yousefed/SyncedStore/edit/master/docs/",
         },
         // blog: {
         //   showReadingTime: true,
