@@ -7,7 +7,7 @@ sidebar_position: 0
 custom_edit_url: null
 ---
 
-# SyncedStore
+# SyncedStore CRDT
 
 [![npm version](https://badge.fury.io/js/%40syncedstore%2Fcore.svg)](https://badge.fury.io/js/%40syncedstore%2Fcore) [![Coverage Status](https://coveralls.io/repos/github/YousefED/syncedstore/badge.svg?branch=main)](https://coveralls.io/github/YousefED/syncedstore?branch=main)
 
@@ -17,7 +17,7 @@ SyncedStore is an easy-to-use library for building collaborative applications th
 
 Have a look at the collaborative Todo list examples ([React](https://github.com/YousefED/syncedstore/tree/main/examples/todo-react), [Vue](https://github.com/YousefED/syncedstore/tree/main/examples/todo-vue)) to get up to speed. Or, read along for a quick overview.
 
-[![example app screencapture](https://raw.githubusercontent.com/YousefED/syncedstore/main/reactivecrdt.gif)](https://github.com/YousefED/syncedstore/tree/main/examples/)
+[![example app screencapture](https://raw.githubusercontent.com/YousefED/syncedstore/main/syncedstore.gif)](https://github.com/YousefED/syncedstore/tree/main/examples/)
 
 - Open live demo: [React](https://sm8tt.csb.app/) or [Vue](https://78oyq.csb.app/) (Of course, open multiple times to test multiplayer)
 - Edit / view on Codesandbox [React](https://codesandbox.io/s/todo-react-sm8tt) / [Vue](https://codesandbox.io/s/todo-vue-78oyq)
@@ -29,18 +29,18 @@ Source in: [examples/todo-react](https://github.com/YousefED/syncedstore/tree/ma
 Setup:
 
 ```typescript
-import { crdt, Y } from "@syncedstore/core";
+import syncedStore, { getYjsValue } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
-
-// Create a document that syncs automatically using Y-WebRTC
-const doc = new Y.Doc();
-const webrtcProvider = new WebrtcProvider("my-document-id", doc);
 
 // (optional, define types for TypeScript)
 type Vehicle = { color: string; type: string };
 
-// Create your SyncedStore store
-export const store = crdt(doc, { vehicles: [] as Vehicle[] });
+// Create a SyncedStore
+export const store = syncedStore({ vehicles: [] as Vehicle[] });
+
+// Get the Yjs document and sync automatically using Y-WebRTC
+const doc = getYjsValue(store);
+const webrtcProvider = new WebrtcProvider("my-document-id", doc);
 ```
 
 From now on, the `store` object is synced automatically:

@@ -5,7 +5,7 @@ sidebar_label: Yjs integration
 
 # Yjs integration (advanced)
 
-Reactive-CRDT uses (Yjs)[https://github.com/yjs/yjs] as underlying CRDT. Yjs is a CRDT implementation with a focus on performance and collaborative text editing. It does have a fairly steep learning curve, which is why Reactive-CRDT hides as many of the Yjs internals as possible.
+SyncedStore uses (Yjs)[https://github.com/yjs/yjs] as underlying CRDT. Yjs is a CRDT implementation with a focus on performance and collaborative text editing. It does have a fairly steep learning curve, which is why SyncedStore hides as many of the Yjs internals as possible.
 
 However, should you want to access the underlying Yjs objects of your store, that's definitely possible.
 
@@ -13,7 +13,7 @@ However, should you want to access the underlying Yjs objects of your store, tha
 
 #### `getYjsValue(object: any)`
 
-`object` is a value from the Reactive-CRDT store. The return type of `getYjsValue` depends on the type passed in:
+`object` is a value from the SyncedStore store. The return type of `getYjsValue` depends on the type passed in:
 
 - If `object` is the store itself, the return value is a `Y.Doc`
 - If `object` is an array, the return value is a `Y.Array`
@@ -56,9 +56,9 @@ export default function App() {
 }
 ```
 
-## Understanding the Reactive-CRDT internals
+## Understanding the SyncedStore internals
 
-If you're familiar with Yjs, you might be interested in how Reactive-CRDT works. There are two important abstractions Reactive-CRDT introduces on top of Yjs:
+If you're familiar with Yjs, you might be interested in how SyncedStore works. There are two important abstractions SyncedStore introduces on top of Yjs:
 
 - Instead of data types like Y.Map, and Y.Array, use plain Javascript objects and array
   - e.g.: `store.outer.inner.property = value` instead of `doc.getMap("outer").get("inner").set("property", "value")`

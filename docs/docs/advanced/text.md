@@ -7,7 +7,7 @@ sidebar_label: Working with text
 
 Instead of sharing plain strings or Text instances, what if you want to create a collaborative, (google docs style) rich text editing experience?
 
-You can bind Reactive-CRDT to the rich text editor of your choice. In most cases, you'll need to bind it to a `XmlFragment` on your store. Here's is an example using [TipTap](https://tiptap.dev) and Reactive-CRDT:
+You can bind SyncedStore to the rich text editor of your choice. In most cases, you'll need to bind it to a `XmlFragment` on your store. Here's is an example using [TipTap](https://tiptap.dev) and SyncedStore:
 
 ## TipTap example
 
