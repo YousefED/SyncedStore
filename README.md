@@ -2,7 +2,7 @@
 
 <small>(This library was previously called "Reactive-CRDT")</small>
 
-[![npm version](https://badge.fury.io/js/%40syncedstore%2Fcore.svg)](https://badge.fury.io/js/%40syncedstore%2Fcore) [![Coverage Status](https://coveralls.io/repos/github/YousefED/syncedstore/badge.svg?branch=main)](https://coveralls.io/github/YousefED/syncedstore?branch=main)
+[![npm version](https://badge.fury.io/js/%40syncedstore%2Fcore.svg)](https://badge.fury.io/js/%40syncedstore%2Fcore) [![Coverage Status](https://coveralls.io/repos/github/YousefED/SyncedStore/badge.svg?branch=main)](https://coveralls.io/github/YousefED/SyncedStore?branch=main)
 
 SyncedStore is an easy-to-use library for building collaborative applications that sync automatically. It's built on top of [Yjs](https://github.com/yjs/yjs), a proven, high performance CRDT implementation.
 
