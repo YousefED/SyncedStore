@@ -6,8 +6,8 @@ The code is based on the [official Vue 3 Todo MVC example](https://v3.vuejs.org/
 
 # Live demo
 
-- [Open live demo](https://78oyq.csb.app/) (Of course, open multiple times to test multiplayer)
-- [Open source on Codesandbox](https://codesandbox.io/s/todo-vue-78oyq)
+- [Open live demo](https://uie1c.csb.app/) (Of course, open multiple times to test multiplayer)
+- [Open source on Codesandbox](https://codesandbox.io/s/todo-vue-uie1c)
 
 # Running
 
