@@ -1,9 +1,9 @@
 {
   "name": "todo",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "private": true,
   "dependencies": {
-    "@syncedstore/core": "^0.3.0",
+    "@syncedstore/core": "^0.3.2",
     "@syncedstore/react": "^0.3.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
