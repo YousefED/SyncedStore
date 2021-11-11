@@ -5,7 +5,7 @@ import { globalStore, Todo } from "./store";
 export function TodoItem(props: { todo: Todo }) {
   const [todo, store] = useSyncedStores([props.todo, globalStore], [props.todo]);
   const [editing, setEditing] = useState(false);
-  // const [todo, store] = useReactives(globalStore], [props.todo]);
+  // const [todo, store] = useSyncedStores(globalStore], [props.todo]);
 
   function removeTodo() {
     const index = store.todos.indexOf(todo);

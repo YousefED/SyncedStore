@@ -1,11 +1,11 @@
 const WrapperCode = `import React, { useState } from "react";
 import App from "./App";
 import { connect, disconnect, store } from "./store"; // the store we defined above
-import { useReactive } from "@reactivedata/react";
+import { useSyncedStore } from "@syncedstore/react";
 
 export default function Wrapper() {
   const [inspecting, setInspecting] = useState(false);
-  const state = useReactive(store)
+  const state = useSyncedStore(store)
   return (
     <div>
       <div
@@ -169,11 +169,11 @@ export default function App() {
 };
 
 // const AppCode = `import React from "react";
-// import { useReactive } from "@reactivedata/react";
+// import { useSyncedStore } from "@syncedstore/react";
 // import { store } from "./store"; // the store we defined above
 
 // export default function App() {
-//   const state = useReactive(store);
+//   const state = useSyncedStore(store);
 
 //   return (
 //     <div>

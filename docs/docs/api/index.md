@@ -66,11 +66,11 @@ Let's look at some examples:
 ## Using React
 
 ```typescript
-import { useReactive } from "@reactivedata/react";
+import { useSyncedStore } from "@syncedstore/react";
 import { store } from "."; // the store we defined above
 
 export default function App() {
-  const state = useReactive(store);
+  const state = useSyncedStore(store);
 
   return (
     <div>
@@ -162,7 +162,7 @@ There were two major design decisions:
 - Instead of data types like Y.Map, and Y.Array, can we just use plain Javascript objects and arrays?
   - e.g.: `store.outer.inner.property = value` instead of `doc.getMap("inner").getMap("outer").getMap("inner").get("value")`
 - Instead of having to call `.observe` manually, can we integrate with a Reactive Functional Programming library to do this automatically?
-  - e.g.: wrap your code in `autorun` or use `useReactive` (React), or Vue's reactive model and automatically observe all used values from the store.
+  - e.g.: wrap your code in `autorun` or use `useSyncedStore` (React), or Vue's reactive model and automatically observe all used values from the store.
 
 Would love to hear your feedback!
 

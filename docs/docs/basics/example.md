@@ -7,11 +7,11 @@ sidebar_label: Example
 
 ```javascript live
 import React from "react";
-import { useReactive } from "@reactivedata/react";
+import { useSyncedStore } from "@syncedstore/react";
 import { store } from "./store"; // the store we defined above
 
 export default function App() {
-  const state = useReactive(store);
+  const state = useSyncedStore(store);
 
   return (
     <div>

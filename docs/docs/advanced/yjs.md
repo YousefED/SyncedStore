@@ -23,13 +23,13 @@ Check out the demo of `getYjsValue` below:
 
 ```typescript live
 import React from "react";
-import { useReactive } from "@reactivedata/react";
+import { useSyncedStore } from "@syncedstore/react";
 import { boxed, getYjsValue } from "@syncedstore/core";
 import { store } from "./store"; // the store we defined above
 import { ObjectInspector } from "react-inspector";
 
 export default function App() {
-  const state = useReactive(store);
+  const state = useSyncedStore(store);
 
   const doc = getYjsValue(state);
   const array = getYjsValue(state.todos);
@@ -63,4 +63,4 @@ If you're familiar with Yjs, you might be interested in how SyncedStore works. T
 - Instead of data types like Y.Map, and Y.Array, use plain Javascript objects and array
   - e.g.: `store.outer.inner.property = value` instead of `doc.getMap("outer").get("inner").set("property", "value")`
 - Instead of having to call `.observe` manually, we integrate with a Reactive Functional Programming library to react to changes automatically
-  - e.g.: wrap your code in `autorun` or use `useReactive` (React), Mobx, or Vue's reactive model and automatically observe all used values from the store.
+  - e.g.: wrap your code in `autorun` or use `useSyncedStore` (React), Mobx, or Vue's reactive model and automatically observe all used values from the store.
