@@ -46,7 +46,7 @@ true if they represent the same object, false otherwise
 
 #### Defined in
 
-[packages/core/src/index.ts:75](https://github.com/YousefED/reactive-crdt/blob/5f7a797/packages/core/src/index.ts#L75)
+[packages/core/src/index.ts:75](https://github.com/YousefED/reactive-crdt/blob/355763c/packages/core/src/index.ts#L75)
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 #### Defined in
 
-[packages/core/src/boxed.ts:10](https://github.com/YousefED/reactive-crdt/blob/5f7a797/packages/core/src/boxed.ts#L10)
+[packages/core/src/boxed.ts:10](https://github.com/YousefED/reactive-crdt/blob/355763c/packages/core/src/boxed.ts#L10)
 
 ___
 
@@ -94,7 +94,7 @@ Enable MobX integration
 
 #### Defined in
 
-[packages/yjs-reactive-bindings/src/observableProvider.ts:46](https://github.com/YousefED/reactive-crdt/blob/5f7a797/packages/yjs-reactive-bindings/src/observableProvider.ts#L46)
+[packages/yjs-reactive-bindings/src/observableProvider.ts:46](https://github.com/YousefED/reactive-crdt/blob/355763c/packages/yjs-reactive-bindings/src/observableProvider.ts#L46)
 
 ___
 
@@ -116,7 +116,7 @@ Enable Vue3 integration
 
 #### Defined in
 
-[packages/yjs-reactive-bindings/src/observableProvider.ts:56](https://github.com/YousefED/reactive-crdt/blob/5f7a797/packages/yjs-reactive-bindings/src/observableProvider.ts#L56)
+[packages/yjs-reactive-bindings/src/observableProvider.ts:56](https://github.com/YousefED/reactive-crdt/blob/355763c/packages/yjs-reactive-bindings/src/observableProvider.ts#L56)
 
 ___
 
@@ -145,7 +145,7 @@ Filter a SyncedStore array
 
 #### Defined in
 
-[packages/core/src/util.ts:6](https://github.com/YousefED/reactive-crdt/blob/5f7a797/packages/core/src/util.ts#L6)
+[packages/core/src/util.ts:6](https://github.com/YousefED/reactive-crdt/blob/355763c/packages/core/src/util.ts#L6)
 
 ___
 
@@ -169,7 +169,7 @@ the Yjs value underneath. This can be a Y.Doc, Y.Array, Y.Map or other Y-type ba
 
 #### Defined in
 
-[packages/core/src/index.ts:57](https://github.com/YousefED/reactive-crdt/blob/5f7a797/packages/core/src/index.ts#L57)
+[packages/core/src/index.ts:57](https://github.com/YousefED/reactive-crdt/blob/355763c/packages/core/src/index.ts#L57)
 
 ___
 
@@ -204,7 +204,7 @@ a function to dispose (unregister) the handler
 
 #### Defined in
 
-[packages/core/src/index.ts:32](https://github.com/YousefED/reactive-crdt/blob/5f7a797/packages/core/src/index.ts#L32)
+[packages/core/src/index.ts:32](https://github.com/YousefED/reactive-crdt/blob/355763c/packages/core/src/index.ts#L32)
 
 ___
 
@@ -235,4 +235,4 @@ a SyncedStore store
 
 #### Defined in
 
-[packages/core/src/index.ts:103](https://github.com/YousefED/reactive-crdt/blob/5f7a797/packages/core/src/index.ts#L103)
+[packages/core/src/index.ts:103](https://github.com/YousefED/reactive-crdt/blob/355763c/packages/core/src/index.ts#L103)
