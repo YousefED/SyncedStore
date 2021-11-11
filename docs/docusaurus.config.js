@@ -56,7 +56,7 @@ module.exports = {
           items: [
             {
               label: "View documentation",
-              to: "/docs/intro",
+              to: "/docs",
             },
           ],
         },

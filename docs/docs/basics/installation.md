@@ -26,7 +26,7 @@ npm install --save y-webrtc
 npm install --save @syncedstore/react
 ```
 
-`y-webrtc` is optional, but great during development. Later, you might want to use a different [sync provider](sync%20providers/introduction) instead of `y-webrtc`.
+`y-webrtc` is optional, but great during development. Later, you might want to use a different [sync provider](/docs/sync-providers) instead of `y-webrtc`.
 
 ## Creating a store
 
