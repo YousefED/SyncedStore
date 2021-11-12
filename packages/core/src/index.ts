@@ -2,6 +2,13 @@ import * as reactive from "@reactivedata/reactive";
 import { markRaw } from "@reactivedata/reactive";
 import { enableReactiveBindings, makeYDocObservable } from "@syncedstore/yjs-reactive-bindings";
 import * as Y from "yjs";
+import {
+  Doc as SyncedDoc,
+  Map as SyncedMap,
+  Array as SyncedArray,
+  Text as SyncedText,
+  XmlFragment as SyncedXml,
+} from "yjs";
 import { crdtDoc, DocTypeDescription } from "./doc";
 
 export { enableMobxBindings, enableVueBindings } from "@syncedstore/yjs-reactive-bindings";
@@ -106,10 +113,6 @@ export function syncedStore<T extends DocTypeDescription>(shape: T, doc: Y.Doc =
   return crdtDoc<T>(doc, shape);
 }
 
-export class SyncedDoc extends Y.Doc {}
-export class SyncedMap<T> extends Y.Map<T> {}
-export class SyncedArray<T> extends Y.Array<T> {}
-export class SyncedText extends Y.Text {}
-export class SyncedXml extends Y.XmlFragment {}
+export { SyncedDoc, SyncedArray, SyncedMap, SyncedXml, SyncedText };
 
 export default syncedStore;
