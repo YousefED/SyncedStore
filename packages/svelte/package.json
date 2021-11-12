@@ -1,0 +1,47 @@
+{
+  "name": "@syncedstore/svelte",
+  "description": "Svelte helper for SyncedStore.",
+  "keywords": [
+    "reactive",
+    "crdt",
+    "yjs",
+    "sync",
+    "automerge",
+    "collaboration",
+    "collaborative",
+    "observable",
+    "operational transforms",
+    "conflict",
+    "offline",
+    "shared editing",
+    "svelte"
+  ],
+  "version": "0.3.3",
+  "private": false,
+  "main": "dist/syncedstore-svelte.js",
+  "module": "dist/syncedstore-svelte.module.js",
+  "umd:main": "dist/syncedstore-svelte.umd.js",
+  "source": "src/index.ts",
+  "types": "types/index.d.ts",
+  "license": "MIT",
+  "dependencies": {},
+  "peerDependencies": {
+    "@reactivedata/reactive": "*",
+    "@syncedstore/core": "*",
+    "svelte": "*"
+  },
+  "devDependencies": {
+    "microbundle": "^0.13.0",
+    "rimraf": "^3.0.2",
+    "svelte": "*"
+  },
+  "scripts": {
+    "test": "echo \"Run tests from root\" && exit 1",
+    "clean": "rimraf dist && rimraf types",
+    "build": "npm run clean && microbundle build --raw --no-compress --tsconfig tsconfig.build.json",
+    "watch": "microbundle watch"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
