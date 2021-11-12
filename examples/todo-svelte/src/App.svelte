@@ -1,8 +1,8 @@
 <script>
 	import { globalStore } from "./store";
-	import { svelteSyncedStore } from "./svelteSyncedStore";
+	import { svelteSyncedStore } from "@syncedstore/svelte";
 	import { filterArray } from "@syncedstore/core";
-	
+
 	const ENTER_KEY = 13;
 	const ESCAPE_KEY = 27;
 

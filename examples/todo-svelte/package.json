@@ -27,6 +27,7 @@
   "dependencies": {
     "sirv-cli": "^1.0.0",
     "@syncedstore/core": "^0.3.3",
+    "@syncedstore/svelte": "^0.3.3",
     "y-webrtc": "^10.1.8",
     "yjs": "^13.5.13"
   }
