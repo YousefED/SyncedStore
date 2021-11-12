@@ -1,58 +1,34 @@
 {
-  "name": "svelte-todomvc",
+  "name": "svelte-app",
   "version": "1.0.0",
-  "description": "TodoMVC implemented in Svelte",
+  "private": true,
   "scripts": {
+    "copyfiles": "mkdir -p dist && cp node_modules/todomvc-app-css/index.css public/todomvc-app-css.css && cp node_modules/todomvc-common/base.css public/todomvc-common.css && cp node_modules/todomvc-common/base.js public/todomvc-common.js",
     "build": "rollup -c",
-    "autobuild": "rollup -c -w",
-    "dev": "run-p start:dev autobuild",
-    "start": "sirv public",
-    "start:dev": "sirv public --dev",
-    "deploy": "surge public svelte-todomvc.surge.sh",
-    "predeploy": "npm run build"
-  },
-  "files": [
-    "index.html",
-    "public",
-    "node_modules/todomvc-app-css/index.css"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sveltejs/svelte-todomvc.git"
-  },
-  "keywords": [
-    "svelte",
-    "todomvc"
-  ],
-  "author": "Rich Harris",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/sveltejs/svelte-todomvc/issues"
-  },
-  "homepage": "https://github.com/sveltejs/svelte-todomvc",
-  "dependencies": {
-    "@reactivedata/reactive-crdt": "^0.2.3",
-    "rollup-plugin-svelte": "^7.1.0",
-    "todomvc-app-css": "2.2.0",
-    "todomvc-common": "^1.0.5",
-    "y-webrtc": "^10.1.8",
-    "yjs": "^13.5.13"
+    "dev": "rollup -c -w",
+    "start": "sirv public --no-clear",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "^13.0.6",
-    "npm-run-all": "^4.1.5",
-    "rollup": "^1.10.1",
-    "rollup-plugin-commonjs": "^9.3.4",
-    "rollup-plugin-livereload": "^1.0.0",
-    "rollup-plugin-node-resolve": "^4.2.3",
-    "rollup-plugin-terser": "^4.0.4",
-    "sirv-cli": "^0.4.0",
-    "surge": "^0.20.1",
-    "svelte": "^3.0.0"
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.0.0",
+    "rollup": "^2.3.4",
+    "rollup-plugin-css-only": "^3.1.0",
+    "rollup-plugin-livereload": "^2.0.0",
+    "rollup-plugin-svelte": "^7.0.0",
+    "rollup-plugin-terser": "^7.0.0",
+    "svelte": "^3.0.0",
+    "svelte-check": "^2.0.0",
+    "svelte-preprocess": "^4.0.0",
+    "@rollup/plugin-typescript": "^8.0.0",
+    "typescript": "^4.0.0",
+    "tslib": "^2.0.0",
+    "@tsconfig/svelte": "^2.0.0"
   },
-  "workspaces": {
-    "nohoist": [
-      "**"
-    ]
+  "dependencies": {
+    "sirv-cli": "^1.0.0",
+    "todomvc-app-css": "2.2.0",
+    "todomvc-common": "^1.0.5",
+    "@reactivedata/reactive-crdt": "^0.2.10"
   }
 }

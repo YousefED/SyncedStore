@@ -1,8 +1,7 @@
-<script>
+<script lang="ts">
   import { crdt, Y, useSvelteBindings, filterArray } from "@reactivedata/reactive-crdt";
   import { WebrtcProvider } from "y-webrtc";
   import { writable } from "svelte/store";
-  import { createEventDispatcher, onMount } from "svelte";
 
   const refresh = () => {
     store = store;
@@ -16,8 +15,9 @@
   const doc = new Y.Doc();
   new WebrtcProvider("id", doc); // sync via webrtc
 
-  const store = crdt(doc);
-  if (!store.todos) store.todos = [];
+  type Todo = { completed: boolean; id: string; description: string };
+  let store = crdt(doc, { todos: [] as Todo[] });
+  console.log(store);
 
   const ENTER_KEY = 13;
   const ESCAPE_KEY = 27;
@@ -27,11 +27,8 @@
 
   try {
     const stored = JSON.parse(localStorage.getItem("todos-svelte"));
-    console.log(stored);
-    store.todos = stored;
-  } catch (err) {
-    store.todos = [];
-  }
+    if (!store.todos) store.todos.push(...stored);
+  } catch (err) {}
 
   const updateView = () => {
     currentFilter = "all";
@@ -54,11 +51,11 @@
   }
 
   function toggleAll(event) {
-    store.todos = store.todos.map((item) => ({
-      id: item.id,
-      description: item.description,
-      completed: event.target.checked,
-    }));
+    // store.todos = store.todos.map((item) => ({
+    //   id: item.id,
+    //   description: item.description,
+    //   completed: event.target.checked,
+    // }));
   }
 
   function createNew(event) {
@@ -123,12 +120,7 @@
 </header>
 
 {#if store.todos.length > 0}
-  <section
-    class="main"
-    on:yjs={(event) => {
-      console.log(event);
-    }}
-  >
+  <section class="main">
     <input
       id="toggle-all"
       class="toggle-all"

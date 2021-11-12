@@ -7,7 +7,7 @@ import { Box, boxed } from "./boxed";
 import { crdtDoc, DocTypeDescription } from "./doc";
 import { crdtObject } from "./object";
 import { JSONValue } from "./types";
-export { useMobxBindings, useVueBindings } from "@reactivedata/yjs-reactive-bindings";
+export { useMobxBindings, useVueBindings, useSvelteBindings } from "@reactivedata/yjs-reactive-bindings";
 export * from "./util";
 
 // setup yjs-reactive-bindings

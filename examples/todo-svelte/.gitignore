@@ -1,5 +1,4 @@
+/node_modules/
+/public/build/
+
 .DS_Store
-node_modules
-npm-debug.log
-dist
-public/bundle.*
