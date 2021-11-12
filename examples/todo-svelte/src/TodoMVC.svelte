@@ -1,15 +1,11 @@
 <script lang="ts">
   import { crdt, Y, useSvelteBindings, filterArray } from "@reactivedata/reactive-crdt";
   import { WebrtcProvider } from "y-webrtc";
-  import { writable } from "svelte/store";
 
   const refresh = () => {
     store = store;
   };
-  useSvelteBindings({
-    writable,
-    refresh,
-  });
+  useSvelteBindings(refresh);
 
   // Setup Yjs
   const doc = new Y.Doc();

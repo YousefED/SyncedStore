@@ -74,7 +74,7 @@ export function useReactiveBindings(reactive: any) {
   };
 }
 
-export function useSvelteBindings({ writable, refresh }: { writable: any; refresh: () => void }) {
+export function useSvelteBindings(refresh: () => void) {
   customCreateAtom = function (name, obo) {
     let store = {};
     const atom = {
