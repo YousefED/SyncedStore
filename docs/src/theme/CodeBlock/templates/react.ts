@@ -8,13 +8,7 @@ export default function Wrapper() {
   const state = useSyncedStore(store)
   return (
     <div>
-      <div
-        style={{
-          borderBottom: "1px solid #e4e7eb",
-          padding: "5px",
-          background: "#f8f9fb"
-        }}
-      >
+      <div className="toolbar">
         <label>
           <input type="radio" name="sync" defaultChecked onChange={connect} />{" "}
           Online (enable sync)
@@ -89,6 +83,18 @@ export default function App() {
     margin:5px;
   }
   
+  .toolbar {
+    border-bottom: 1px solid #e4e7eb;
+    padding: 5px;
+    background: #f8f9fb;
+    font-size: 13px;
+  }
+
+  .toolbar input {
+    position:relative;
+    top:1px;
+  }
+
   /* Basic editor styles */
   .ProseMirror {
     > * + * {
