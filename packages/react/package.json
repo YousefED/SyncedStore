@@ -19,7 +19,7 @@
     "offline",
     "shared editing"
   ],
-  "version": "0.3.3",
+  "version": "0.3.4",
   "private": false,
   "main": "dist/syncedstore-react.js",
   "module": "dist/syncedstore-react.module.js",

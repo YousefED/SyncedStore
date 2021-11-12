@@ -16,7 +16,7 @@
     "shared editing",
     "svelte"
   ],
-  "version": "0.3.3",
+  "version": "0.3.4",
   "private": false,
   "main": "dist/syncedstore-svelte.js",
   "module": "dist/syncedstore-svelte.module.js",
@@ -24,7 +24,6 @@
   "source": "src/index.ts",
   "types": "types/index.d.ts",
   "license": "MIT",
-  "dependencies": {},
   "peerDependencies": {
     "@reactivedata/reactive": "*",
     "@syncedstore/core": "*",
