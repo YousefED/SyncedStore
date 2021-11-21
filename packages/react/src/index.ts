@@ -13,12 +13,12 @@ import type * as React from "react";
  *
  * // Store setup:
  * const globalStore = SyncedStore({ people: [] });
- * globalStore.items.push({ name: "Alice" });
- * globalStore.items.push({ name: "Bob" });
+ * globalStore.people.push({ name: "Alice" });
+ * globalStore.people.push({ name: "Bob" });
  *
  * // In your component:
  * const store = useSyncedStore(globalStore);
- * <div>{store.items[1].name}</div>
+ * <div>{store.people[1].name}</div>
  *
  * Now, your component only rerenders when Bob's name changes
  *  (or if the second element of the array changes)
