@@ -30,5 +30,13 @@
     "sirv-cli": "^1.0.0",
     "y-webrtc": "^10.1.8",
     "yjs": "^13.5.13"
+  },
+  "workspaces": {
+    "nohoist": [
+      "**"
+    ],
+    "packages": [
+      "."
+    ]
   }
 }

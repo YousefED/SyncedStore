@@ -31,6 +31,9 @@
   "workspaces": {
     "nohoist": [
       "**"
+    ],
+    "packages": [
+      "."
     ]
   }
 }
