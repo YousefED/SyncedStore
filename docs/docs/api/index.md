@@ -9,12 +9,6 @@ custom_edit_url: null
 
 ## References
 
-### SyncedMap
-
-Renames and re-exports [Map](undefined)
-
-___
-
 ### default
 
 Renames and re-exports [syncedStore](#syncedstore)
@@ -44,7 +38,7 @@ true if they represent the same object, false otherwise
 
 #### Defined in
 
-[packages/core/src/index.ts:82](https://github.com/YousefED/reactive-crdt/blob/eadfcfa/packages/core/src/index.ts#L82)
+[packages/core/src/index.ts:82](https://github.com/YousefED/reactive-crdt/blob/20b783e/packages/core/src/index.ts#L82)
 
 ___
 
@@ -70,7 +64,7 @@ ___
 
 #### Defined in
 
-[packages/core/src/boxed.ts:10](https://github.com/YousefED/reactive-crdt/blob/eadfcfa/packages/core/src/boxed.ts#L10)
+[packages/core/src/boxed.ts:10](https://github.com/YousefED/reactive-crdt/blob/20b783e/packages/core/src/boxed.ts#L10)
 
 ___
 
@@ -92,7 +86,7 @@ Enable MobX integration
 
 #### Defined in
 
-[packages/yjs-reactive-bindings/src/observableProvider.ts:46](https://github.com/YousefED/reactive-crdt/blob/eadfcfa/packages/yjs-reactive-bindings/src/observableProvider.ts#L46)
+[packages/yjs-reactive-bindings/src/observableProvider.ts:46](https://github.com/YousefED/reactive-crdt/blob/20b783e/packages/yjs-reactive-bindings/src/observableProvider.ts#L46)
 
 ___
 
@@ -114,7 +108,7 @@ Enable Vue3 integration
 
 #### Defined in
 
-[packages/yjs-reactive-bindings/src/observableProvider.ts:56](https://github.com/YousefED/reactive-crdt/blob/eadfcfa/packages/yjs-reactive-bindings/src/observableProvider.ts#L56)
+[packages/yjs-reactive-bindings/src/observableProvider.ts:56](https://github.com/YousefED/reactive-crdt/blob/20b783e/packages/yjs-reactive-bindings/src/observableProvider.ts#L56)
 
 ___
 
@@ -143,7 +137,7 @@ Filter a SyncedStore array
 
 #### Defined in
 
-[packages/core/src/util.ts:6](https://github.com/YousefED/reactive-crdt/blob/eadfcfa/packages/core/src/util.ts#L6)
+[packages/core/src/util.ts:6](https://github.com/YousefED/reactive-crdt/blob/20b783e/packages/core/src/util.ts#L6)
 
 ___
 
@@ -167,7 +161,7 @@ the Yjs value underneath. This can be a Y.Doc, Y.Array, Y.Map or other Y-type ba
 
 #### Defined in
 
-[packages/core/src/index.ts:64](https://github.com/YousefED/reactive-crdt/blob/eadfcfa/packages/core/src/index.ts#L64)
+[packages/core/src/index.ts:64](https://github.com/YousefED/reactive-crdt/blob/20b783e/packages/core/src/index.ts#L64)
 
 ___
 
@@ -202,7 +196,7 @@ a function to dispose (unregister) the handler
 
 #### Defined in
 
-[packages/core/src/index.ts:39](https://github.com/YousefED/reactive-crdt/blob/eadfcfa/packages/core/src/index.ts#L39)
+[packages/core/src/index.ts:39](https://github.com/YousefED/reactive-crdt/blob/20b783e/packages/core/src/index.ts#L39)
 
 ___
 
@@ -233,4 +227,4 @@ a SyncedStore store
 
 #### Defined in
 
-[packages/core/src/index.ts:110](https://github.com/YousefED/reactive-crdt/blob/eadfcfa/packages/core/src/index.ts#L110)
+[packages/core/src/index.ts:110](https://github.com/YousefED/reactive-crdt/blob/20b783e/packages/core/src/index.ts#L110)

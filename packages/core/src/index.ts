@@ -113,6 +113,9 @@ export function syncedStore<T extends DocTypeDescription>(shape: T, doc: Y.Doc =
   return crdtDoc<T>(doc, shape);
 }
 
+/**
+ * @ignore
+ */
 export { SyncedDoc, SyncedArray, SyncedMap, SyncedXml, SyncedText };
 
 export default syncedStore;
