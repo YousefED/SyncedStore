@@ -6,11 +6,30 @@
 
 SyncedStore is an easy-to-use library for building collaborative applications that sync automatically. It's built on top of [Yjs](https://github.com/yjs/yjs), a proven, high performance CRDT implementation.
 
+## TL;DR
+
+Create apps like this:
+
+[![SyncedStore CRDT screencapture](https://raw.githubusercontent.com/YousefED/syncedstore/main/syncedstore-2.gif)](https://yousefed.github.io/SyncedStore/docs/react)
+
+_[Play with this example](https://yousefed.github.io/SyncedStore/docs/react)_
+
+Using an API as simple as this:
+
+```typescript
+// add a todo
+store.todos.push({ completed: false, title: "Get groceries" });
+
+// set todo to completed
+store.todos[0].completed = true;
+```
+
 # Documentation
 
 ### [View the documentation with interactive code samples](https://yousefed.github.io/SyncedStore/docs/)
 
-[https://yousefed.github.io/SyncedStore/](https://yousefed.github.io/SyncedStore/docs/)
+You can find the SyncedStore documentation
+[on the website](https://yousefed.github.io/SyncedStore/).
 
 - [Getting Started](https://yousefed.github.io/SyncedStore/docs/basics/installation)
 - [Working with React](https://yousefed.github.io/SyncedStore/docs/react)
@@ -18,9 +37,11 @@ SyncedStore is an easy-to-use library for building collaborative applications th
 - [Collaborative text editing](https://yousefed.github.io/SyncedStore/docs/advanced/richtext)
 - [Sync providers](https://yousefed.github.io/SyncedStore/docs/sync-providers)
 
-## Example
+## Examples
 
-Have a look at the collaborative Todo list examples ([React](https://github.com/YousefED/syncedstore/tree/main/examples/todo-react), [Vue](https://github.com/YousefED/syncedstore/tree/main/examples/todo-vue)) to get up to speed.
+We have several examples [on the website](https://yousefed.github.io/SyncedStore/) ([React](https://yousefed.github.io/SyncedStore/docs/react), [Vue](https://yousefed.github.io/SyncedStore/docs/vue)) as part of the documentation.
+
+In this repository, there are also more complex examples based on TodoMVC ([React](https://github.com/YousefED/syncedstore/tree/main/examples/todo-react), [Vue](https://github.com/YousefED/syncedstore/tree/main/examples/todo-vue)).
 
 [![example app screencapture](https://raw.githubusercontent.com/YousefED/syncedstore/main/syncedstore.gif)](https://github.com/YousefED/syncedstore/tree/main/examples/)
 
@@ -31,19 +52,22 @@ Source in: [examples/todo-react](https://github.com/YousefED/syncedstore/tree/ma
 
 # Motivation
 
-Yjs is a very powerful CRDT, but it's API is mostly targeted to create high-performant data bindings for (rich text) editors.
+SyncedStore makes it easy to develop applications that:
 
-I wanted to explore whether we can abstract the existing Yjs API away, and make it _extremely easy_ to integrate it as a Collaborative Data Store into existing applications.
+- 👨‍👩‍👧‍👦 **Are collaborative**: create multi-user and multi-device experiences without the need to handle complex conflict resolution management yourself.
+- 🚀 **Are fast**: operations are handled locally, and data synchronization with other users and devices happens quietly in the background. 0 Latency!
+- 🔗 **Work offline**: cloud apps typically don’t work while offline. Supporting both data sync and offline used to be difficult, SyncedStore aims to simplify this.
 
-There were two major design decisions:
+Perhaps most importantly, it makes it easy to build **decentralized applications**. This has a lot of security & privacy benefits compared to always relying on central (expensive) servers to keep track of all our data.
 
-- Instead of data types like Y.Map, and Y.Array, can we just use plain Javascript objects and arrays?
-  - e.g.: `store.outer.inner.property = value` instead of `doc.getMap("inner").getMap("outer").getMap("inner").get("value")`
-- Instead of having to call `.observe` manually, can we integrate with a Reactive Functional Programming library to do this automatically?
-  - e.g.: wrap your code in `autorun` or use `useSyncedStore` (React), or Vue's reactive model and automatically observe all used values from the store.
+> Read more about [the benefits of Local-first software in this essay](https://www.inkandswitch.com/local-first.html)
 
-Would love to hear your feedback!
+In short, with some technological magic of so-called [CRDTs](https://crdt.tech/) (_Conflict-free Replicated Data Types_), we can build _cross-device_ apps that are _more collaborative_, _faster_, _work offline_ AND put the user _back in control of their data_.
 
-### Credits ❤️
+# Feedback
+
+I'd always love to hear how you're using SyncedStore. Definitely open an issue if you need help, get in touch via [Twitter](https://www.twitter.com/yousefed), or join the discussion in the [Yjs forums](https://discuss.yjs.dev/).
+
+# Credits ❤️
 
 SyncedStore builds directly on [Yjs](https://github.com/yjs/yjs) and [Reactive](https://www.github.com/yousefed/reactive). It's also inspired by and builds upon the amazing work by [MobX](https://mobx.js.org/) and [NX Observe](https://github.com/nx-js/observer-util).

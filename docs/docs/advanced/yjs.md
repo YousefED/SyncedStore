@@ -48,7 +48,7 @@ export default function App() {
             state.todos.push({ title: "This is a todo", completed: false });
           }}
         >
-          Add a boxed item
+          Add a todo
         </button>
       </div>
     </div>

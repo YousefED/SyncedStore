@@ -26,7 +26,7 @@ Compared to the [default React example](/docs/react), we now wrap the component 
 
 ```typescript live
 import React from "react";
-import { store } from "./store"; // the store we defined above
+import { store } from "./store";
 import { observer } from "mobx-react-lite";
 import * as mobx from "mobx";
 import { enableMobxBindings } from "@syncedstore/core";

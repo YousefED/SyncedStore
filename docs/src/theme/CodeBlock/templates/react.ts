@@ -1,6 +1,6 @@
 const WrapperCode = `import React, { useState } from "react";
 import App from "./App";
-import { connect, disconnect, store } from "./store"; // the store we defined above
+import { connect, disconnect, store } from "./store";
 import { useSyncedStore } from "@syncedstore/react";
 
 export default function Wrapper() {
@@ -193,7 +193,7 @@ export default function App() {
 
 // const AppCode = `import React from "react";
 // import { useSyncedStore } from "@syncedstore/react";
-// import { store } from "./store"; // the store we defined above
+// import { store } from "./store";
 
 // export default function App() {
 //   const state = useSyncedStore(store);

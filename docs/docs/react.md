@@ -8,10 +8,12 @@ sidebar_label: React
 _SyncedStore_ is designed to work seamlessly with React. Below, you'll find a basic todo app.
 You'll notice that the code is almost as simple as building a regular todo app.
 
+Defining the store is done in _store.ts_. Then, we import this store with the `useSyncedStore` hook into our _App_ component. Now, adding a todo item is as simple as calling `state.todos.push({ completed: false, title: "Get groceries" });`.
+
 ```typescript live
 import React from "react";
 import { useSyncedStore } from "@syncedstore/react";
-import { store } from "./store"; // the store we defined above
+import { store } from "./store";
 
 export default function App() {
   const state = useSyncedStore(store);
@@ -71,12 +73,11 @@ const state = useSyncedStore(store);
 The `useSyncedStore` hook is pretty smart. It automatically detects which properties of `state` you use in your React component.
 
 If you only read from `state.todos[0].title`, your component rerenders _if and only if_ the title of the first "todo" changes,
-whether that's by you or by a remote user. So if another property changes (e.g.: a different todo item), your component doesn't rerender,
-which can save a huge performance overhead in your application, whilst keeping it easy to build your app!
+whether that's by you or by a remote user. So, when another property changes (e.g.: a different todo item), your component doesn't rerender. Preventing these unnecessary rerenders improves the performance of your app.
 
 :::info Learning more (advanced)
 
-You can also pass a nested object (`store.vehicles`) or a Yjs object (e.g.: `Y.Doc`, `Y.Array` or `Y.Map`) to the `useSyncedStore` method.
+You can also pass a nested object (`store.vehicles`) or a Yjs object (e.g.: `Y.Doc`, `Y.Array` or `Y.Map`) to the `useSyncedStore` method (for example, if you're already using Yjs in your app and just want to utilize SyncedStore's more idiomatic API).
 
 To learn more, the `useSyncedStore` is actually a wrapper for `useReactive`, from the [reactive library](https://github.com/yousefED/reactive).
 :::

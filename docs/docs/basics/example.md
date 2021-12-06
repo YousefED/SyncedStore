@@ -7,6 +7,10 @@ sidebar_label: Example
 
 Let's explore how _SyncedStore_ works using a vanilla Javascript example. It's good to understand the basics, although you might want to skip ahead immediately to the [React](../react) or [Vue](../vue) examples.
 
+In the example below, we create a SyncedStore _store_ with two properties: an array `myArray` and an object `myObject`. These are defined in _store.js_. The example then demonstrates how you can add some (random) values to the array `myArray` (by clicking the first button), or how you can set a property on `myObject` (click the second button).
+
+In the code, you can see that adding a value to an array that is shared across users is as simple as calling `store.myArray.push({ property: "value" });`. And changing / adding a propery is done like a regular property assignment: `store.myObject.property = "value";`.
+
 ```javascript live plain
 import { observeDeep } from "@syncedstore/core";
 import { store } from "./store";

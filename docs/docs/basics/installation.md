@@ -5,7 +5,7 @@ sidebar_label: Installation
 
 # Installation
 
-Install `SyncedStore` and required dependencies
+Install `SyncedStore` and required dependencies:
 
 ```bash
 npm install --save @syncedstore/core
@@ -55,12 +55,12 @@ More about the main `syncedStore` method below, or [continue to the interactive 
 
 The function `syncedStore` creates a store and takes two parameters:
 
-- `shape`: an object that describes the root types of the store.
+- `shape`: an object that describes the data you want to keep in the store. Use the `shape` to define the names of objects, arrays, etc. you want to make collaborative and share across users.
 - `doc` (optional): a Y.Doc instance. This will be the backing yjs document that contains the data in the store. Defaults to creating a new Y.Doc.
 
 ### Shape
 
-The shape object can contain 4 different data types to store in the root. You can define as many properties as you like on the shape.
+Use the shape object to define the types ("shape") of the data you want to keep in the store. You can define as many properties as you like, and there are four different data types you can use; these are explained below.
 
 ```javascript
 const shape = {
@@ -80,10 +80,10 @@ const store = syncedStore(shape);
 
 `exampleObjectData` in the code snippet above. Objects must always be initialized as an empty object `{}`. Objects in SyncedStore resemble Maps or plain javascript objects. You'll be able to set and get properties like you're used to with regular Javascript plain objects (e.g. `store.exampleObjectData.day = "Monday";`).
 
-#### XML
+#### XML (advanced)
 
 `exampleXMLData` in the code snippet above. `store.exampleXMLData` will now return a `SyncedXml` instance.
 
-#### Text
+#### Text (advanced)
 
 `exampleTextData` in the code snippet above. `store.exampleTextData` will now return a `SyncedText` instance, see [Working with text](../advanced/text).

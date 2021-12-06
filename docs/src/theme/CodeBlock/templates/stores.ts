@@ -41,7 +41,7 @@ export const store = syncedStore({ myArray: [], myObject: {} });
 
 // Create a document that syncs automatically using Y-WebRTC
 const doc = getYjsValue(store);
-export const webrtcProvider = new WebrtcProvider("syncedstore-plain", doc as any);
+export const webrtcProvider = new WebrtcProvider("syncedstore-plain", doc);
 
 export const disconnect = () => webrtcProvider.disconnect();
 export const connect = () => webrtcProvider.connect();
