@@ -65,4 +65,4 @@ Sounds great? Let's get started!
 
 ## Credits ❤️
 
-SyncedStore builds directly on [Yjs](https://github.com/yjs/yjs) (the CRDT it uses under the hood) and [Reactive](https://www.github.com/yousefed/reactive). It's also inspired by and builds upon the amazing work by [MobX](https://mobx.js.org/) and [NX Observe](https://github.com/nx-js/observer-util).
+SyncedStore builds directly on [Yjs](https://github.com/yjs/yjs) (a proven, high performance CRDT implementation) and [Reactive](https://www.github.com/yousefed/reactive). It's also inspired by and builds upon the amazing work by [MobX](https://mobx.js.org/) and [NX Observe](https://github.com/nx-js/observer-util).
