@@ -1,9 +1,9 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: "SyncedStore - Javascript CRDT based real-time sync",
-  tagline: "Dinosaurs are cool",
-  url: "https://yousefed.github.io",
-  baseUrl: "/SyncedStore/",
+  tagline: "",
+  url: "https://syncedstore.org",
+  baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   // favicon: "img/favicon.ico",

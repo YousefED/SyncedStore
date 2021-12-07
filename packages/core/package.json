@@ -1,5 +1,6 @@
 {
   "name": "@syncedstore/core",
+  "homepage": "https://syncedstore.org",
   "description": "SyncedStore is an easy-to-use library for building collaborative applications that sync automatically. It's built on top of Yjs, a proven, high performance CRDT implementation.",
   "keywords": [
     "reactive",

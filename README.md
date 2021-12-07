@@ -10,9 +10,9 @@ SyncedStore is an easy-to-use library for building collaborative applications th
 
 Create apps like this:
 
-[![SyncedStore CRDT screencapture](https://raw.githubusercontent.com/YousefED/syncedstore/main/syncedstore-2.gif)](https://yousefed.github.io/SyncedStore/docs/react)
+[![SyncedStore CRDT screencapture](https://raw.githubusercontent.com/YousefED/syncedstore/main/syncedstore-2.gif)](https://syncedstore.org/docs/react)
 
-_[Play with this example](https://yousefed.github.io/SyncedStore/docs/react)_
+_[Play with this example](https://syncedstore.org/docs/react)_
 
 Using an API as simple as this:
 
@@ -26,20 +26,20 @@ store.todos[0].completed = true;
 
 # Documentation
 
-### [View the documentation with interactive code samples](https://yousefed.github.io/SyncedStore/docs/)
+### [View the documentation with interactive code samples](https://syncedstore.org/docs/)
 
 You can find the SyncedStore documentation
-[on the website](https://yousefed.github.io/SyncedStore/).
+[on the website](https://syncedstore.org/).
 
-- [Getting Started](https://yousefed.github.io/SyncedStore/docs/basics/installation)
-- [Working with React](https://yousefed.github.io/SyncedStore/docs/react)
-- [Working with Vue](https://yousefed.github.io/SyncedStore/docs/vue)
-- [Collaborative text editing](https://yousefed.github.io/SyncedStore/docs/advanced/richtext)
-- [Sync providers](https://yousefed.github.io/SyncedStore/docs/sync-providers)
+- [Getting Started](https://syncedstore.org/docs/basics/installation)
+- [Working with React](https://syncedstore.org/docs/react)
+- [Working with Vue](https://syncedstore.org/docs/vue)
+- [Collaborative text editing](https://syncedstore.org/docs/advanced/richtext)
+- [Sync providers](https://syncedstore.org/docs/sync-providers)
 
 ## Examples
 
-We have several examples [on the website](https://yousefed.github.io/SyncedStore/) ([React](https://yousefed.github.io/SyncedStore/docs/react), [Vue](https://yousefed.github.io/SyncedStore/docs/vue)) as part of the documentation.
+We have several examples [on the website](https://syncedstore.org/) ([React](https://syncedstore.org/docs/react), [Vue](https://syncedstore.org/docs/vue)) as part of the documentation.
 
 In this repository, there are also more complex examples based on TodoMVC ([React](https://github.com/YousefED/syncedstore/tree/main/examples/todo-react), [Vue](https://github.com/YousefED/syncedstore/tree/main/examples/todo-vue)).
 
