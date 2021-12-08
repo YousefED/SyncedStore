@@ -71,3 +71,5 @@ I'd always love to hear how you're using SyncedStore. Definitely open an issue i
 # Credits ❤️
 
 SyncedStore builds directly on [Yjs](https://github.com/yjs/yjs) and [Reactive](https://www.github.com/yousefed/reactive). It's also inspired by and builds upon the amazing work by [MobX](https://mobx.js.org/) and [NX Observe](https://github.com/nx-js/observer-util).
+
+![NLNet](https://nlnet.nl/image/logos/NGIAssure_tag.svg | width=200) SyncedStore is proudly sponsored by [NLNet](https://nlnet.nl), be sure to check them out!
