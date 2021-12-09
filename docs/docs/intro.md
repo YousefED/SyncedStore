@@ -66,3 +66,7 @@ Sounds great? Let's get started!
 ## Credits ❤️
 
 SyncedStore builds directly on [Yjs](https://github.com/yjs/yjs) (a proven, high performance CRDT implementation) and [Reactive](https://www.github.com/yousefed/reactive). It's also inspired by and builds upon the amazing work by [MobX](https://mobx.js.org/) and [NX Observe](https://github.com/nx-js/observer-util).
+
+<a href="https://nlnet.nl"><img src="https://nlnet.nl/image/logos/NGIAssure_tag.svg" alt="NLNet" width="100" /></a>
+
+SyncedStore is proudly sponsored by [NLNet](https://nlnet.nl), be sure to check them out!
