@@ -8,6 +8,24 @@ describe("SyncedStore", () => {
     expect(store.a).toEqual([]);
   });
 
+  it("supports null on array", () => {
+    let store = syncedStore({ a: [] as (number | undefined | null)[] });
+    store.a.push(null);
+    // store.a.push(undefined);
+    store.a.push(2);
+    expect(store.a.length).toEqual(2);
+  });
+
+  it("supports null on object", () => {
+    let store = syncedStore({ a: {} as any });
+    store.a.propUndefined = 5;
+    expect(store.a.propUndefined).toEqual(5);
+    store.a.propUndefined = undefined;
+    store.a.propNull = null;
+    expect(store.a.propUndefined).toEqual(undefined);
+    expect(store.a.propNull).toEqual(null);
+  });
+
   it("set", () => {
     let store = syncedStore<{
       map: {

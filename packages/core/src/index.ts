@@ -62,6 +62,9 @@ export function observeDeep(object: any, handler: () => void): () => void {
  * @returns the Yjs value underneath. This can be a Y.Doc, Y.Array, Y.Map or other Y-type based on the value passed in
  */
 export function getYjsValue(object: any): Y.Doc | Y.AbstractType<any> | undefined {
+  if (typeof object !== "object" || object === null) {
+    return undefined;
+  }
   const ret = object[INTERNAL_SYMBOL];
   if (ret) {
     markRaw(ret);
