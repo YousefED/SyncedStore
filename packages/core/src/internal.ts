@@ -38,13 +38,18 @@ export function parseYjsReturnValue(value: any, implicitObserver?: any) {
       throw new Error("unknown YType");
     }
     return value;
+  } else if (value === null) {
+    return null;
   } else if (typeof value === "object") {
-    return boxed(value);
+    return boxed(value); // TODO: how do we recognize a boxed "null" value?
   }
   return value;
 }
 
 export function crdtValue<T extends NestedSchemaType>(value: T | Y.Array<any> | Y.Map<any>) {
+  if (value === null || value === undefined) {
+    return value;
+  }
   value = (getYjsValue(value as any) as any) || value; // unwrap
   if (value instanceof Y.Array) {
     return crdtArray([], value);
