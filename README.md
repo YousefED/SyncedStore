@@ -68,6 +68,11 @@ In short, with some technological magic of so-called [CRDTs](https://crdt.tech/)
 
 I'd always love to hear how you're using SyncedStore. Definitely open an issue if you need help, get in touch via [Twitter](https://www.twitter.com/yousefed), or join the discussion in the [Yjs forums](https://discuss.yjs.dev/).
 
+# Built with SyncedStore 
+
+ - [JokerPoker](https://codeberg.org/culmat/joker-poker) <img src="https://codeberg.org/culmat/joker-poker/raw/branch/main/public/joker-poker-logo.svg" height="20" /> - planning poker
+
+
 # Credits ❤️
 
 SyncedStore builds directly on [Yjs](https://github.com/yjs/yjs) and [Reactive](https://www.github.com/yousefed/reactive). It's also inspired by and builds upon the amazing work by [MobX](https://mobx.js.org/) and [NX Observe](https://github.com/nx-js/observer-util).
