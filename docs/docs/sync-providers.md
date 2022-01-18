@@ -61,6 +61,10 @@ const doc = getYjsValue(store);
 const wsProvider = new WebsocketProvider("ws://localhost:1234", "my-roomname", doc);
 ```
 
+## [Matrix-CRDT](https://github.com/yousefED/matrix-crdt)
+
+Use [Matrix](https://www.matrix.org) as a backend for SyncedStore by using the `MatrixProvider` from [Matrix-CRDT](https://github.com/yousefED/matrix-crdt). Matrix.org is an open network for secure, decentralized communication. By using Matrix as a Sync Provider, you can focus building your client app and Matrix can provide powerful features like Authentication, Authorization, Federation, hosting (self-hosting or SaaS) and even End-to-End Encryption (E2EE).
+
 ## [Hocuspocus](https://www.hocuspocus.dev/)
 
 Hocuspocus is the open source backend to bring real-time syncing, collaborative text editing and true collaboration to your application today. Get started in minutes, scale to millions.

@@ -20,6 +20,8 @@ It adds an easy-to-use API on top of modern CRDT technology (see below) to make 
     />
 </div>
 
+<a href="https://discord.gg/exFZg6X2XU"><img alt="Discord" src="https://img.shields.io/badge/Chat on discord%20-%237289DA.svg?&style=for-the-badge&logo=discord&logoColor=white"/></a>
+
 ## TL;DR
 
 Create apps like this:
@@ -67,6 +69,4 @@ Sounds great? Let's get started!
 
 SyncedStore builds directly on [Yjs](https://github.com/yjs/yjs) (a proven, high performance CRDT implementation) and [Reactive](https://www.github.com/yousefed/reactive). It's also inspired by and builds upon the amazing work by [MobX](https://mobx.js.org/) and [NX Observe](https://github.com/nx-js/observer-util).
 
-<a href="https://nlnet.nl"><img src="https://nlnet.nl/image/logos/NGIAssure_tag.svg" alt="NLNet" width="100" /></a>
-
-SyncedStore is proudly sponsored by [NLNet](https://nlnet.nl), be sure to check them out!
+SyncedStore is built as part of [TypeCell](https://www.typecell.org). TypeCell is proudly sponsored by the renowned [NLNet foundation](https://nlnet.nl/foundation/) who are on a mission to support an open internet, and protect the privacy and security of internet users. Check them out!
