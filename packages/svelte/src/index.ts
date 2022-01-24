@@ -21,6 +21,9 @@ import { Observer, reactive } from "@reactivedata/reactive";
  *
  * Now, your component only rerenders when Bob's name changes
  *  (or if the second element of the array changes)
+ * 
+ * Binding values works also.
+ * <input type="text" bind:value={$store.items[1].name} />
  */
 export function svelteSyncedStore<T>(syncedObject: T) {
   let set: any;
@@ -31,11 +34,16 @@ export function svelteSyncedStore<T>(syncedObject: T) {
   });
   const store = reactive(syncedObject, observer);
 
-  return readable(store, (newSet) => {
+  const readableStore = readable(store, (newSet) => {
     set = newSet;
 
     return () => {
       set = undefined;
     };
   });
+
+  return {
+    subscribe: readableStore.subscribe,
+    set: () => {}
+  }
 }
