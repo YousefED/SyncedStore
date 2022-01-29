@@ -16,7 +16,7 @@
     "shared editing",
     "svelte"
   ],
-  "version": "0.3.4",
+  "version": "0.3.6",
   "private": false,
   "main": "dist/syncedstore-svelte.js",
   "module": "dist/syncedstore-svelte.module.js",
