@@ -90,12 +90,41 @@ export function observeArray(array: Y.Array<any>) {
     };
   }
 
+  function patchGetter(method: string) {
+    let target = array;
+    let descriptor = Object.getOwnPropertyDescriptor(target, method)!;
+
+    // properties might be defined down the prototype chain (e.g., properties on XmlFragment when working on an XmlElement)
+    if (!descriptor) {
+      target = Object.getPrototypeOf(target);
+      descriptor = Object.getOwnPropertyDescriptor(target, method)!;
+    }
+
+    if (!descriptor) {
+      target = Object.getPrototypeOf(target);
+      descriptor = Object.getOwnPropertyDescriptor(target, method)!;
+    }
+
+    if (!descriptor) {
+      throw new Error("property not found");
+    }
+
+    const originalFunction = descriptor.get!;
+    descriptor.get = function () {
+      reportSelfAtom();
+      const ret = Reflect.apply(originalFunction, this, arguments);
+      return ret;
+    };
+    Object.defineProperty(target, method, descriptor);
+  }
+
   patch("forEach");
   patch("toJSON");
   patch("toArray");
   patch("slice");
   patch("map");
+  patchGetter("length");
 
-  // TODO: length, iterator
+  // TODO: iterator
   return array;
 }
