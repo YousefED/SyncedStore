@@ -14,7 +14,7 @@
     "typedoc": "typedoc --tsconfig ../packages/core/tsconfig.json --entryPoints ../packages/core/src/index.ts"
   },
   "dependencies": {
-    "@codesandbox/sandpack-react": "^0.9.11",
+    "@codesandbox/sandpack-react": "^0.13.8",
     "@docusaurus/core": "^2.0.0-beta.8",
     "@docusaurus/preset-classic": "^2.0.0-beta.8",
     "@mdx-js/react": "^1.6.21",

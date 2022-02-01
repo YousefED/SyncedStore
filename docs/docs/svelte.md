@@ -21,10 +21,12 @@ export const store = svelteSyncedStore(todoStore);
 
 See this example of creating a collaborative Todo application with Svelte and SyncedStore:
 
-```javascript svelte
+```javascript live svelte
 <script>
 	import { store } from "./store.js";
+	import { svelteSyncedStore } from "@syncedstore/svelte";
 
+	let svelteStore = svelteSyncedStore(store);
 	let newTodo = "";
 
 	const addTodo = () => {
@@ -33,7 +35,7 @@ See this example of creating a collaborative Todo application with Svelte and Sy
 	  if (!value) {
 	    return;
 	  }
-	  $store.todos.push({
+	  $svelteStore.todos.push({
 	    title: value,
 	    completed: false
 	  });
@@ -41,7 +43,7 @@ See this example of creating a collaborative Todo application with Svelte and Sy
 	};
 
 	const removeTodo = todo => {
-	  $store.todos.splice($store.todos.indexOf(todo), 1);
+	  $svelteStore.todos.splice($svelteStore.todos.indexOf(todo), 1);
 	};
 </script>
 
@@ -56,7 +58,7 @@ See this example of creating a collaborative Todo application with Svelte and Sy
 			/>
 		</form>
 	<ul class="todo-list">
-		{#each $store.todos as todo}
+		{#each $svelteStore.todos as todo}
 				<li class="todo">
 					<div>
 						<label>

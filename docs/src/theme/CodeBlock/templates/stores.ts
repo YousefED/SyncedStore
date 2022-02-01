@@ -1,4 +1,4 @@
-export const TODO_STORE_CODE = `import { syncedStore, getYjsValue } from "@syncedstore/core";
+export const TODO_STORE_CODE_TS = `import { syncedStore, getYjsValue } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
 
 // (optional, define types for TypeScript)
@@ -15,7 +15,7 @@ export const disconnect = () => webrtcProvider.disconnect();
 export const connect = () => webrtcProvider.connect();
 `;
 
-export const TODO_STORE_CODE_BOXED = `import { syncedStore, getYjsValue } from "@syncedstore/core";
+export const TODO_STORE_CODE_BOXED_TS = `import { syncedStore, getYjsValue } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
 
 // (optional, define types for TypeScript)
@@ -32,7 +32,7 @@ export const disconnect = () => webrtcProvider.disconnect();
 export const connect = () => webrtcProvider.connect();
 `;
 
-export const TODO_STORE_CODE_PLAIN = `import { syncedStore, getYjsValue } from "@syncedstore/core";
+export const PLAIN_STORE = `import { syncedStore, getYjsValue } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
 
 // Create your SyncedStore store
@@ -42,6 +42,20 @@ export const store = syncedStore({ myArray: [], myObject: {} });
 // Create a document that syncs automatically using Y-WebRTC
 const doc = getYjsValue(store);
 export const webrtcProvider = new WebrtcProvider("syncedstore-plain", doc);
+
+export const disconnect = () => webrtcProvider.disconnect();
+export const connect = () => webrtcProvider.connect();
+`;
+
+export const TODO_STORE_CODE_JS = `import { syncedStore, getYjsValue } from "@syncedstore/core";
+import { WebrtcProvider } from "y-webrtc";
+
+// Create your SyncedStore store
+export const store = syncedStore({ todos: [], fragment: "xml" });
+
+// Create a document that syncs automatically using Y-WebRTC
+const doc = getYjsValue(store);
+export const webrtcProvider = new WebrtcProvider("syncedstore-todos", doc);
 
 export const disconnect = () => webrtcProvider.disconnect();
 export const connect = () => webrtcProvider.connect();
