@@ -1,46 +1,36 @@
-// TODO: implement a svelte version of this:
-const wrapperCode = `
-<template>
-  <main id="wrap">
-    <div>
-      <div class="toolbar">
-        <label>
-          <input type="radio" name="sync" checked @change="connect" />
-          Online (enable sync)
-        </label>
-        <label>
-          <input type="radio" name="sync" @change="disconnect" /> Offline
-          (disable sync)
-        </label>
-        <button v-if="inspecting" @click="inspecting = false">Back</button>
-        <button v-if="!inspecting" @click="inspecting = true">Inspect</button>
-      </div>
-      <div className="wrapper">
-        <pre v-if="inspecting">{{ JSON.stringify(store, undefined, 2) }}</pre>
-        <app v-if="!inspecting" />
-      </div>
-    </div>
-  </main>
-</template>
+const wrapperCode = `<script>
+import App from "./App.svelte";
+import { connect, disconnect, svelteStore } from "./store";
 
-<script>
-import App from "./App";
-import { connect, disconnect, store } from "./store";
-
-export default {
-  name: "Wrap",
-  data() {
-    return {
-      store,
-      inspecting: false,
-    };
-  },
-  methods: {
-    connect,
-    disconnect,
-  },
-};
+let inspecting = false;
 </script>
+
+<main id="wrap">
+  <div>
+    <div class="toolbar">
+      <label>
+        <input type="radio" name="sync" checked on:change={connect} />
+        Online (enable sync)
+      </label>
+      <label>
+        <input type="radio" name="sync" on:change={disconnect} /> Offline
+        (disable sync)
+      </label>
+      {#if inspecting}
+        <button on:click={() => inspecting = false}>Back</button>
+      {:else}
+        <button on:click={() => inspecting = true}>Inspect</button>
+      {/if}
+    </div>
+    <div className="wrapper">
+    {#if inspecting}
+      <pre >{ JSON.stringify($svelteStore, undefined, 2) }</pre>
+    {:else}
+      <App />
+    {/if}
+    </div>
+  </div>
+</main>
 
 <style>
 
@@ -67,22 +57,23 @@ pre {
 </style>
 `;
 
-// TODO: implement a svelte version of this:
-const indexCode = `import { createApp } from "vue";
-import Wrap from "./Wrap.vue";
-import App from "./App.vue";
+const indexCode = `import Wrap from "./Wrap.svelte";
 
-createApp(Wrap).component("app", App).mount("#app");`;
+const app = new Wrap({
+  target: document.body
+});
+
+export default app;`;
 
 export const SVELTE_TEMPLATE = {
   files: {
-    // "/src/Wrap.vue": {
-    //   code: wrapperCode,
-    //   hidden: true,
-    // },
-    // "/src/main.js": {
-    //   code: indexCode,
-    //   hidden: true,
-    // },
+    "/Wrap.svelte": {
+      code: wrapperCode,
+      hidden: true,
+    },
+    "/index.js": {
+      code: indexCode,
+      hidden: true,
+    },
   },
 };

@@ -23,10 +23,8 @@ See this example of creating a collaborative Todo application with Svelte and Sy
 
 ```javascript live svelte
 <script>
-	import { store } from "./store.js";
-	import { svelteSyncedStore } from "@syncedstore/svelte";
+	import { svelteStore } from "./store.js";
 
-	let svelteStore = svelteSyncedStore(store);
 	let newTodo = "";
 
 	const addTodo = () => {

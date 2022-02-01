@@ -47,11 +47,13 @@ export const disconnect = () => webrtcProvider.disconnect();
 export const connect = () => webrtcProvider.connect();
 `;
 
-export const TODO_STORE_CODE_JS = `import { syncedStore, getYjsValue } from "@syncedstore/core";
+export const TODO_STORE_CODE_SVELTE_JS = `import { syncedStore, getYjsValue } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
+import { svelteSyncedStore } from "@syncedstore/svelte";
 
 // Create your SyncedStore store
 export const store = syncedStore({ todos: [], fragment: "xml" });
+export const svelteStore = svelteSyncedStore(store);
 
 // Create a document that syncs automatically using Y-WebRTC
 const doc = getYjsValue(store);

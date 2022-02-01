@@ -9,7 +9,12 @@ import {
 import styles from "./styles2.module.css";
 import InitialCodeBlock from "@theme-init/CodeBlock";
 import { REACT_TEMPLATE } from "./templates/react";
-import { TODO_STORE_CODE_TS, TODO_STORE_CODE_BOXED_TS, PLAIN_STORE, TODO_STORE_CODE_JS } from "./templates/stores";
+import {
+  TODO_STORE_CODE_TS,
+  TODO_STORE_CODE_BOXED_TS,
+  PLAIN_STORE,
+  TODO_STORE_CODE_SVELTE_JS,
+} from "./templates/stores";
 import { VUE_TEMPLATE } from "./templates/vue";
 import { SVELTE_TEMPLATE } from "./templates/svelte";
 
@@ -37,7 +42,7 @@ export default function CodeBlock(props: any) {
       files: {
         ...SVELTE_TEMPLATE.files,
         "/App.svelte": props.children,
-        "/store.js": TODO_STORE_CODE_JS,
+        "/store.js": TODO_STORE_CODE_SVELTE_JS,
       },
       main: "/App.svelte",
     };
