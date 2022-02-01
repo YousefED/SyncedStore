@@ -56,7 +56,7 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
     unshift: arr.unshift.bind(arr) as Y.Array<T>["unshift"],
     push: (...items: T[]) => {
       arr.push(wrapItems(items));
-      return arr.length;
+      return (arr as any).lengthUntracked;
     },
 
     insert: arr.insert.bind(arr) as Y.Array<T>["insert"],
@@ -112,7 +112,7 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
     enumerable: false,
     configurable: false,
     writable: true,
-    value: arr.length,
+    value: (arr as any).lengthUntracked,
   });
 
   return ret;
@@ -195,7 +195,7 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
       if (typeof p !== "number") {
         throw new Error();
       }
-      if (p < arr.length && p >= 0) {
+      if (p < (arr as any).lengthUntracked && p >= 0) {
         arr.delete(p);
         return true;
       } else {
@@ -208,7 +208,7 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
         // forward to arrayimplementation
         return Reflect.has(target, p);
       }
-      if (p < arr.length && p >= 0) {
+      if (p < (arr as any).lengthUntracked && p >= 0) {
         return true;
       } else {
         return false;
@@ -223,7 +223,7 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
           writable: true,
         };
       }
-      if (typeof p === "number" && p >= 0 && p < arr.length) {
+      if (typeof p === "number" && p >= 0 && p < (arr as any).lengthUntracked) {
         return {
           enumerable: true,
           configurable: true,
