@@ -35,6 +35,7 @@ export function observeArray(array: Y.Array<any>) {
         }
       );
     }
+
     selfAtom.reportObserved((array as any)._implicitObserver);
   }
 
@@ -90,12 +91,82 @@ export function observeArray(array: Y.Array<any>) {
     };
   }
 
+  function patchGetter(method: string) {
+    let target = array;
+    let descriptor = Object.getOwnPropertyDescriptor(target, method)!;
+
+    // properties might be defined down the prototype chain (e.g., properties on XmlFragment when working on an XmlElement)
+    if (!descriptor) {
+      target = Object.getPrototypeOf(target);
+      descriptor = Object.getOwnPropertyDescriptor(target, method)!;
+    }
+
+    if (!descriptor) {
+      target = Object.getPrototypeOf(target);
+      descriptor = Object.getOwnPropertyDescriptor(target, method)!;
+    }
+
+    if (!descriptor) {
+      throw new Error("property not found");
+    }
+
+    const originalFunction = descriptor.get!;
+    descriptor.get = function () {
+      if (!this._disableTracking) {
+        reportSelfAtom();
+      }
+      const ret = Reflect.apply(originalFunction, this, arguments);
+      return ret;
+    };
+    Object.defineProperty(target, method, descriptor);
+  }
+
+  function copyGetter(method: string, newMethodName: string) {
+    let target = array;
+    let descriptor = Object.getOwnPropertyDescriptor(target, method)!;
+
+    // properties might be defined down the prototype chain (e.g., properties on XmlFragment when working on an XmlElement)
+    if (!descriptor) {
+      target = Object.getPrototypeOf(target);
+      descriptor = Object.getOwnPropertyDescriptor(target, method)!;
+    }
+
+    if (!descriptor) {
+      target = Object.getPrototypeOf(target);
+      descriptor = Object.getOwnPropertyDescriptor(target, method)!;
+    }
+
+    if (!descriptor) {
+      throw new Error("property not found");
+    }
+
+    Object.defineProperty(target, newMethodName, descriptor);
+  }
+
   patch("forEach");
   patch("toJSON");
   patch("toArray");
   patch("slice");
   patch("map");
+  copyGetter("length", "lengthUntracked");
+  patchGetter("length");
 
-  // TODO: length, iterator
+  // make push and slice use _disableTracking so calls to .length don't get observed
+  const originalPush = array.push;
+  array.push = function (this: any, content: any) {
+    this._disableTracking = true;
+    const ret = originalPush.call(this, content);
+    this._disableTracking = false;
+    return ret;
+  };
+
+  const originalSlice = array.slice;
+  array.slice = function (this: any, start: any, end: any) {
+    this._disableTracking = true;
+    const ret = originalSlice.call(this, start, end);
+    this._disableTracking = false;
+    return ret;
+  };
+  // TODO: iterator
   return array;
 }

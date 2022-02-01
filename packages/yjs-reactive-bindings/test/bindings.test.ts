@@ -45,4 +45,26 @@ describe("yjs-reactive-bindings", () => {
     // did the autorun succesfully execute?
     expect(stringValue).toEqual("new");
   });
+
+  it("array length", () => {
+    let doc = new Y.Doc();
+
+    bindings.enableMobxBindings(mobx);
+
+    bindings.makeYDocObservable(doc);
+    let length = 0;
+
+    // using mobx, we now automatically update length as soon as rootArray has changed
+    mobx.autorun(() => {
+      length = doc.getArray("rootArray").length;
+    });
+    expect(length).toEqual(0);
+
+    // update the yjs value
+    doc.getArray("rootArray").insert(0, ["element"]);
+
+    // did the autorun succesfully execute?
+    expect(doc.getArray("rootArray").length).toEqual(1);
+    expect(length).toEqual(1);
+  });
 });

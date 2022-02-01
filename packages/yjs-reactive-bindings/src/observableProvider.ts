@@ -54,7 +54,7 @@ export function enableMobxBindings(mobx: any) {
  * @param vue An instance of Vue or Vue reactivity, e.g. import * as Vue from "vue";
  */
 export function enableVueBindings(vue: any) {
-  customCreateAtom = function (name: any, obo: any) {
+  customCreateAtom = function (name: any, onBecomeObserved: any) {
     let id = 0;
     const data = vue.reactive({ data: id });
     const atom = {
@@ -65,8 +65,8 @@ export function enableVueBindings(vue: any) {
         data.data = ++id;
       },
     };
-    if (obo) {
-      obo();
+    if (onBecomeObserved) {
+      onBecomeObserved();
     }
     return atom;
   };
@@ -74,11 +74,11 @@ export function enableVueBindings(vue: any) {
 }
 
 export function enableReactiveBindings(reactive: any) {
-  customCreateAtom = function (name, obo, obu) {
+  customCreateAtom = function (name, onBecomeObserved, onBecomeUnobserved) {
     // TMP
     const atom = reactive.createAtom(name);
-    if (obo) {
-      obo();
+    if (onBecomeObserved) {
+      onBecomeObserved();
     }
     return atom;
   };
