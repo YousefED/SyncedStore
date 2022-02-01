@@ -1,11 +1,11 @@
 ---
-sidebar_position: 4
+sidebar_position: 5
 sidebar_label: Svelte
 ---
 
 # Svelte integration
 
-_SyncedStore_ works seamlessly together with [Svelte Stores](https://svelte.dev/docs#run-time-svelte-store).
+_SyncedStore_ works seamlessly together with [Svelte Stores](https://svelte.dev/docs#run-time-svelte-store). Create a Svelte Store from your _SyncedStore_ using `svelteSyncedStore` from the `@syncedstore/svelte` package.
 
 ```javascript
 import { syncedStore, getYjsValue } from "@syncedstore/core";
