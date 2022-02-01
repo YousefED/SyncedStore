@@ -6,8 +6,10 @@ The code is based on the [official Svelte Todo MVC example](https://github.com/s
 
 <!-- # Live demo
 
-- [Open live demo](https://uie1c.csb.app/) (Of course, open multiple times to test multiplayer)
-- [Open source on Codesandbox](https://codesandbox.io/s/todo-vue-uie1c) -->
+TODO: fix codesandbox
+
+- [Open live demo](https://jx4bo.csb.app/) (Of course, open multiple times to test multiplayer)
+- [Open source on Codesandbox](https://codesandbox.io/s/github/YousefED/SyncedStore/tree/main/examples/todo-svelte?file=/src/App.svelte) -->
 
 # Running
 

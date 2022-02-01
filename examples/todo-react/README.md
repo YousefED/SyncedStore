@@ -6,8 +6,8 @@ The code that sets up our store is defined in [src/store.ts](src/store.ts). By u
 
 # Live demo
 
-- [Open live demo](https://ze3vo.csb.app/) (Of course, open multiple times to test multiplayer)
-- [Open source on Codesandbox](https://codesandbox.io/s/todo-react-ze3vo)
+- [Open live demo](https://3xemy.csb.app/) (Of course, open multiple times to test multiplayer)
+- [Open source on Codesandbox](https://codesandbox.io/s/github/YousefED/SyncedStore/tree/main/examples/todo-react?file=/src/App.tsx)
 
 # Running
 

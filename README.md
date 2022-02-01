@@ -36,21 +36,20 @@ You can find the SyncedStore documentation
 - [Getting Started](https://syncedstore.org/docs/basics/installation)
 - [Working with React](https://syncedstore.org/docs/react)
 - [Working with Vue](https://syncedstore.org/docs/vue)
+- [Working with Svelte](https://syncedstore.org/docs/svelte)
 - [Collaborative text editing](https://syncedstore.org/docs/advanced/richtext)
 - [Sync providers](https://syncedstore.org/docs/sync-providers)
 
 ## Examples
 
-We have several examples [on the website](https://syncedstore.org/) ([React](https://syncedstore.org/docs/react), [Vue](https://syncedstore.org/docs/vue)) as part of the documentation.
+We have several examples [on the website](https://syncedstore.org/) ([React](https://syncedstore.org/docs/react), [Vue](https://syncedstore.org/docs/vue), [Svelte](https://syncedstore.org/docs/svelte)) as part of the documentation.
 
-In this repository, there are also more complex examples based on TodoMVC ([React](https://github.com/YousefED/syncedstore/tree/main/examples/todo-react), [Vue](https://github.com/YousefED/syncedstore/tree/main/examples/todo-vue)).
+In this repository, there are also more complex examples based on TodoMVC ([examples/todo-react](https://github.com/YousefED/syncedstore/tree/main/examples/todo-react), [examples/todo-vue](https://github.com/YousefED/syncedstore/tree/main/examples/todo-vue), [examples/todo-svelte](https://github.com/YousefED/syncedstore/tree/main/examples/todo-svelte)).
 
 [![example app screencapture](https://raw.githubusercontent.com/YousefED/syncedstore/main/syncedstore.gif)](https://github.com/YousefED/syncedstore/tree/main/examples/)
 
 - Open live demo: [React](https://ze3vo.csb.app/) or [Vue](https://uie1c.csb.app/) (Of course, open multiple times to test multiplayer)
 - Edit / view on Codesandbox [React](https://codesandbox.io/s/todo-react-ze3vo) / [Vue](https://codesandbox.io/s/todo-vue-uie1c)
-
-Source in: [examples/todo-react](https://github.com/YousefED/syncedstore/tree/main/examples/todo-react) and [examples/todo-vue](https://github.com/YousefED/syncedstore/tree/main/examples/todo-vue).
 
 # Motivation
 
