@@ -9,15 +9,21 @@ import {
 import styles from "./styles2.module.css";
 import InitialCodeBlock from "@theme-init/CodeBlock";
 import { REACT_TEMPLATE } from "./templates/react";
-import { TODO_STORE_CODE, TODO_STORE_CODE_BOXED, TODO_STORE_CODE_PLAIN } from "./templates/stores";
+import {
+  TODO_STORE_CODE_TS,
+  TODO_STORE_CODE_BOXED_TS,
+  PLAIN_STORE,
+  TODO_STORE_CODE_SVELTE_JS,
+} from "./templates/stores";
 import { VUE_TEMPLATE } from "./templates/vue";
+import { SVELTE_TEMPLATE } from "./templates/svelte";
 
 export default function CodeBlock(props: any) {
   if (!props.live) {
     return <InitialCodeBlock {...props} />;
   }
   // return <div>{JSON.stringify(props)}</div>;
-  let template: "vue3" | "vanilla" = "vanilla" as "vanilla";
+  let template: "vue3" | "svelte" | "vanilla" = "vanilla" as "vanilla";
   let customTemplate: any;
 
   if (props.vue) {
@@ -26,10 +32,21 @@ export default function CodeBlock(props: any) {
       files: {
         ...VUE_TEMPLATE.files,
         "/src/App.vue": props.children,
-        "/src/store.ts": TODO_STORE_CODE,
+        "/src/store.ts": TODO_STORE_CODE_TS,
       },
     };
     template = "vue3" as "vue3";
+  } else if (props.svelte) {
+    customTemplate = {
+      ...SVELTE_TEMPLATE,
+      files: {
+        ...SVELTE_TEMPLATE.files,
+        "/App.svelte": props.children,
+        "/store.js": TODO_STORE_CODE_SVELTE_JS,
+      },
+      main: "/App.svelte",
+    };
+    template = "svelte" as "svelte";
   } else if (props.plain) {
     customTemplate = {
       ...REACT_TEMPLATE,
@@ -55,7 +72,7 @@ export default function CodeBlock(props: any) {
           `,
           hidden: true,
         },
-        "/store.js": TODO_STORE_CODE_PLAIN,
+        "/store.js": PLAIN_STORE,
       },
       main: "/main.js",
     };
@@ -65,7 +82,7 @@ export default function CodeBlock(props: any) {
       files: {
         ...REACT_TEMPLATE.files,
         "/App.tsx": props.children,
-        "/store.ts": props.boxed ? TODO_STORE_CODE_BOXED : TODO_STORE_CODE,
+        "/store.ts": props.boxed ? TODO_STORE_CODE_BOXED_TS : TODO_STORE_CODE_TS,
       },
     };
   }
@@ -81,11 +98,13 @@ export default function CodeBlock(props: any) {
           dependencies: {
             ...customTemplate.dependencies,
             "@syncedstore/core": "latest",
+            "@syncedstore/svelte": "latest",
             "@syncedstore/react": "latest",
             yjs: "latest",
             "y-webrtc": "latest",
             "react-inspector": "latest",
             mobx: "latest",
+            svelte: "^3.32.3",
             "mobx-react-lite": "latest",
             "@tiptap/react": "latest",
             "@tiptap/starter-kit": "latest",

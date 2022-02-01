@@ -25,8 +25,8 @@ because SyncedStore can wrap the object with a Proxy depending on where you retr
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name      | Type  | Description                    |
+| :-------- | :---- | :----------------------------- |
 | `objectA` | `any` | Object to compare with objectB |
 | `objectB` | `any` | Object to compare with objectA |
 
@@ -40,7 +40,7 @@ true if they represent the same object, false otherwise
 
 [packages/core/src/index.ts:85](https://github.com/YousefED/reactive-crdt/blob/cbf0dc9/packages/core/src/index.ts#L85)
 
-___
+---
 
 ### boxed
 
@@ -48,15 +48,15 @@ ___
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | extends `JSONValue` |
+| Name | Type                |
+| :--- | :------------------ |
+| `T`  | extends `JSONValue` |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | `T` |
+| Name    | Type |
+| :------ | :--- |
+| `value` | `T`  |
 
 #### Returns
 
@@ -66,7 +66,7 @@ ___
 
 [packages/core/src/boxed.ts:10](https://github.com/YousefED/reactive-crdt/blob/cbf0dc9/packages/core/src/boxed.ts#L10)
 
-___
+---
 
 ### enableMobxBindings
 
@@ -76,9 +76,9 @@ Enable MobX integration
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `mobx` | `any` | An instance of mobx, e.g. import * as mobx from "mobx"; |
+| Name   | Type  | Description                                              |
+| :----- | :---- | :------------------------------------------------------- |
+| `mobx` | `any` | An instance of mobx, e.g. import \* as mobx from "mobx"; |
 
 #### Returns
 
@@ -88,7 +88,7 @@ Enable MobX integration
 
 [packages/yjs-reactive-bindings/src/observableProvider.ts:46](https://github.com/YousefED/reactive-crdt/blob/cbf0dc9/packages/yjs-reactive-bindings/src/observableProvider.ts#L46)
 
-___
+---
 
 ### enableVueBindings
 
@@ -98,9 +98,9 @@ Enable Vue3 integration
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `vue` | `any` | An instance of Vue or Vue reactivity, e.g. import * as Vue from "vue"; |
+| Name  | Type  | Description                                                             |
+| :---- | :---- | :---------------------------------------------------------------------- |
+| `vue` | `any` | An instance of Vue or Vue reactivity, e.g. import \* as Vue from "vue"; |
 
 #### Returns
 
@@ -110,7 +110,7 @@ Enable Vue3 integration
 
 [packages/yjs-reactive-bindings/src/observableProvider.ts:56](https://github.com/YousefED/reactive-crdt/blob/cbf0dc9/packages/yjs-reactive-bindings/src/observableProvider.ts#L56)
 
-___
+---
 
 ### filterArray
 
@@ -121,14 +121,14 @@ Filter a SyncedStore array
 #### Type parameters
 
 | Name |
-| :------ |
-| `T` |
+| :--- |
+| `T`  |
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `arr` | `T`[] | array to filter |
+| Name     | Type                      | Description                            |
+| :------- | :------------------------ | :------------------------------------- |
+| `arr`    | `T`[]                     | array to filter                        |
 | `filter` | (`obj`: `T`) => `boolean` | predicate to filter the array `arr` by |
 
 #### Returns
@@ -139,7 +139,7 @@ Filter a SyncedStore array
 
 [packages/core/src/util.ts:6](https://github.com/YousefED/reactive-crdt/blob/cbf0dc9/packages/core/src/util.ts#L6)
 
-___
+---
 
 ### getYjsValue
 
@@ -149,8 +149,8 @@ Access the internal Yjs value that backs the syncing of the passed in object.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
+| Name     | Type  | Description                      |
+| :------- | :---- | :------------------------------- |
 | `object` | `any` | a value retrieved from the store |
 
 #### Returns
@@ -163,7 +163,7 @@ the Yjs value underneath. This can be a Y.Doc, Y.Array, Y.Map or other Y-type ba
 
 [packages/core/src/index.ts:64](https://github.com/YousefED/reactive-crdt/blob/cbf0dc9/packages/core/src/index.ts#L64)
 
-___
+---
 
 ### observeDeep
 
@@ -173,10 +173,10 @@ Register a listener for when any changes to `object` or its nested objects occur
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `object` | `any` | the synced object (store, object, map, or Yjs value to observe) |
-| `handler` | () => `void` | the callback to be raised. |
+| Name      | Type         | Description                                                     |
+| :-------- | :----------- | :-------------------------------------------------------------- |
+| `object`  | `any`        | the synced object (store, object, map, or Yjs value to observe) |
+| `handler` | () => `void` | the callback to be raised.                                      |
 
 #### Returns
 
@@ -198,7 +198,7 @@ a function to dispose (unregister) the handler
 
 [packages/core/src/index.ts:39](https://github.com/YousefED/reactive-crdt/blob/cbf0dc9/packages/core/src/index.ts#L39)
 
-___
+---
 
 ### syncedStore
 
@@ -208,16 +208,16 @@ Create a SyncedStore store
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | extends `DocTypeDescription` |
+| Name | Type                         |
+| :--- | :--------------------------- |
+| `T`  | extends `DocTypeDescription` |
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `shape` | `T` | an object that describes the root types of the store. e.g.:  const shape = {    exampleArrayData: [],    exampleObjectData: {},    exampleXMLData: "xml",    exampleTextData: "text", }; |
-| `doc` | `Doc` | (optional) a Y.Doc to use as the backing system |
+| Name    | Type  | Description                                                                                                                                                                 |
+| :------ | :---- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `shape` | `T`   | an object that describes the root types of the store. e.g.: const shape = { exampleArrayData: [], exampleObjectData: {}, exampleXMLData: "xml", exampleTextData: "text", }; |
+| `doc`   | `Doc` | (optional) a Y.Doc to use as the backing system                                                                                                                             |
 
 #### Returns
 
