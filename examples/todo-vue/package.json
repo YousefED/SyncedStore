@@ -1,6 +1,6 @@
 {
   "name": "todo-vue",
-  "version": "0.3.5",
+  "version": "0.3.7",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -8,7 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@syncedstore/core": "^0.3.5",
+    "@syncedstore/core": "^0.3.7",
     "core-js": "^3.6.5",
     "tslib": "^2.3.1",
     "vue": "^3.0.0",
