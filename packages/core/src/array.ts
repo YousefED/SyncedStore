@@ -66,6 +66,10 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
       return [].forEach.apply(slice.apply(this), arguments);
     } as T[]["forEach"],
 
+    every: function () {
+      return [].every.apply(slice.apply(this), arguments);
+    },
+
     filter: function () {
       return [].filter.apply(slice.apply(this), arguments);
     } as T[]["filter"],
@@ -142,9 +146,8 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
       if (typeof p !== "number") {
         throw new Error();
       }
-      throw new Error("array assignment is not implemented / supported");
       // TODO map.set(p, smartValue(value));
-      return true;
+      throw new Error("array assignment is not implemented / supported");
     },
     get: (target, pArg, receiver) => {
       const p = propertyToNumber(pArg);
