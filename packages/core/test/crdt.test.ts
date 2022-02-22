@@ -195,6 +195,15 @@ describe("SyncedStore", () => {
     expect(store1.arr).toEqual([0, 1]);
   });
 
+  it("every() for array", () => {
+    let store1 = syncedStore({ map: {} as any }).map;
+    store1.arr = [0, 1, 2, 3];
+    const areAllNumbersSmallerThan10 = store1.arr.every((n) => n < 10);
+    expect(areAllNumbersSmallerThan10).toEqual(true);
+    const areAllNumbersSmallersThan2 = store1.arr.every((n) => n < 2);
+    expect(areAllNumbersSmallersThan2).toEqual(false);
+  });
+
   it("move already inserted object to different location in document (nested)", () => {
     let store1 = syncedStore({ map: {} as any }).map;
     store1.mymap = {};
