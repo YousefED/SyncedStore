@@ -37,7 +37,7 @@ export const INTERNAL_SYMBOL = Symbol("INTERNAL_SYMBOL");
  * @returns a function to dispose (unregister) the handler
  */
 export function observeDeep(object: any, handler: () => void): () => void {
-  const internal = getYjsValue(object);
+  const internal = getYjsValue(object) || object;
   if (!internal) {
     throw new Error("not a valid synced object");
   }
