@@ -16,7 +16,7 @@
     "shared editing",
     "svelte"
   ],
-  "version": "0.3.6",
+  "version": "0.3.9",
   "private": false,
   "main": "dist/syncedstore-svelte.js",
   "module": "dist/syncedstore-svelte.module.js",
@@ -30,11 +30,11 @@
     "svelte": "*"
   },
   "devDependencies": {
+    "@reactivedata/reactive": "*",
+    "@syncedstore/core": "^0.3.9",
     "microbundle": "^0.13.0",
     "rimraf": "^3.0.2",
-    "svelte": "*",
-    "@reactivedata/reactive": "*",
-    "@syncedstore/core": "*"
+    "svelte": "*"
   },
   "scripts": {
     "test": "echo \"Run tests from root\" && exit 1",
