@@ -36,7 +36,8 @@
   },
   "devDependencies": {
     "microbundle": "^0.13.0",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "@syncedstore/core": "*"
   },
   "scripts": {
     "test": "echo \"Run tests from root\" && exit 1",
