@@ -101,7 +101,7 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
-          editUrl: "https://github.com/yousefed/SyncedStore/edit/master/docs/",
+          editUrl: "https://github.com/yousefed/SyncedStore/edit/main/docs/",
         },
         // blog: {
         //   showReadingTime: true,
