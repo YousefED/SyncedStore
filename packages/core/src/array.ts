@@ -2,7 +2,7 @@ import { $reactive, $reactiveproxy } from "@reactivedata/reactive";
 import * as Y from "yjs";
 import { areSame, getYjsValue, INTERNAL_SYMBOL } from ".";
 import { Box } from "./boxed";
-import { parseYjsReturnValue, crdtValue, ObjectSchemaType } from "./internal";
+import { crdtValue, ObjectSchemaType, parseYjsReturnValue } from "./internal";
 import { CRDTObject } from "./object";
 
 export type CRDTArray<T> = {
@@ -53,7 +53,11 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
     //   throw new Error("set length of yjs array is unsupported");
     // },
     slice,
-    unshift: arr.unshift.bind(arr) as Y.Array<T>["unshift"],
+    unshift: (...items: T[]) => {
+      arr.unshift(wrapItems(items));
+      return (arr as any).lengthUntracked;
+    },
+
     push: (...items: T[]) => {
       arr.push(wrapItems(items));
       return (arr as any).lengthUntracked;
@@ -79,6 +83,14 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
     } as T[]["find"],
 
     findIndex,
+
+    some: function () {
+      return [].some.apply(slice.apply(this), arguments);
+    } as T[]["some"],
+
+    includes: function () {
+      return [].includes.apply(slice.apply(this), arguments);
+    } as T[]["includes"],
 
     map: function () {
       return [].map.apply(slice.apply(this), arguments);
