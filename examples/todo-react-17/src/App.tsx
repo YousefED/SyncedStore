@@ -1,6 +1,6 @@
-import { filterArray } from "@syncedstore/core";
-import { useSyncedStore } from "@syncedstore/react";
 import React, { useState } from "react";
+import { useSyncedStore } from "@syncedstore/react";
+import { filterArray } from "@syncedstore/core";
 // import "./App.css";
 import { globalStore } from "./store";
 import { TodoList } from "./TodoList";
