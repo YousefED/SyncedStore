@@ -1,4 +1,4 @@
-import { syncedStore, getYjsValue, Box, boxed } from "../src";
+import { Box, boxed, getYjsValue, syncedStore } from "../src";
 
 import * as Y from "yjs";
 
@@ -176,6 +176,25 @@ describe("SyncedStore", () => {
     expect(index).toEqual(1);
   });
 
+  it("unshift() for array", () => {
+    let store1 = syncedStore({ map: {} as any }).map;
+    store1.arr = [0, 1];
+    let deleted = store1.arr.splice(1);
+    expect(deleted).toEqual([1]);
+    expect(store1.arr).toEqual([0]);
+    deleted = store1.arr.splice(1, 0, 3, 4);
+    expect(deleted).toEqual([]);
+    expect(store1.arr).toEqual([0, 3, 4]);
+    store1.arr.splice(1, 0, 1, 2);
+    expect(store1.arr).toEqual([0, 1, 2, 3, 4]);
+    deleted = store1.arr.splice(2, 2);
+    expect(deleted).toEqual([2, 3]);
+    expect(store1.arr).toEqual([0, 1, 4]);
+    deleted = store1.arr.splice(-1, 1);
+    expect(deleted).toEqual([4]);
+    expect(store1.arr).toEqual([0, 1]);
+  });
+
   it("splice() for array", () => {
     let store1 = syncedStore({ map: {} as any }).map;
     store1.arr = [0, 1];
@@ -202,6 +221,30 @@ describe("SyncedStore", () => {
     expect(areAllNumbersSmallerThan10).toEqual(true);
     const areAllNumbersSmallersThan2 = store1.arr.every((n) => n < 2);
     expect(areAllNumbersSmallersThan2).toEqual(false);
+  });
+
+  it("unshift() for array", () => {
+    let store1 = syncedStore({ map: {} as { arr: any[] } }).map;
+    store1.arr = [0, 1, 2, 3];
+    store1.arr.unshift(10);
+    expect(store1.arr).toEqual([10, 0, 1, 2, 3]);
+  });
+
+  it("some() for array", () => {
+    let store1 = syncedStore({ map: {} as { arr: any[] } }).map;
+    store1.arr = [0, 1, 2, 3];
+    store1.arr.unshift(10);
+    expect(store1.arr.some((a) => a === 1)).toBe(true);
+    expect(store1.arr.some((a) => a === 12)).toBe(false);
+  });
+
+  it("includes() for array", () => {
+    let store1 = syncedStore({ map: {} as { arr: any[] } }).map;
+    store1.arr = [0, 1, 2, 3];
+    store1.arr.unshift(10);
+    expect(store1.arr.includes(1)).toBe(true);
+    expect(store1.arr.includes((a) => a === 12)).toBe(false);
+    expect(store1.arr.includes(1, 3)).toBe(false);
   });
 
   it("move already inserted object to different location in document (nested)", () => {
