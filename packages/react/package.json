@@ -19,7 +19,7 @@
     "offline",
     "shared editing"
   ],
-  "version": "0.3.9",
+  "version": "0.4.0",
   "private": false,
   "main": "dist/syncedstore-react.js",
   "module": "dist/syncedstore-react.module.js",
@@ -35,7 +35,7 @@
     "@syncedstore/core": "*"
   },
   "devDependencies": {
-    "@syncedstore/core": "^0.3.9",
+    "@syncedstore/core": "^0.4.0",
     "microbundle": "^0.13.0",
     "rimraf": "^3.0.2"
   },
