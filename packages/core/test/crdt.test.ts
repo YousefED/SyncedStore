@@ -271,4 +271,14 @@ describe("SyncedStore", () => {
       "Not supported: reassigning object that already occurs in the tree."
     );
   });
+
+  it("Uint8Array", () => {
+    let arr = new Uint8Array([0, 1]);
+    // For now, we want to keep "as any" because this is not a common scenario
+    // we might want to change the types of "boxed" to accept types like UInt8Array
+    let store1 = syncedStore({ map: { boxedUintArray: boxed(arr as any) } });
+    expect(store1.map.boxedUintArray!.value[0]).toBe(0);
+    store1.map.boxedUintArray = boxed(new Uint8Array([99, 1, 2]) as any);
+    expect(store1.map.boxedUintArray.value[0]).toBe(99);
+  });
 });
