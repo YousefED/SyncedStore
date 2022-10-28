@@ -43,7 +43,10 @@ function validateRootTypeDescription<T extends DocTypeDescription>(typeDescripti
 function getYjsByTypeDescription<T extends DocTypeDescription>(doc: Y.Doc, typeDescription: T, p: string) {
   let description = typeDescription[p];
   if (!description) {
-    console.warn("property not found on root doc", p);
+    // exclude expected Vue Reactive checks from logging a warning
+    if (p !== "__v_raw" && p !== "__v_isRef" && p !== "__v_isReadonly") {
+      console.warn("property not found on root doc", p);
+    }
     return undefined;
   }
 
