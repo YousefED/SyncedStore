@@ -73,12 +73,12 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { syncedStore, getYjsValue, filterArray } from "@syncedstore/core";
+import { syncedStore, getYjsDoc, filterArray } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
 
 type Todo = { completed: boolean; title: string };
 const store = syncedStore({ todos: [] as Todo[] });
-new WebrtcProvider("id", getYjsValue(store) as any); // sync via webrtc
+new WebrtcProvider("id", getYjsDoc(store)); // sync via webrtc
 
 // visibility filters
 const filters = {
