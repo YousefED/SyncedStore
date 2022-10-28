@@ -1,22 +1,15 @@
+import { SandpackCodeEditor, SandpackLayout, SandpackPreview, SandpackProvider } from "@codesandbox/sandpack-react";
+import InitialCodeBlock from "@theme-original/CodeBlock";
 import * as React from "react";
-import {
-  Sandpack,
-  SandpackProvider,
-  SandpackCodeEditor,
-  SandpackLayout,
-  SandpackPreview,
-} from "@codesandbox/sandpack-react";
-import styles from "./styles2.module.css";
-import InitialCodeBlock from "@theme-init/CodeBlock";
 import { REACT_TEMPLATE } from "./templates/react";
 import {
-  TODO_STORE_CODE_TS,
-  TODO_STORE_CODE_BOXED_TS,
   PLAIN_STORE,
+  TODO_STORE_CODE_BOXED_TS,
   TODO_STORE_CODE_SVELTE_JS,
+  TODO_STORE_CODE_TS,
 } from "./templates/stores";
-import { VUE_TEMPLATE } from "./templates/vue";
 import { SVELTE_TEMPLATE } from "./templates/svelte";
+import { VUE_TEMPLATE } from "./templates/vue";
 
 export default function CodeBlock(props: any) {
   if (!props.live) {
@@ -86,7 +79,7 @@ export default function CodeBlock(props: any) {
       },
     };
   }
-  debugger;
+
   return (
     <SandpackProvider
       //   environment="create-react-app-typescript"

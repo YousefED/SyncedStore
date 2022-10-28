@@ -33,7 +33,7 @@ npm install --save @syncedstore/react
 Now, let's set up a `store` which contains and describes the data that should be synced across users and devices.
 
 ```typescript
-import { syncedStore, getYjsValue } from "@syncedstore/core";
+import { syncedStore, getYjsDoc } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
 
 // (optional, define types for TypeScript)

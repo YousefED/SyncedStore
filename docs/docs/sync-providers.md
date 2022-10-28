@@ -33,7 +33,7 @@ Efficiently persists document updates to the browsers indexeddb database. The do
 You can use _y-indexeddb_ along side other providers, to store an offline copy of the document in the browser, but also share updates with other users. For example, to use both _y-indexeddb_ and _y-webrtc_:
 
 ```javascript
-import { syncedStore, getYjsValue } from "@syncedstore/core";
+import { syncedStore, getYjsDoc } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
 import { IndexeddbPersistence } from "y-indexeddb";
 
@@ -49,7 +49,7 @@ const provider = new IndexeddbPersistence("my-document-id", doc);
 A module that contains a simple websocket backend and a websocket client that connects to that backend. The backend can be extended to persist updates in a leveldb database.
 
 ```javascript
-import { syncedStore, getYjsValue } from "@syncedstore/core";
+import { syncedStore, getYjsDoc } from "@syncedstore/core";
 import { WebsocketProvider } from "y-websocket";
 
 export const store = syncedStore({ arrayData: [] });
