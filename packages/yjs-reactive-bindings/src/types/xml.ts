@@ -35,7 +35,7 @@ export function observeXml(value: Y.XmlFragment) {
 
   function patch(method: string) {
     const originalFunction = value[method];
-    value[method] = function() {
+    value[method] = function () {
       atom!.reportObserved(this._implicitObserver);
       const ret = Reflect.apply(originalFunction, this, arguments);
       return ret;
@@ -62,12 +62,12 @@ export function observeXml(value: Y.XmlFragment) {
     }
 
     const originalFunction = descriptor.get!;
-    descriptor.get = function() {
+    descriptor.get = function () {
       atom!.reportObserved(this._implicitObserver);
       const ret = Reflect.apply(originalFunction, this, arguments);
       return ret;
     };
-    Object.defineProperty(target, method, descriptor);
+    Object.defineProperty(value, method, descriptor);
   }
 
   patch("toString");

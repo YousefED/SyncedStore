@@ -118,7 +118,7 @@ export function observeArray(array: Y.Array<any>) {
       const ret = Reflect.apply(originalFunction, this, arguments);
       return ret;
     };
-    Object.defineProperty(target, method, descriptor);
+    Object.defineProperty(array, method, descriptor);
   }
 
   function copyGetter(method: string, newMethodName: string) {
@@ -140,7 +140,7 @@ export function observeArray(array: Y.Array<any>) {
       throw new Error("property not found");
     }
 
-    Object.defineProperty(target, newMethodName, descriptor);
+    Object.defineProperty(array, newMethodName, descriptor);
   }
 
   patch("forEach");
