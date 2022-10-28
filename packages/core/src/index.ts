@@ -3,9 +3,9 @@ import { markRaw } from "@reactivedata/reactive";
 import { enableReactiveBindings, makeYDocObservable } from "@syncedstore/yjs-reactive-bindings";
 import * as Y from "yjs";
 import {
+  Array as SyncedArray,
   Doc as SyncedDoc,
   Map as SyncedMap,
-  Array as SyncedArray,
   Text as SyncedText,
   XmlFragment as SyncedXml,
 } from "yjs";
@@ -14,11 +14,14 @@ import { crdtDoc, DocTypeDescription } from "./doc";
 export { enableMobxBindings, enableVueBindings } from "@syncedstore/yjs-reactive-bindings";
 export { Box, boxed } from "./boxed";
 export * from "./util";
-
 /**
  * @ignore
  */
 export { Y };
+/**
+ * @ignore
+ */
+export { SyncedDoc, SyncedArray, SyncedMap, SyncedXml, SyncedText };
 
 // setup yjs-reactive-bindings
 
@@ -53,6 +56,20 @@ export function observeDeep(object: any, handler: () => void): () => void {
       internal.unobserveDeep(handler);
     };
   }
+}
+
+/**
+ * Access the internal Yjs Doc.
+ *
+ * @param store a store returned by
+ * @returns the Yjs doc (Y.Doc) underneath.
+ */
+export function getYjsDoc<T>(store: T): Y.Doc {
+  const ret = getYjsValue(store);
+  if (!(ret instanceof Y.Doc)) {
+    throw new Error("store is not a valid syncedStore that maps to a Y.Doc");
+  }
+  return ret;
 }
 
 /**
@@ -115,10 +132,5 @@ export function syncedStore<T extends DocTypeDescription>(shape: T, doc: Y.Doc =
 
   return crdtDoc<T>(doc, shape);
 }
-
-/**
- * @ignore
- */
-export { SyncedDoc, SyncedArray, SyncedMap, SyncedXml, SyncedText };
 
 export default syncedStore;

@@ -44,7 +44,7 @@ export const store = syncedStore({ vehicles: [] as Vehicle[] });
 
 // Get the Yjs document and sync automatically using y-webrtc
 const doc = getYjsDoc(store);
-const webrtcProvider = new WebrtcProvider("my-document-id", doc as any);
+const webrtcProvider = new WebrtcProvider("my-document-id", doc);
 ```
 
 You can now add objects to the `store.vehicles` array, and they will be synced automatically with other users. Even if you change properties (e.g.: `store.vehicles[0].color = "red";`), this will be synced with other users.
