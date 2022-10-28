@@ -1,4 +1,4 @@
-export const TODO_STORE_CODE_TS = `import { syncedStore, getYjsValue } from "@syncedstore/core";
+export const TODO_STORE_CODE_TS = `import { syncedStore, getYjsDoc } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
 
 // (optional, define types for TypeScript)
@@ -8,14 +8,14 @@ type Todo = { completed: boolean, title: string };
 export const store = syncedStore({ todos: [] as Todo[], fragment: "xml" });
 
 // Create a document that syncs automatically using Y-WebRTC
-const doc = getYjsValue(store);
-export const webrtcProvider = new WebrtcProvider("syncedstore-todos", doc as any);
+const doc = getYjsDoc(store);
+export const webrtcProvider = new WebrtcProvider("syncedstore-todos", doc);
 
 export const disconnect = () => webrtcProvider.disconnect();
 export const connect = () => webrtcProvider.connect();
 `;
 
-export const TODO_STORE_CODE_BOXED_TS = `import { syncedStore, getYjsValue } from "@syncedstore/core";
+export const TODO_STORE_CODE_BOXED_TS = `import { syncedStore, getYjsDoc } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
 
 // (optional, define types for TypeScript)
@@ -25,14 +25,14 @@ type Todo = { completed: boolean, title: string };
 export const store = syncedStore({ todos: [] as Todo[], fragment: "xml" });
 
 // Create a document that syncs automatically using Y-WebRTC
-const doc = getYjsValue(store);
-export const webrtcProvider = new WebrtcProvider("syncedstore-todos-boxed", doc as any);
+const doc = getYjsDoc(store);
+export const webrtcProvider = new WebrtcProvider("syncedstore-todos-boxed", doc);
 
 export const disconnect = () => webrtcProvider.disconnect();
 export const connect = () => webrtcProvider.connect();
 `;
 
-export const PLAIN_STORE = `import { syncedStore, getYjsValue } from "@syncedstore/core";
+export const PLAIN_STORE = `import { syncedStore, getYjsDoc } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
 
 // Create your SyncedStore store
@@ -40,14 +40,14 @@ import { WebrtcProvider } from "y-webrtc";
 export const store = syncedStore({ myArray: [], myObject: {} });
 
 // Create a document that syncs automatically using Y-WebRTC
-const doc = getYjsValue(store);
+const doc = getYjsDoc(store);
 export const webrtcProvider = new WebrtcProvider("syncedstore-plain", doc);
 
 export const disconnect = () => webrtcProvider.disconnect();
 export const connect = () => webrtcProvider.connect();
 `;
 
-export const TODO_STORE_CODE_SVELTE_JS = `import { syncedStore, getYjsValue } from "@syncedstore/core";
+export const TODO_STORE_CODE_SVELTE_JS = `import { syncedStore, getYjsDoc } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
 import { svelteSyncedStore } from "@syncedstore/svelte";
 
@@ -56,7 +56,7 @@ export const store = syncedStore({ todos: [] });
 export const svelteStore = svelteSyncedStore(store);
 
 // Create a document that syncs automatically using Y-WebRTC
-const doc = getYjsValue(store);
+const doc = getYjsDoc(store);
 export const webrtcProvider = new WebrtcProvider("syncedstore-todos", doc);
 
 export const disconnect = () => webrtcProvider.disconnect();

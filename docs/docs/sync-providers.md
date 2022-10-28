@@ -17,12 +17,12 @@ These updates can be shared between users of your application with different _Sy
 Propagates document updates peer-to-peer using WebRTC. The peers exchange signaling data over signaling servers. Publically available signaling servers are available. Communication over the signaling servers can be encrypted by providing a shared secret, keeping the connection information and the shared document private.
 
 ```javascript
-import { syncedStore, getYjsValue } from "@syncedstore/core";
+import { syncedStore, getYjsDoc } from "@syncedstore/core";
 import { WebrtcProvider } from "y-webrtc";
 
 export const store = syncedStore({ arrayData: [] });
 
-const doc = getYjsValue(store);
+const doc = getYjsDoc(store);
 const webrtcProvider = new WebrtcProvider("my-document-id", doc);
 ```
 
@@ -39,7 +39,7 @@ import { IndexeddbPersistence } from "y-indexeddb";
 
 export const store = syncedStore({ arrayData: [] });
 
-const doc = getYjsValue(store);
+const doc = getYjsDoc(store);
 const webrtcProvider = new WebrtcProvider("my-document-id", doc);
 const provider = new IndexeddbPersistence("my-document-id", doc);
 ```
@@ -54,7 +54,7 @@ import { WebsocketProvider } from "y-websocket";
 
 export const store = syncedStore({ arrayData: [] });
 
-const doc = getYjsValue(store);
+const doc = getYjsDoc(store);
 
 // Start a y-websocket server, e.g.: HOST=localhost PORT=1234 npx y-websocket-server
 
