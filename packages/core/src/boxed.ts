@@ -8,5 +8,10 @@ export class Box<T extends Readonly<JSONValue>> {
 }
 
 export function boxed<T extends JSONValue>(value: T) {
-  return new Box(Object.freeze(value) as T);
+  if (ArrayBuffer.isView(value)) {
+    // can't freeze arraybuffer
+    return new Box(value as T);
+  } else {
+    return new Box(Object.freeze(value) as T);
+  }
 }
