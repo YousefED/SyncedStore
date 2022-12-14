@@ -1,4 +1,4 @@
-import { $reactive, $reactiveproxy } from "@reactivedata/reactive";
+import { $reactive, $reactiveproxy, $skipreactive } from "@reactivedata/reactive";
 import * as Y from "yjs";
 import { areSame, getYjsValue, INTERNAL_SYMBOL } from ".";
 import { Box } from "./boxed";
@@ -193,6 +193,17 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
       if (p === "length") {
         return arr.length;
       }
+
+      // proxy-trap to enable an idiomatic use of arrays and objects in Solid's Flow-component (without spreading)
+      if (typeof p === "symbol" && p !== $reactiveproxy && p !== $reactive && p !== $skipreactive) {
+        let ic = receiver[$reactiveproxy]?.implicitObserver;
+        // (arr as any)._implicitObserver = ic;
+        return arr.map((item) => {
+          const ret = parseYjsReturnValue(item, ic);
+          return ret;
+        });
+      }
+
       // forward to arrayimplementation
       const ret = Reflect.get(target, p, receiver);
       return ret;
