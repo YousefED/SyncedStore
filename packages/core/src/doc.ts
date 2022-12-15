@@ -1,7 +1,9 @@
 import { $reactive, $reactiveproxy } from "@reactivedata/reactive";
 import * as Y from "yjs";
 import { INTERNAL_SYMBOL } from ".";
+import { wrapItems } from "./array";
 import { parseYjsReturnValue, yToWrappedCache } from "./internal";
+import reconcile from "./reconcile";
 
 export type docElementTypeDescription = "xml" | "text" | Array<any> | object;
 export type DocTypeDescription = {
@@ -70,7 +72,11 @@ export function crdtDoc<T extends DocTypeDescription>(doc: Y.Doc, typeDescriptio
       if (typeof p !== "string") {
         throw new Error();
       }
-      throw new Error("cannot set new elements on root doc");
+
+      reconcile(value, doc, p);
+
+      return value;
+      // throw new Error("cannot set new elements on root doc");
     },
     get: (target, p, receiver) => {
       if (p === INTERNAL_SYMBOL) {
