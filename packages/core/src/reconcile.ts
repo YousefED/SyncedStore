@@ -25,7 +25,15 @@ export default function reconcile(target: any, parent: any, property: PropertyKe
     }
 
     if (!(property in parent.toJSON())) {
-      adjust(target, parent, property);
+      if (parent instanceof Y.Array && typeof property === "number") {
+        // insert undefineds in case an index is being set which is larger then the length of the array
+        const delta = property - parent.length;
+        const nulls = new Array(delta).fill(null);
+
+        parent.insert(parent.length, wrapItems([...nulls, target]));
+      } else {
+        adjust(target, parent, property);
+      }
       return;
     }
 
@@ -41,15 +49,16 @@ export default function reconcile(target: any, parent: any, property: PropertyKe
 
     const previous = yPrevious instanceof Y.AbstractType ? yPrevious.toJSON() : yPrevious;
 
-    if (previous === undefined) {
+    /* if (previous === undefined) {
       if (parent instanceof Y.Array && typeof property === "number") {
         // insert undefineds in case an index is being set which is larger then the length of the array
         const delta = property - parent.length;
-        const nulls = new Array(delta).fill(undefined);
+        const nulls = new Array(delta).fill(null);
+
         parent.insert(parent.length, wrapItems([...nulls, target]));
       }
       return;
-    }
+    } */
 
     if (Array.isArray(target)) {
       // remove excess elements
