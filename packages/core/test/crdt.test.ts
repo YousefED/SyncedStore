@@ -247,6 +247,12 @@ describe("SyncedStore", () => {
     expect(store1.arr.includes(1, 3)).toBe(false);
   });
 
+  it("isArray() for array", () => {
+    let store1 = syncedStore({ map: {} as { arr: any[] } }).map;
+    store1.arr = [0, 1, 2, 3];
+    expect(Array.isArray(store1.arr)).toBe(true);
+  });
+
   it("move already inserted object to different location in document (nested)", () => {
     let store1 = syncedStore({ map: {} as any }).map;
     store1.mymap = {};
