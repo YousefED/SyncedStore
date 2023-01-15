@@ -45,7 +45,7 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
     return [].findIndex.apply(slice.apply(this), arguments);
   } as T[]["find"];
 
-  const ret = {
+  const methods = {
     // get length() {
     //   return arr.length;
     // },
@@ -123,13 +123,20 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
     // delete = this.arr.delete.bind(this.arr) as (Y.Array<T>)["delete"];
   };
 
+  const ret = [];
+  for (let method in methods) {
+    ret[method] = methods[method];
+  }
+
   // this is necessary to prevent errors like "trap reported non-configurability for property 'length' which is either non-existent or configurable in the proxy target" when adding support for ownKeys and Reflect.keysx
-  Object.defineProperty(ret, "length", {
-    enumerable: false,
-    configurable: false,
-    writable: true,
-    value: (arr as any).lengthUntracked,
-  });
+  // (not necessary anymore now we changed ret from object to array)
+
+  // Object.defineProperty(ret, "length", {
+  //   enumerable: false,
+  //   configurable: false,
+  //   writable: true,
+  //   value: (arr as any).lengthUntracked,
+  // });
 
   return ret;
 }
