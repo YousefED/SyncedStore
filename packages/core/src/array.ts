@@ -1,9 +1,10 @@
-import { $reactive, $reactiveproxy } from "@reactivedata/reactive";
+import { $reactive, $reactiveproxy, $skipreactive } from "@reactivedata/reactive";
 import * as Y from "yjs";
 import { areSame, getYjsValue, INTERNAL_SYMBOL } from ".";
 import { Box } from "./boxed";
 import { crdtValue, ObjectSchemaType, parseYjsReturnValue } from "./internal";
 import { CRDTObject } from "./object";
+import reconcile from "./reconcile";
 
 export type CRDTArray<T> = {
   [INTERNAL_SYMBOL]?: Y.Array<T>;
@@ -16,6 +17,20 @@ export type CRDTArray<T> = {
     : T;
 } & T[]; // TODO: should return ArrayImplementation<T> on getter
 
+export const wrapItems = function wrapItems(items) {
+  return items.map((item) => {
+    const wrapped = crdtValue(item as any); // TODO
+    let valueToSet = getYjsValue(wrapped) || wrapped;
+    if (valueToSet instanceof Box) {
+      valueToSet = valueToSet.value;
+    }
+    if (valueToSet instanceof Y.AbstractType && valueToSet.parent) {
+      throw new Error("Not supported: reassigning object that already occurs in the tree.");
+    }
+    return valueToSet;
+  });
+};
+
 function arrayImplementation<T>(arr: Y.Array<T>) {
   const slice = function slice() {
     let ic = this[$reactiveproxy]?.implicitObserver;
@@ -26,20 +41,6 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
       return ret;
     });
   } as T[]["slice"];
-
-  const wrapItems = function wrapItems(items) {
-    return items.map((item) => {
-      const wrapped = crdtValue(item as any); // TODO
-      let valueToSet = getYjsValue(wrapped) || wrapped;
-      if (valueToSet instanceof Box) {
-        valueToSet = valueToSet.value;
-      }
-      if (valueToSet instanceof Y.AbstractType && valueToSet.parent) {
-        throw new Error("Not supported: reassigning object that already occurs in the tree.");
-      }
-      return valueToSet;
-    });
-  };
 
   const findIndex = function findIndex() {
     return [].findIndex.apply(slice.apply(this), arguments);
@@ -165,8 +166,10 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
       if (typeof p !== "number") {
         throw new Error();
       }
-      // TODO map.set(p, smartValue(value));
-      throw new Error("array assignment is not implemented / supported");
+
+      reconcile(value, arr, p);
+
+      return value;
     },
     get: (target, pArg, receiver) => {
       const p = propertyToNumber(pArg);
@@ -200,6 +203,17 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
       if (p === "length") {
         return arr.length;
       }
+
+      // proxy-trap to enable an idiomatic use of arrays and objects in Solid's Flow-component (without spreading)
+      if (typeof p === "symbol" && p !== $reactiveproxy && p !== $reactive && p !== $skipreactive) {
+        let ic = receiver[$reactiveproxy]?.implicitObserver;
+        // (arr as any)._implicitObserver = ic;
+        return arr.map((item) => {
+          const ret = parseYjsReturnValue(item, ic);
+          return ret;
+        });
+      }
+
       // forward to arrayimplementation
       const ret = Reflect.get(target, p, receiver);
       return ret;
