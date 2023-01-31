@@ -209,14 +209,14 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
       }
 
       // proxy-trap to enable an idiomatic use of arrays and objects in Solid's Flow-component (without spreading)
-      if (typeof p === "symbol" && p !== $reactiveproxy && p !== $reactive && p !== $skipreactive) {
-        let ic = receiver[$reactiveproxy]?.implicitObserver;
-        // (arr as any)._implicitObserver = ic;
-        return arr.map((item) => {
-          const ret = parseYjsReturnValue(item, ic);
-          return ret;
-        });
-      }
+      // if (typeof p === "symbol" && p !== $reactiveproxy && p !== $reactive && p !== $skipreactive) {
+      //   let ic = receiver[$reactiveproxy]?.implicitObserver;
+      //   // (arr as any)._implicitObserver = ic;
+      //   return arr.map((item) => {
+      //     const ret = parseYjsReturnValue(item, ic);
+      //     return ret;
+      //   });
+      // }
 
       // forward to arrayimplementation
       const ret = Reflect.get(target, p, receiver);
