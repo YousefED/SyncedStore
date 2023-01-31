@@ -1,4 +1,4 @@
-import { $reactive, $reactiveproxy, $skipreactive } from "@reactivedata/reactive";
+import { $reactive, $reactiveproxy, reactive } from "@reactivedata/reactive";
 import * as Y from "yjs";
 import { areSame, getYjsValue, INTERNAL_SYMBOL } from ".";
 import { Box } from "./boxed";
@@ -20,10 +20,17 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
   const slice = function slice() {
     let ic = this[$reactiveproxy]?.implicitObserver;
     (arr as any)._implicitObserver = ic;
+
     const items = arr.slice.bind(arr).apply(arr, arguments);
     return items.map((item) => {
       const ret = parseYjsReturnValue(item, ic);
-      return ret;
+      if (ic && typeof ret === "object") {
+        // when using Reactive, we should make sure the returned
+        // object is made reactive with the implicit observer ic
+        return reactive(ret, ic);
+      } else {
+        return ret;
+      }
     });
   } as T[]["slice"];
 
@@ -45,7 +52,7 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
     return [].findIndex.apply(slice.apply(this), arguments);
   } as T[]["find"];
 
-  const ret = {
+  const methods = {
     // get length() {
     //   return arr.length;
     // },
@@ -123,13 +130,20 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
     // delete = this.arr.delete.bind(this.arr) as (Y.Array<T>)["delete"];
   };
 
+  const ret = [];
+  for (let method in methods) {
+    ret[method] = methods[method];
+  }
+
   // this is necessary to prevent errors like "trap reported non-configurability for property 'length' which is either non-existent or configurable in the proxy target" when adding support for ownKeys and Reflect.keysx
-  Object.defineProperty(ret, "length", {
-    enumerable: false,
-    configurable: false,
-    writable: true,
-    value: (arr as any).lengthUntracked,
-  });
+  // (not necessary anymore now we changed ret from object to array)
+
+  // Object.defineProperty(ret, "length", {
+  //   enumerable: false,
+  //   configurable: false,
+  //   writable: true,
+  //   value: (arr as any).lengthUntracked,
+  // });
 
   return ret;
 }

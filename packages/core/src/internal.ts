@@ -4,8 +4,7 @@ import { getYjsValue } from ".";
 import { crdtArray } from "./array";
 import { Box, boxed } from "./boxed";
 import { crdtObject } from "./object";
-import { isYType } from "./types";
-import { JSONValue } from "./types";
+import { isYType, JSONValue } from "./types";
 
 type NestedSchemaType = JSONValue | ObjectSchemaType | Box<any> | Y.AbstractType<any> | NestedSchemaType[];
 
