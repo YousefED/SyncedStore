@@ -1,4 +1,4 @@
-import { $reactive, $reactiveproxy } from "@reactivedata/reactive";
+import { $reactive, $reactiveproxy, reactive } from "@reactivedata/reactive";
 import * as Y from "yjs";
 import { areSame, getYjsValue, INTERNAL_SYMBOL } from ".";
 import { Box } from "./boxed";
@@ -20,10 +20,17 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
   const slice = function slice() {
     let ic = this[$reactiveproxy]?.implicitObserver;
     (arr as any)._implicitObserver = ic;
+
     const items = arr.slice.bind(arr).apply(arr, arguments);
     return items.map((item) => {
       const ret = parseYjsReturnValue(item, ic);
-      return ret;
+      if (ic && typeof ret === "object") {
+        // when using Reactive, we should make sure the returned
+        // object is made reactive with the implicit observer ic
+        return reactive(ret, ic);
+      } else {
+        return ret;
+      }
     });
   } as T[]["slice"];
 
