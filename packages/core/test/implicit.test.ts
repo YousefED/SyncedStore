@@ -1,14 +1,16 @@
 import { autorun, Observer, reactive } from "@reactivedata/reactive";
-import { Y, syncedStore, boxed, Box } from "../src";
+import { Box, boxed, syncedStore, Y } from "../src";
 
+type Todo = { text: string; completed: boolean };
 describe("test implicit observer", () => {
   type StoreType = {
     arr: number[];
+    sectionArray: Array<{ section: string; todos: Todo[] }>;
     object: {
       nested?: number;
     };
-    todos: Box<{ text: string; completed: boolean }>[];
-    todosNotBoxed: { text: string; completed: boolean }[];
+    todos: Box<Todo>[];
+    todosNotBoxed: Todo[];
     xml: Y.XmlFragment;
   };
 
@@ -30,6 +32,7 @@ describe("test implicit observer", () => {
     store = syncedStore(
       {
         arr: [],
+        sectionArray: [],
         object: {} as { nested?: number },
         todos: [],
         todosNotBoxed: [],
@@ -44,6 +47,7 @@ describe("test implicit observer", () => {
     storeDoc2 = syncedStore(
       {
         arr: [],
+        sectionArray: [],
         object: {} as { nested?: number },
         todos: [],
         todosNotBoxed: [],
@@ -113,6 +117,28 @@ describe("test implicit observer", () => {
 
     expect(fnSpy1).toBeCalledTimes(2);
     expect(fnSpy2).toBeCalledTimes(1);
+  });
+
+  // issue https://github.com/YousefED/SyncedStore/issues/42
+  it("implicit works with nested sections and map", () => {
+    store.sectionArray.push({ section: "s1", todos: [] });
+    let resultCache = store.sectionArray[0].todos.map((element) => element);
+    expect(resultCache).toEqual([]);
+
+    const sections = implicitStore1.sectionArray.map((s) => s);
+
+    // const other1 = implicitStore1.sectionArray[0]; // this always works
+    // const mapped1 = sections[0]; // this only works with the new fix
+    sections[0].todos.push({ text: "todo", completed: false });
+    sections[0].todos.map((element) => element);
+
+    // expect(resultCache).toEqual([]);
+    expect(fnSpy1).toBeCalledTimes(0);
+    expect(fnSpy2).toBeCalledTimes(0);
+
+    sections[0].todos.push({ text: "todo1", completed: false });
+
+    expect(fnSpy1).toBeCalledTimes(1);
   });
 
   it.skip("implicit works with get and set", () => {
