@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "@vue/reactivity": "^3.2.21",
+    "solid-js": "^1.6.10",
     "microbundle": "^0.13.0",
     "rimraf": "^3.0.2"
   },

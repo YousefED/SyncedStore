@@ -105,4 +105,9 @@ export function makeYDocObservable(doc: Y.Doc) {
   });
 }
 
-export { enableMobxBindings, enableReactiveBindings, enableVueBindings } from "./observableProvider";
+export {
+  enableMobxBindings,
+  enableReactiveBindings,
+  enableVueBindings,
+  enableSolidBindings,
+} from "./observableProvider";

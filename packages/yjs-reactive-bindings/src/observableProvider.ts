@@ -73,6 +73,31 @@ export function enableVueBindings(vue: any) {
   customReaction = undefined;
 }
 
+/**
+ * Enable Solid integration
+ *
+ * @param solid An instance of Solid, e.g. import * as solid from "solid/store";
+ */
+export function enableSolidBindings(solid: any) {
+  customCreateAtom = function (name: any, onBecomeObserved: any) {
+    let id = 0;
+    const data = solid.createMutable({ data: id });
+    const atom = {
+      reportObserved() {
+        return data.data as any as boolean;
+      },
+      reportChanged() {
+        data.data = ++id;
+      },
+    };
+    if (onBecomeObserved) {
+      onBecomeObserved();
+    }
+    return atom;
+  };
+  customReaction = undefined;
+}
+
 export function enableReactiveBindings(reactive: any) {
   customCreateAtom = function (name, onBecomeObserved, onBecomeUnobserved) {
     // TMP

@@ -11,7 +11,7 @@ import {
 } from "yjs";
 import { crdtDoc, DocTypeDescription } from "./doc";
 
-export { enableMobxBindings, enableVueBindings } from "@syncedstore/yjs-reactive-bindings";
+export { enableMobxBindings, enableVueBindings, enableSolidBindings } from "@syncedstore/yjs-reactive-bindings";
 export { Box, boxed } from "./boxed";
 export * from "./util";
 /**
