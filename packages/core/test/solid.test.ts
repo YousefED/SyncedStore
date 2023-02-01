@@ -1,5 +1,7 @@
 import { createEffect, createRoot } from "solid-js";
 import * as solid from "solid-js/store";
+import { createMutable } from "solid-js/store";
+
 import { enableSolidBindings, syncedStore, Y } from "../src";
 
 describe("solid", () => {
@@ -41,21 +43,20 @@ describe("solid", () => {
     let renderCount = 0;
 
     createRoot(() => {
-      const implicitStore1 = solid.createMutable(store);
-      implicitStore1.todosNotBoxed.push({
-        text: "title",
-        completed: false,
-      });
-
-      // renderCount++;
       createEffect(() => {
         renderCount++;
-        console.log(implicitStore1.todosNotBoxed[0].text);
+        // should first log undefined then 'text'
+        console.log(store.todosNotBoxed[0]);
+      });
+      queueMicrotask(() => {
+        store.todosNotBoxed.push({
+          text: "text",
+          completed: false,
+        });
       });
     });
 
     await new Promise<void>((resolve) => setTimeout(() => resolve(), 500));
-    // await Promise.resolve();
-    expect(renderCount).toBe(1);
+    expect(renderCount).toBe(2);
   });
 });
