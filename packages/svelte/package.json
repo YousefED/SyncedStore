@@ -21,6 +21,10 @@
   "main": "dist/syncedstore-svelte.js",
   "module": "dist/syncedstore-svelte.module.js",
   "umd:main": "dist/syncedstore-svelte.umd.js",
+  "exports": {
+    "require": "./dist/syncedstore-svelte.js",
+    "default": "./dist/syncedstore-svelte.modern.js"
+  },
   "source": "src/index.ts",
   "types": "types/index.d.ts",
   "license": "MIT",
