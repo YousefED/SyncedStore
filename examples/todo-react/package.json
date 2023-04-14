@@ -1,10 +1,10 @@
 {
   "name": "todo-react",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "private": true,
   "dependencies": {
-    "@syncedstore/core": "^0.4.3",
-    "@syncedstore/react": "^0.4.3",
+    "@syncedstore/core": "^0.5.0",
+    "@syncedstore/react": "^0.5.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
