@@ -27,7 +27,7 @@
   "umd:main": "dist/syncedstore.umd.js",
   "exports": {
     "require": "./dist/syncedstore.js",
-    "default": "./dist/syncedstore.modern.js"
+    "default": "./dist/syncedstore.modern.mjs"
   },
   "source": "src/index.ts",
   "types": "types/index.d.ts",
@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@vue/reactivity": "^3.2.21",
-    "microbundle": "^0.13.0",
+    "microbundle": "^0.15.1",
     "rimraf": "^3.0.2"
   },
   "scripts": {

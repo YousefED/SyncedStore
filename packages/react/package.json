@@ -26,7 +26,7 @@
   "umd:main": "dist/syncedstore-react.umd.js",
   "exports": {
     "require": "./dist/syncedstore-react.js",
-    "default": "./dist/syncedstore-react.modern.js"
+    "default": "./dist/syncedstore-react.modern.mjs"
   },
   "source": "src/index.ts",
   "types": "types/index.d.ts",
@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@syncedstore/core": "^0.5.0",
-    "microbundle": "^0.13.0",
+    "microbundle": "^0.15.1",
     "rimraf": "^3.0.2"
   },
   "scripts": {
@@ -69,6 +69,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "gitHead": "5aecc6d5a337f243c8afd312f271e90eabd221e8"
+  }
 }

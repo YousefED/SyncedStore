@@ -23,7 +23,7 @@
   "umd:main": "dist/syncedstore-svelte.umd.js",
   "exports": {
     "require": "./dist/syncedstore-svelte.js",
-    "default": "./dist/syncedstore-svelte.modern.js"
+    "default": "./dist/syncedstore-svelte.modern.mjs"
   },
   "source": "src/index.ts",
   "types": "types/index.d.ts",
@@ -36,7 +36,7 @@
   "devDependencies": {
     "@reactivedata/reactive": "0.2.0",
     "@syncedstore/core": "^0.5.0",
-    "microbundle": "^0.13.0",
+    "microbundle": "^0.15.1",
     "rimraf": "^3.0.2",
     "svelte": "*"
   },

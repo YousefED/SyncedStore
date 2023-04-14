@@ -8,7 +8,7 @@
   "umd:main": "dist/yjs-reactive-bindings.umd.js",
   "exports": {
     "require": "./dist/yjs-reactive-bindings.js",
-    "default": "./dist/yjs-reactive-bindings.modern.js"
+    "default": "./dist/yjs-reactive-bindings.modern.mjs"
   },
   "source": "src/index.ts",
   "types": "types/index.d.ts",
@@ -20,7 +20,7 @@
     "yjs": "^13.5.13"
   },
   "devDependencies": {
-    "microbundle": "^0.13.0",
+    "microbundle": "^0.15.1",
     "mobx": "^6.3.5",
     "rimraf": "^3.0.2"
   },
@@ -59,6 +59,5 @@
     "observable",
     "yjs",
     "crdt"
-  ],
-  "gitHead": "5aecc6d5a337f243c8afd312f271e90eabd221e8"
+  ]
 }
