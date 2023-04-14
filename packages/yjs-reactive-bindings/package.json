@@ -1,7 +1,7 @@
 {
   "name": "@syncedstore/yjs-reactive-bindings",
   "description": "A bridge between Reactive programming libraries (reactive, Vue or MobX) and Yjs",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "private": false,
   "main": "dist/yjs-reactive-bindings.js",
   "module": "dist/yjs-reactive-bindings.module.js",
