@@ -6,6 +6,10 @@
   "main": "dist/yjs-reactive-bindings.js",
   "module": "dist/yjs-reactive-bindings.module.js",
   "umd:main": "dist/yjs-reactive-bindings.umd.js",
+  "exports": {
+    "require": "./dist/yjs-reactive-bindings.js",
+    "default": "./dist/yjs-reactive-bindings.modern.js"
+  },
   "source": "src/index.ts",
   "types": "types/index.d.ts",
   "license": "MIT",

@@ -25,6 +25,10 @@
   "main": "dist/syncedstore.js",
   "module": "dist/syncedstore.module.js",
   "umd:main": "dist/syncedstore.umd.js",
+  "exports": {
+    "require": "./dist/syncedstore.js",
+    "default": "./dist/syncedstore.modern.js"
+  },
   "source": "src/index.ts",
   "types": "types/index.d.ts",
   "license": "MIT",
