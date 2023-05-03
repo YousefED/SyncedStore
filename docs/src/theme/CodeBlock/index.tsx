@@ -99,6 +99,8 @@ export default function CodeBlock(props: any) {
             mobx: "latest",
             svelte: "^3.32.3",
             "mobx-react-lite": "latest",
+            "y-prosemirror": "latest",
+            "@tiptap/pm": "latest",
             "@tiptap/react": "latest",
             "@tiptap/starter-kit": "latest",
             "@tiptap/extension-collaboration": "latest",

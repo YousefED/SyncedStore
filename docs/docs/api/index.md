@@ -38,7 +38,7 @@ true if they represent the same object, false otherwise
 
 #### Defined in
 
-[packages/core/src/index.ts:85](https://github.com/YousefED/SyncedStore/blob/cb4d5d2/packages/core/src/index.ts#L85)
+[packages/core/src/index.ts:102](https://github.com/YousefED/SyncedStore/blob/3824e9a/packages/core/src/index.ts#L102)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[packages/core/src/boxed.ts:10](https://github.com/YousefED/SyncedStore/blob/cb4d5d2/packages/core/src/boxed.ts#L10)
+[packages/core/src/boxed.ts:10](https://github.com/YousefED/SyncedStore/blob/3824e9a/packages/core/src/boxed.ts#L10)
 
 ___
 
@@ -86,7 +86,7 @@ Enable MobX integration
 
 #### Defined in
 
-[packages/yjs-reactive-bindings/src/observableProvider.ts:46](https://github.com/YousefED/SyncedStore/blob/cb4d5d2/packages/yjs-reactive-bindings/src/observableProvider.ts#L46)
+[packages/yjs-reactive-bindings/src/observableProvider.ts:46](https://github.com/YousefED/SyncedStore/blob/3824e9a/packages/yjs-reactive-bindings/src/observableProvider.ts#L46)
 
 ___
 
@@ -108,7 +108,7 @@ Enable Vue3 integration
 
 #### Defined in
 
-[packages/yjs-reactive-bindings/src/observableProvider.ts:56](https://github.com/YousefED/SyncedStore/blob/cb4d5d2/packages/yjs-reactive-bindings/src/observableProvider.ts#L56)
+[packages/yjs-reactive-bindings/src/observableProvider.ts:56](https://github.com/YousefED/SyncedStore/blob/3824e9a/packages/yjs-reactive-bindings/src/observableProvider.ts#L56)
 
 ___
 
@@ -137,7 +137,37 @@ Filter a SyncedStore array
 
 #### Defined in
 
-[packages/core/src/util.ts:6](https://github.com/YousefED/SyncedStore/blob/cb4d5d2/packages/core/src/util.ts#L6)
+[packages/core/src/util.ts:6](https://github.com/YousefED/SyncedStore/blob/3824e9a/packages/core/src/util.ts#L6)
+
+___
+
+### getYjsDoc
+
+▸ **getYjsDoc**<`T`\>(`store`): `Y.Doc`
+
+Access the internal Yjs Doc.
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `T` |
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `store` | `T` | a store returned by |
+
+#### Returns
+
+`Y.Doc`
+
+the Yjs doc (Y.Doc) underneath.
+
+#### Defined in
+
+[packages/core/src/index.ts:67](https://github.com/YousefED/SyncedStore/blob/3824e9a/packages/core/src/index.ts#L67)
 
 ___
 
@@ -161,7 +191,7 @@ the Yjs value underneath. This can be a Y.Doc, Y.Array, Y.Map or other Y-type ba
 
 #### Defined in
 
-[packages/core/src/index.ts:64](https://github.com/YousefED/SyncedStore/blob/cb4d5d2/packages/core/src/index.ts#L64)
+[packages/core/src/index.ts:81](https://github.com/YousefED/SyncedStore/blob/3824e9a/packages/core/src/index.ts#L81)
 
 ___
 
@@ -196,7 +226,7 @@ a function to dispose (unregister) the handler
 
 #### Defined in
 
-[packages/core/src/index.ts:39](https://github.com/YousefED/SyncedStore/blob/cb4d5d2/packages/core/src/index.ts#L39)
+[packages/core/src/index.ts:42](https://github.com/YousefED/SyncedStore/blob/3824e9a/packages/core/src/index.ts#L42)
 
 ___
 
@@ -227,4 +257,4 @@ a SyncedStore store
 
 #### Defined in
 
-[packages/core/src/index.ts:113](https://github.com/YousefED/SyncedStore/blob/cb4d5d2/packages/core/src/index.ts#L113)
+[packages/core/src/index.ts:130](https://github.com/YousefED/SyncedStore/blob/3824e9a/packages/core/src/index.ts#L130)
