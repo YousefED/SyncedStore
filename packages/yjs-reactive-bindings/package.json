@@ -7,6 +7,7 @@
   "module": "dist/yjs-reactive-bindings.module.js",
   "umd:main": "dist/yjs-reactive-bindings.umd.js",
   "exports": {
+    "types": "./types/index.d.ts",
     "require": "./dist/yjs-reactive-bindings.js",
     "default": "./dist/yjs-reactive-bindings.modern.mjs"
   },
