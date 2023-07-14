@@ -25,6 +25,7 @@
   "module": "dist/syncedstore-react.module.js",
   "umd:main": "dist/syncedstore-react.umd.js",
   "exports": {
+    "types": "./types/index.d.ts",
     "require": "./dist/syncedstore-react.js",
     "default": "./dist/syncedstore-react.modern.mjs"
   },
