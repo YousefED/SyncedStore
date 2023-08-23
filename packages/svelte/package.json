@@ -35,7 +35,7 @@
     "svelte": "*"
   },
   "devDependencies": {
-    "@reactivedata/reactive": "0.2.0",
+    "@reactivedata/reactive": "^0.2.0",
     "@syncedstore/core": "^0.5.2",
     "microbundle": "^0.15.1",
     "rimraf": "^3.0.2",
