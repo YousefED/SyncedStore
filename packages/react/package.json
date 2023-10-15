@@ -19,7 +19,7 @@
     "offline",
     "shared editing"
   ],
-  "version": "0.5.2",
+  "version": "0.6.0-alpha.0",
   "private": false,
   "main": "dist/syncedstore-react.js",
   "module": "dist/syncedstore-react.module.js",
@@ -33,14 +33,14 @@
   "types": "types/index.d.ts",
   "license": "MIT",
   "dependencies": {
-    "@reactivedata/react": "0.2.1",
-    "@types/eslint": "6.8.0"
+    "@reactivedata/react": "^0.2.1"
   },
   "peerDependencies": {
     "@syncedstore/core": "*"
   },
   "devDependencies": {
-    "@syncedstore/core": "^0.5.2",
+    "@types/eslint": "^6.8.0",
+    "@syncedstore/core": "^0.6.0-alpha.0",
     "microbundle": "^0.15.1",
     "rimraf": "^3.0.2"
   },
