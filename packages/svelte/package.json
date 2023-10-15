@@ -16,7 +16,7 @@
     "shared editing",
     "svelte"
   ],
-  "version": "0.6.0-alpha.0",
+  "version": "0.6.0",
   "private": false,
   "main": "dist/syncedstore-svelte.js",
   "module": "dist/syncedstore-svelte.module.js",
@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@reactivedata/reactive": "^0.2.0",
-    "@syncedstore/core": "^0.6.0-alpha.0",
+    "@syncedstore/core": "^0.6.0",
     "microbundle": "^0.15.1",
     "rimraf": "^3.0.2",
     "svelte": "*"

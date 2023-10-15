@@ -19,7 +19,7 @@
     "offline",
     "shared editing"
   ],
-  "version": "0.6.0-alpha.0",
+  "version": "0.6.0",
   "private": false,
   "main": "dist/syncedstore-react.js",
   "module": "dist/syncedstore-react.module.js",
@@ -39,8 +39,8 @@
     "@syncedstore/core": "*"
   },
   "devDependencies": {
+    "@syncedstore/core": "^0.6.0",
     "@types/eslint": "^6.8.0",
-    "@syncedstore/core": "^0.6.0-alpha.0",
     "microbundle": "^0.15.1",
     "rimraf": "^3.0.2"
   },

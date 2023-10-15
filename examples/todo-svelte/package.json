@@ -1,6 +1,6 @@
 {
   "name": "svelte-app",
-  "version": "0.6.0-alpha.0",
+  "version": "0.6.0",
   "private": true,
   "scripts": {
     "build": "rollup -c",
@@ -25,8 +25,8 @@
     "typescript": "^4.0.0"
   },
   "dependencies": {
-    "@syncedstore/core": "^0.6.0-alpha.0",
-    "@syncedstore/svelte": "^0.6.0-alpha.0",
+    "@syncedstore/core": "^0.6.0",
+    "@syncedstore/svelte": "^0.6.0",
     "sirv-cli": "^1.0.0",
     "y-webrtc": "^10.1.8",
     "yjs": "^13.5.13"

@@ -20,7 +20,7 @@
     "offline",
     "shared editing"
   ],
-  "version": "0.6.0-alpha.0",
+  "version": "0.6.0",
   "private": false,
   "main": "dist/syncedstore.js",
   "module": "dist/syncedstore.module.js",
@@ -35,7 +35,7 @@
   "license": "MIT",
   "dependencies": {
     "@reactivedata/reactive": "^0.2.0",
-    "@syncedstore/yjs-reactive-bindings": "^0.5.2"
+    "@syncedstore/yjs-reactive-bindings": "^0.6.0"
   },
   "peerDependencies": {
     "yjs": "^13.5.13"
