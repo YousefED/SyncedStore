@@ -35,13 +35,13 @@
   "license": "MIT",
   "dependencies": {
     "@reactivedata/reactive": "^0.2.0",
-    "@syncedstore/yjs-reactive-bindings": "^0.5.2",
-    "@types/eslint": "6.8.0"
+    "@syncedstore/yjs-reactive-bindings": "^0.5.2"
   },
   "peerDependencies": {
     "yjs": "^13.5.13"
   },
   "devDependencies": {
+    "@types/eslint": "6.8.0",
     "@vue/reactivity": "^3.2.21",
     "microbundle": "^0.15.1",
     "rimraf": "^3.0.2"
