@@ -132,7 +132,11 @@ function arrayImplementation<T>(arr: Y.Array<T>) {
 
   const ret = [];
   for (let method in methods) {
-    ret[method] = methods[method];
+    Object.defineProperty(ret, method, {
+      value: methods[method],
+      writable: true,
+      configurable: true
+    })
   }
 
   // this is necessary to prevent errors like "trap reported non-configurability for property 'length' which is either non-existent or configurable in the proxy target" when adding support for ownKeys and Reflect.keysx
