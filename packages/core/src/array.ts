@@ -172,8 +172,19 @@ export function crdtArray<T>(initializer: T[], arr = new Y.Array<T>()) {
       if (typeof p !== "number") {
         throw new Error();
       }
-      // TODO map.set(p, smartValue(value));
-      throw new Error("array assignment is not implemented / supported");
+
+      if (arr.doc) {
+        arr.doc.transact(() => {
+          arr.delete(p, 1);
+          arr.insert(p, [value]);
+        });
+      } else {
+        arr.delete(p, 1);
+        arr.insert(p, [value]);
+      }
+      return true;
+      // // TODO map.set(p, smartValue(value));
+      // throw new Error("array assignment is not implemented / supported");
     },
     get: (target, pArg, receiver) => {
       const p = propertyToNumber(pArg);
